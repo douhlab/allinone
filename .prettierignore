@@ -1,0 +1,20 @@
+# don't change the existing js bundles
+*.js
+*.yaml
+deploy
+coverage
+
+# do not format html files, for now
+*.html
+
+# Do not format assets
+src/assets/*
+
+# copy of .gitignore just to be safe
+/.angular/cache
+/node_modules/
+/.idea/
+*.iml
+.vscode/
+.npmrc
+/dist

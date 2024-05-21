@@ -1,0 +1,74 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_environment:
+        description: Environment where to deploy the component
+        required: true
+        type: choice
+        default: int
+        options:
+          - sbx
+          - ci
+          - int
+          - acc
+          - prod
+
+      deploy_component_name:
+        description: (OPTIONAL) The name of your component when deployed
+        required: false
+        type: string
+
+jobs:
+  prepare:
+    name: Prepare deploy
+    runs-on: ubuntu-latest
+    outputs:
+      component_image_type: ${{ steps.env_vars.outputs.component_image_type }}
+      ref_id: ${{ steps.env_vars.outputs.ref_id }}
+
+    steps:
+      - name: Log workflow context
+        run: |
+          echo "Action trigger type:" ${{ github.event_name }}
+          echo "Action trigger actor:" ${{ github.triggering_actor }}
+          echo "Repo reference:" ${{ github.ref }}
+          echo "Repo reference type:" ${{ github.ref_type }}
+          echo "Repo sha:" ${{ github.sha }}
+          echo "Manual inputs: ${{ toJson(inputs) }}"
+
+      - name: Validate parameters
+        shell: bash
+        run: |
+          if [[ "${{ github.ref_type }}" == "branch" && "${{ inputs.target_environment }}" =~ ^(acc|prod)$ ]]; then
+            echo "::error::Branches cannot be deployed to ACC/PROD" >&2
+            exit 1
+          fi
+
+      - name: Set env vars
+        shell: bash
+        id: env_vars
+        run: |
+          if [[ "${{ github.ref_type }}" == "tag" ]] ; then
+            echo "component_image_type=releases" >> $GITHUB_OUTPUT
+            echo "ref_id=${{ github.ref_name }}" >> $GITHUB_OUTPUT
+          else
+            echo "component_image_type=snapshots" >> $GITHUB_OUTPUT
+            echo "ref_id=${{ github.sha }}" >> $GITHUB_OUTPUT
+          fi
+
+  deploy:
+    needs: [prepare]
+    permissions:
+      actions: read
+      contents: read
+      id-token: write
+    secrets: inherit
+    with:
+      target_environment: ${{ inputs.target_environment }}
+      project_name: ${{ github.event.repository.name }}
+      deploy_name: ${{ inputs.deploy_component_name || github.event.repository.name }}
+      ref_id: ${{ needs.prepare.outputs.ref_id  }}
+      custom_variables: '{ "component_image_type": "${{ needs.prepare.outputs.component_image_type }}" }'
+    uses: workflows/deploy.yaml@main

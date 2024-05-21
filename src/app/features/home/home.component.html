@@ -1,0 +1,12 @@
+<p id="welcome">
+    {{
+        'APPLICATION_IS_RUNNING' | translate: { applicationName: title }
+    }}
+</p>
+<div *ngFor="let dep of deps">
+    <h3>
+        <a [title]="dep.name" class="link-primary" [routerLink]="['allinone/welcome/deps/', dep.id]">
+            {{ dep.label }}
+        </a>
+    </h3>
+</div>

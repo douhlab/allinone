@@ -1,0 +1,13 @@
+{
+	"components": [
+		{
+			"belong_to": [
+				"MO22",
+				"MO25"
+			],
+			"description": "all in one",
+			"type": "deployable"
+		}
+	],
+	"team": "Me"
+}

@@ -1,0 +1,14 @@
+name: configure Azure Authentication
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/configure_azure_authentication.yml'
+
+jobs:
+  azure-authorization:
+    permissions:
+      actions: write
+    secrets: inherit
+    uses: workflows/azure-authorize.yml@main

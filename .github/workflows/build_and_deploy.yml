@@ -1,0 +1,189 @@
+name: Build, publish and release
+
+on:
+  push:
+    branches:
+      - main
+
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+  workflow_dispatch:
+    inputs:
+      release:
+        description: 'Create release'
+        type: boolean
+        default: false
+        required: false
+      tag:
+        description: 'Release version'
+        required: false
+
+  schedule:
+    - cron: '2 22 * * *'
+
+permissions:
+  id-token: write
+  contents: write
+  packages: write
+  actions: write
+
+jobs:
+  build:
+    name: Build, unit-test and certify
+    runs-on: [self-hosted, node20]
+
+    outputs:
+      component_image_type: ${{ steps.env_vars.outputs.component_image_type }}
+      ref_id: ${{ steps.env_vars.outputs.ref_id }}
+
+    steps:
+      - name: Log workflow context
+        run: |
+          echo "Action trigger type:" ${{ github.event_name }}
+          echo "Action trigger actor:" ${{ github.triggering_actor }}
+          echo "Repo reference:" ${{ github.ref }}
+          echo "Repo sha:" ${{ github.sha }}
+          echo "Manual inputs: ${{ toJson(inputs) }}"
+
+      - name: Validate release parameters
+        shell: bash
+        run: |
+          if [[ "${{ inputs.release }}" = true && "${{ inputs.tag }}" = '' ]]; then
+            echo "::error::tag required for releasing" >&2
+            exit 1
+          fi
+
+      - name: Set Docker image repo type to use
+        shell: bash
+        id: env_vars
+        run: |
+          if [[ "${{ inputs.release }}" = true ]] ; then
+            echo "component_image_type=releases" >> $GITHUB_OUTPUT
+            echo "ref_id=${{ inputs.tag }}" >> $GITHUB_OUTPUT
+          else
+            echo "component_image_type=snapshots" >> $GITHUB_OUTPUT
+            echo "ref_id=${{ github.sha }}" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache node modules
+        id: cache-npm
+        uses: actions/cache@v4
+        with:
+          path: ~/.npm
+          key: npm-${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            npm-${{ runner.os }}-
+
+      - name: Install dependencies
+        run: npm ci --legacy-peer-deps
+
+      - name: Check code style
+        run: npm run lint
+
+      - name: Run unit tests
+        run: npm run test-coverage
+
+      - name: Code quality
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_SVCGITHUB_TOKEN }}
+
+      - name: Build
+        run: npm run build-prod
+
+      - name: Run E2E tests locally
+        run: npm run e2e-headless
+
+      - name: Set package.json file as env var to use it afterwards
+        run: |
+          echo 'PACKAGE_JSON<<EOF' >> $GITHUB_ENV
+          cat ./package.json >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+
+      - name: Compute version to use
+        shell: bash
+        run: |
+          if [[ "${{ inputs.release }}" = true ]] ; then
+            echo "VERSION=${{ inputs.tag }}" >> $GITHUB_ENV
+          else
+            echo "VERSION=${{ fromJson(env.PACKAGE_JSON).version }}-SNAPSHOT" >> $GITHUB_ENV
+          fi
+
+      - name: Set version
+        run: |
+          npm --no-git-tag-version version ${{ env.VERSION }}
+          echo "{ \"version\": \"${{ env.VERSION }}\" }" > dist/version.json
+
+      - name: Cache workspace
+        uses: actions/cache/save@v4
+        with:
+          path: ${{ github.workspace }}
+          key: workspace-${{ github.run_id }}-${{ github.run_attempt }}
+
+  create-release:
+    name: Create tag and release in GitHub repo
+    needs: [build]
+    if: inputs.release == true
+    secrets: inherit
+    uses: workflows/gha-release.yml@11.0
+    with:
+      RUNNER_LABEL: 'node20'
+
+  build-and-push-docker-image:
+    name: Build and push Docker image
+    needs: [build, create-release]
+    if: |
+      always() &&
+      needs.build.result == 'success' &&
+      (needs.create-release.result == 'success' || needs.create-release.result == 'skipped')
+    secrets: inherit
+    uses: gha-push-docker-to-registry.yml@11.0
+    with:
+      RUNNER_LABEL: 'node20'
+      DOCKER_COMPONENT_IMAGE_TYPE: ${{ needs.build.outputs.component_image_type }}
+      DOCKER_IMAGE_VERSION: ${{ inputs.tag }}
+
+  bump:
+    name: Bumping version
+    needs: [create-release]
+    if: |
+      always() &&
+      needs.create-release.result == 'success'
+    secrets: inherit
+    uses: workflows/gha-node-bump-version.yml@11.0
+    with:
+      RUNNER_LABEL: 'node20'
+
+  deploy:
+    name: Promote to INT
+    needs: [build, build-and-push-docker-image]
+    if: |
+      always() &&
+      needs.build.result == 'success' &&
+      needs.build-and-push-docker-image.result == 'success' &&
+      (
+        github.ref == 'refs/heads/main'
+        || inputs.release  == true
+      )
+    secrets: inherit
+    with:
+      target_environment: 'int'
+      project_name: ${{ github.event.repository.name }}
+      deploy_name: ${{ github.event.repository.name }}
+      ref_id: ${{ needs.build.outputs.ref_id }}
+      custom_variables: '{ "component_image_type": "${{ needs.build.outputs.component_image_type }}" }'
+    uses: workflows/deploy.yaml@main
+
+  finalization:
+    name: Cleaning
+    needs: [deploy, bump]
+    if: always()
+    secrets: inherit
+    with:
+      CACHE_KEY: workspace-${{ github.run_id }}-${{ github.run_attempt }}
+    uses: workflows/gha-delete-cache-key.yml@11.0
