@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { TranslationLoaderService } from '../../shared/util/translation/app-translation-loader.service';
 import { locale as english } from './i18n/en';
 import { locale as french } from './i18n/fr';
+import { ExchangeratesapiClient } from './exchangeratesapi-client';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private welcomeService: WelcomeService,
     private translationService: TranslateService,
+    private exchangeRateClient: ExchangeratesapiClient,
     translationLoaderService: TranslationLoaderService
   ) {
     this.languages = [
@@ -56,6 +58,38 @@ export class HomeComponent implements OnInit {
 
   private setLanguage(lang: Language): void {
     this.translationService.use(lang.id);
+  }
+
+  showExchangeRates(): void {
+    (async () => {
+
+      this.exchangeRateClient = new ExchangeratesapiClient('T8v7yaSk5a8LjfJFfFMqbOymepUT25sa');
+
+      // Get symbols
+      const syms = await this.exchangeRateClient.symbols();
+      console.log('Symbols:', syms.symbols);
+
+      // Latest rates against USD for GBP, EUR
+      const latest = await this.exchangeRateClient.latest(['GBP', 'EUR'], 'USD');
+      console.log('Latest rates:', latest.rates);
+
+      // Historical for a specific date
+      const hist = await this.exchangeRateClient.historical('2025-09-15', ['GBP', 'EUR'], 'USD');
+      console.log('Historical rates:', hist.rates);
+
+      // Convert
+      const conv = await this.exchangeRateClient.convert('USD', 'GBP', 100);
+      console.log(`100 USD is ${conv.result} GBP`);
+
+      // Time series over a range
+      const ts = await this.exchangeRateClient.timeSeries('2025-09-10', '2025-09-15', ['GBP', 'EUR'], 'USD');
+      console.log('Time series:', ts.rates);
+
+      // Fluctuation between two dates
+      const fl = await this.exchangeRateClient.fluctuation('2025-09-10', '2025-09-15', ['GBP', 'EUR'], 'USD');
+      console.log('Fluctuation:', fl.rates);
+
+    })();
   }
 }
 

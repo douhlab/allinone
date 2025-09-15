@@ -11,6 +11,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './features/home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WelcomeComponent } from './features/welcome/welcome.component';
+import { EXCHANGE_RATES_API_KEY } from './features/home/exchangeratesapi-client';
+
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -37,8 +39,9 @@ const appInitializerFn = (appConfig: AppConfigService) => {
       multi: true,
       deps: [AppConfigService]
     },
-    TranslationLoaderService
-  ],
+    TranslationLoaderService,
+    { provide: EXCHANGE_RATES_API_KEY, useValue: 'T8v7yaSk5a8LjfJFfFMqbOymepUT25sa' }
+],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
