@@ -1,4 +1,5 @@
 // exchangeRatesClient.ts
+import { Inject, Injectable, InjectionToken } from '@angular/core';
 
 type Rates = Record<string, number>;
 
@@ -55,15 +56,18 @@ interface FluctuationResponse extends BaseResponse {
   end_date: string;
 }
 
-class ExchangeratesClient {
-  private apiKey: string;
+export const EXCHANGE_RATES_API_KEY = new InjectionToken<string>('ExchangeRatesApiKey');
+
+@Injectable({
+  providedIn: 'root'
+})
+class ExchangeratesapiClient {
   private baseUrl: string = 'https://api.apilayer.com/exchangerates_data';
 
-  constructor(apiKey: string) {
-    if (!apiKey) {
-      throw new Error('API key required');
-    }
-    this.apiKey = apiKey;
+  constructor(@Inject(EXCHANGE_RATES_API_KEY) private apiKey: string) {}
+
+  getKey() {
+    return this.apiKey;
   }
 
   private async request<T>(path: string, params?: Record<string, string>): Promise<T> {
@@ -103,10 +107,10 @@ class ExchangeratesClient {
   async latest(symbols?: string[], base?: string): Promise<LatestRatesResponse> {
     const params: Record<string, string> = {};
     if (symbols && symbols.length > 0) {
-      params.symbols = symbols.join(',');
+      params['symbols'] = symbols.join(',');
     }
     if (base) {
-      params.base = base;
+      params['base'] = base;
     }
     return this.request<LatestRatesResponse>('/latest', params);
   }
@@ -115,10 +119,10 @@ class ExchangeratesClient {
     // date should be “YYYY-MM-DD”
     const params: Record<string, string> = {};
     if (symbols && symbols.length > 0) {
-      params.symbols = symbols.join(',');
+      params['symbols'] = symbols.join(',');
     }
     if (base) {
-      params.base = base;
+      params['base'] = base;
     }
     return this.request<HistoricalRatesResponse>(`/${date}`, params);
   }
@@ -130,7 +134,7 @@ class ExchangeratesClient {
       amount: amount.toString(),
     };
     if (date) {
-      params.date = date;
+      params['date'] = date;
     }
     return this.request<ConvertResponse>('/convert', params);
   }
@@ -141,10 +145,10 @@ class ExchangeratesClient {
       end_date,
     };
     if (symbols && symbols.length > 0) {
-      params.symbols = symbols.join(',');
+      params['symbols'] = symbols.join(',');
     }
     if (base) {
-      params.base = base;
+      params['base'] = base;
     }
     return this.request<TimeSeriesResponse>('/timeseries', params);
   }
@@ -155,17 +159,17 @@ class ExchangeratesClient {
       end_date,
     };
     if (symbols && symbols.length > 0) {
-      params.symbols = symbols.join(',');
+      params['symbols'] = symbols.join(',');
     }
     if (base) {
-      params.base = base;
+      params['base'] = base;
     }
     return this.request<FluctuationResponse>('/fluctuation', params);
   }
 }
 
 export {
-  ExchangeratesClient,
+  ExchangeratesapiClient,
   SymbolsResponse,
   LatestRatesResponse,
   HistoricalRatesResponse,
