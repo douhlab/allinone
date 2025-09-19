@@ -11,7 +11,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HomeComponent } from './features/home/home.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WelcomeComponent } from './features/welcome/welcome.component';
-import { EXCHANGE_RATES_API_KEY } from './features/home/exchangeratesapi-client';
+import { EXCHANGE_RATES_API_KEY } from './shared/domain/home/exchangeratesapi-client';
+import {
+  MatCell, MatCellDef,
+  MatColumnDef,
+  MatHeaderCell, MatHeaderCellDef,
+  MatHeaderRow, MatHeaderRowDef,
+  MatRow,
+  MatRowDef,
+  MatTable
+} from '@angular/material/table';
 
 
 const appInitializerFn = (appConfig: AppConfigService) => {
@@ -29,7 +38,17 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    TranslateModule.forRoot()
+    TranslateModule.forRoot(),
+    MatTable,
+    MatColumnDef,
+    MatRowDef,
+    MatHeaderCell,
+    MatCell,
+    MatHeaderRow,
+    MatRow,
+    MatHeaderRowDef,
+    MatCellDef,
+    MatHeaderCellDef
   ],
   providers: [
     AppConfigService,
@@ -41,7 +60,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     },
     TranslationLoaderService,
     { provide: EXCHANGE_RATES_API_KEY, useValue: 'T8v7yaSk5a8LjfJFfFMqbOymepUT25sa' }
-],
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
