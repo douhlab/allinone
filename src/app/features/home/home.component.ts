@@ -10,6 +10,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { LatestRatesResponse } from '../../shared/domain/home/exchange-rate';
 import { AppConfigService } from '../../shared/util/config/app-config.service';
 import { AppConfiguration } from '../../shared/util/config/app-configuration.model';
+import { ApiNinjasClient } from '../../shared/domain/home/api-ninja-client';
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,20 @@ export class HomeComponent implements OnInit {
     amount: number;
     amountInUsd: number;
   }>;
+  commoditiesDataSource: MatTableDataSource<{
+    name: string;
+    price: number;
+    unit: string;
+    amount: number;
+    amountInUsd: number;
+  }> = new MatTableDataSource<{
+    name: string;
+    price: number;
+    unit: string;
+    amount: number;
+    amountInUsd: number;
+  }>();
+
   exchangeRates: boolean = false;
 
   appConfig: AppConfiguration;
@@ -35,12 +50,15 @@ export class HomeComponent implements OnInit {
   tableColumns = ['base', 'date', 'details'];
   rateTableColumns = ['currency', 'rate', 'amount', 'amountInUsd'];
 
+  commoditiesTableColumns = ['name', 'price', 'unit', 'amount', 'amountInUsd'];
+
   constructor(
     private welcomeService: WelcomeService,
     private translationService: TranslateService,
     private exchangeRateClient: ExchangeratesapiClient,
     translationLoaderService: TranslationLoaderService,
-    private appConfigService: AppConfigService
+    private appConfigService: AppConfigService,
+    private apiNinjasClient: ApiNinjasClient
   ) {
     this.languages = [
       {
@@ -78,6 +96,8 @@ export class HomeComponent implements OnInit {
     this.setDefaultLanguage();
 
     this.appConfig = this.appConfigService.getConfig();
+
+    this.initCommoditiesTable();
   }
 
   setDefaultLanguage(): void {
@@ -91,49 +111,15 @@ export class HomeComponent implements OnInit {
 
   showExchangeRates(): void {
     (async () => {
-      this.exchangeRateClient = new ExchangeratesapiClient('T8v7yaSk5a8LjfJFfFMqbOymepUT25sa');
-
-      // Get symbols
-      // const syms = await this.exchangeRateClient.symbols();
-      // console.log('Symbols:', syms.symbols);
-
-      // Latest rates against USD for GBP, EUR
       const latest = await this.exchangeRateClient.latest(
         ['CHF', 'EUR', 'CAD', 'AUD', 'MYR', 'RUB', 'JPY', 'TRY'],
         'USD'
       );
-      console.log('Latest rates:', latest.rates);
-      console.log('Latest rates:', latest.rates[0]);
-      console.log('Latest rates:', latest.rates[1]);
-
-      // // Historical for a specific date
-      // const hist = await this.exchangeRateClient.historical('2025-09-15', ['GBP', 'EUR'], 'USD');
-      // console.log('Historical rates:', hist.rates);
-      //
-      // // Convert
-      // const conv = await this.exchangeRateClient.convert('USD', 'GBP', 100);
-      // console.log(`100 USD is ${conv.result} GBP`);
-      //
-      // // Time series over a range
-      // const ts = await this.exchangeRateClient.timeSeries('2025-09-10', '2025-09-15', ['GBP', 'EUR'], 'USD');
-      // console.log('Time series:', ts.rates);
-      //
-      // // Fluctuation between two dates
-      // const fl = await this.exchangeRateClient.fluctuation('2025-09-10', '2025-09-15', ['GBP', 'EUR'], 'USD');
-      // console.log('Fluctuation:', fl.rates);
 
       this.latestRatesDataSource.data = [latest];
       this.exchangeRates = true;
       this.constructDetailsDataSource();
-
     })();
-    console.log(
-      'appconfig:' +
-        Object.entries(this.appConfig.amountsForeignCy).map(([currency, amount]) => ({
-          currency,
-          amount
-        }))
-    );
   }
 
   constructDetailsDataSource() {
@@ -149,21 +135,54 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  get recordEntries() {
-    console.log(
-      'xxx:' +
-        Object.entries(this.latestRatesDataSource.data[0].rates).map(([currency, rate]) => ({
-          currency,
-          rate
-        }))
-    );
-    return Object.entries(this.latestRatesDataSource.data[0].rates).map(([currency, rate]) => ({
-      currency,
-      rate
-    })); // [ ['apples', 5], ['oranges', 10], ... ]
+  computeTotalInUsd() {
+    return this.latestRatesDetailsDataSource.data.reduce((sum, item) => sum + item.amountInUsd, 0);
   }
 
-  protected readonly Object = Object;
+  computeTotalCommoditiesInUsd() {
+    return this.commoditiesDataSource.data.reduce((sum, item) => sum + item.amountInUsd, 0);
+  }
+
+  initCommoditiesTable() {
+    (async () => {
+      const commodities = Object.keys(this.appConfig.commoditiesAmountsInOunce);
+
+      for (const commodity of commodities) {
+        try {
+          const priceData = await this.apiNinjasClient.getCommodityPrice(commodity);
+          const price = priceData.price;
+          const unit = 'ounce';
+          const amount = this.appConfig.commoditiesAmountsInOunce[commodity] ?? 0;
+          const amountInUsd = (amount * price) / (unit === 'ounce' ? 1 : 1000); // assuming price is per ounce for precious metals, per barrel for oil
+
+          this.commoditiesDataSource.data.push({
+            name: commodity,
+            price: price,
+            unit: unit,
+            amount: amount,
+            amountInUsd: amountInUsd
+          });
+        } catch (error) {
+          console.error(`Error fetching price for ${commodity}:`, error);
+          const unit = 'ounce';
+          const price = 43;
+          const amount = this.appConfig.commoditiesAmountsInOunce[commodity] ?? 0;
+          const amountInUsd = (amount * price) / (unit === 'ounce' ? 1 : 1000); // assuming price is per ounce for precious metals, per barrel for oil
+          this.commoditiesDataSource.data.push({
+            name: commodity,
+            price: price,
+            unit: unit,
+            amount: amount,
+            amountInUsd: amountInUsd
+          }); // continue to next commodity
+          continue;
+        } finally {
+          // After processing all commodities, you might want to refresh the table view
+          this.commoditiesDataSource._updateChangeSubscription();
+        }
+      }
+    })();
+  }
 }
 
 export interface Language {
