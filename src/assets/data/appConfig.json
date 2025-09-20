@@ -6,10 +6,12 @@
     "AUD": 1100,
     "CAD": 2600
   },
+  "commoditiesAmountsInOunce": {
+    "gold": 20.5,
+    "silver": 645
+  },
   "usdAmount": 1000,
   "usdFnbAmount": 1100,
-  "goldAmountInOunces": 5,
-  "silverAmountInKg": 20,
   "cryptoAmountInBtc": 0.5,
   "gunAmountInUsd": 1500
 }
