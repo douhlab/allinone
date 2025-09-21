@@ -1,7 +1,20 @@
 <nav class="sidebar">
   <ul>
     <li *ngFor="let item of menuItems">
-      <a [routerLink]="item.route" routerLinkActive="active">
+      <!-- If item has children (submenu) -->
+      <div class="menu-item" (click)="toggle(item)" *ngIf="item.children">
+        {{ item.label }}
+        <span class="arrow">{{ item.expanded ? '▼' : '▶' }}</span>
+      </div>
+
+      <ul *ngIf="item.children && item.expanded" class="submenu">
+        <li *ngFor="let child of item.children">
+          <a [routerLink]="child.route" routerLinkActive="active">{{ child.label }}</a>
+        </li>
+      </ul>
+
+      <!-- If item is a direct link -->
+      <a *ngIf="!item.children" [routerLink]="item.route" routerLinkActive="active">
         {{ item.label }}
       </a>
     </li>

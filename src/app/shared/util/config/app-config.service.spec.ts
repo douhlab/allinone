@@ -34,12 +34,12 @@ describe('AppConfigService', () => {
     });
 
     const request = httpMock.expectOne('/assets/data/appConfig.json');
-    expect(request.request.method).toBe('GET');
+    expect(request.request.method).be('GET');
     request.flush(expectedConfig);
 
     tick();
 
-    expect(result).toEqual(expectedConfig);
-    expect(service.getConfig()).toEqual(expectedConfig);
+    expect(result).equal(expectedConfig);
+    expect(service.getConfig()).equal(expectedConfig);
   }));
 });

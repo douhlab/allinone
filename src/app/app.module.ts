@@ -31,6 +31,9 @@ import {
 } from '@angular/material/table';
 import { METALS_API_KEY } from './shared/domain/home/metals-client';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { DashboardComponent } from './features/dashboard/dashboard.component';
+import { TopbarComponent } from './topbar/topbar.component';
+import { LeavesComponent } from './features/reports/leaves/leaves.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -39,7 +42,15 @@ const appInitializerFn = (appConfig: AppConfigService) => {
 };
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, WelcomeComponent, SidebarComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    WelcomeComponent,
+    SidebarComponent,
+    DashboardComponent,
+    TopbarComponent,
+    LeavesComponent
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
