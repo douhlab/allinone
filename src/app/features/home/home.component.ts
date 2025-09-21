@@ -11,6 +11,7 @@ import { LatestRatesResponse } from '../../shared/domain/home/exchange-rate';
 import { AppConfigService } from '../../shared/util/config/app-config.service';
 import { AppConfiguration } from '../../shared/util/config/app-configuration.model';
 import { ApiNinjasClient } from '../../shared/domain/home/api-ninja-client';
+import { MetalsClient } from '../../shared/domain/home/metals-client';
 
 @Component({
   selector: 'app-home',
@@ -58,7 +59,8 @@ export class HomeComponent implements OnInit {
     private exchangeRateClient: ExchangeratesapiClient,
     translationLoaderService: TranslationLoaderService,
     private appConfigService: AppConfigService,
-    private apiNinjasClient: ApiNinjasClient
+    private apiNinjasClient: ApiNinjasClient,
+    private metalsApiClient: MetalsClient
   ) {
     this.languages = [
       {
@@ -97,7 +99,8 @@ export class HomeComponent implements OnInit {
 
     this.appConfig = this.appConfigService.getConfig();
 
-    this.initCommoditiesTable();
+    // this.initCommoditiesTable();
+    this.initCommoditiesTableV2();
   }
 
   setDefaultLanguage(): void {
@@ -175,9 +178,49 @@ export class HomeComponent implements OnInit {
             amount: amount,
             amountInUsd: amountInUsd
           }); // continue to next commodity
-          continue;
         } finally {
           // After processing all commodities, you might want to refresh the table view
+          this.commoditiesDataSource._updateChangeSubscription();
+        }
+      }
+    })();
+  }
+
+  initCommoditiesTableV2() {
+    (async () => {
+      const commodities = Object.keys(this.appConfig.commoditiesAmountsInOunce);
+
+      for (const commodity of commodities) {
+        try {
+          const priceData = await this.metalsApiClient.getPrice(commodity, 'USD');
+          const price = priceData.rate['price'];
+
+          const unit = priceData.unit;
+          const amount = this.appConfig.commoditiesAmountsInOunce[commodity] ?? 0;
+          const amountInUsd = (amount * price) / (unit === 'toz' ? 1 : 1000); // assuming price is per ounce for precious metals, per barrel for oil
+
+          this.commoditiesDataSource.data.push({
+            name: commodity,
+            price: price,
+            unit: unit,
+            amount: amount,
+            amountInUsd: amountInUsd
+          });
+        } catch (error) {
+          console.error(`Error fetching price for ${commodity}:`, error);
+          const unit = 'NAN';
+          const price = 0;
+          const amount = 0;
+          const amountInUsd = 0;
+
+          this.commoditiesDataSource.data.push({
+            name: commodity,
+            price: price,
+            unit: unit,
+            amount: amount,
+            amountInUsd: amountInUsd
+          });
+        } finally {
           this.commoditiesDataSource._updateChangeSubscription();
         }
       }

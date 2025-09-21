@@ -29,6 +29,8 @@ import {
   MatRowDef,
   MatTable
 } from '@angular/material/table';
+import { METALS_API_KEY } from './shared/domain/home/metals-client';
+import { SidebarComponent } from './sidebar/sidebar.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -37,7 +39,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
 };
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, WelcomeComponent],
+  declarations: [AppComponent, HomeComponent, WelcomeComponent, SidebarComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -71,7 +73,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     },
     TranslationLoaderService,
     { provide: EXCHANGE_RATES_API_KEY, useValue: 'T8v7yaSk5a8LjfJFfFMqbOymepUT25sa' },
-    { provide: API_NINJA_API_KEY, useValue: 'CkfamXmH+NZqdulxuxgtMQ==IJNY8D6v4FGqCeqx' }
+    { provide: API_NINJA_API_KEY, useValue: 'CkfamXmH+NZqdulxuxgtMQ==IJNY8D6v4FGqCeqx' },
+    { provide: METALS_API_KEY, useValue: 'CY6BGZ9Y3LKACEY4ZKLF221Y4ZKLF' }
   ],
   bootstrap: [AppComponent]
 })

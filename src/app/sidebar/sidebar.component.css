@@ -1,0 +1,33 @@
+.sidebar {
+  position: fixed;      /* stay in place */
+  top: 0;
+  left: 0;
+  height: 100vh;        /* full height */
+  width: 220px;         /* sidebar width */
+  background: #2c3e50;  /* dark background */
+  color: #fff;
+  padding-top: 20px;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar li {
+  margin: 10px 0;
+}
+
+.sidebar a {
+  display: block;
+  padding: 12px 20px;
+  color: #ecf0f1;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background: #34495e;
+}
