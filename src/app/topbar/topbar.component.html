@@ -1,0 +1,12 @@
+<header class="topbar">
+  <div class="logo">MyApp</div>
+  <nav class="topnav">
+    <ul>
+      <li *ngFor="let item of topMenuItems">
+        <a [routerLink]="item.route" routerLinkActive="active">
+          {{ item.label }}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>

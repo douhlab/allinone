@@ -28,13 +28,13 @@ describe('HomeComponent', () => {
 
   it(`should have as title 'allinone'`, () => {
     const app = fixture.componentInstance;
-    expect(app.title).equal('allinone');
+    expect(app.title).toEqual('allinone');
   });
 
   it('should render welcome message', () => {
     fixture.detectChanges();
     const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('p#welcome').textContent).contain("Application 'allinone' is running");
+    expect(compiled.querySelector('p#welcome').textContent).toContain("Application 'allinone' is running");
   });
 
   it('should fetch deps on ngOnInit', () => {
@@ -47,6 +47,6 @@ describe('HomeComponent', () => {
 
     component.ngOnInit();
 
-    expect(component.deps).equal(deps);
+    expect(component.deps).toEqual(deps);
   });
 });

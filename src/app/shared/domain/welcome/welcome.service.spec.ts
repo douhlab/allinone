@@ -21,6 +21,6 @@ describe('WelcomeService', () => {
 
     const result = service.getAllDeps();
 
-    expect(result).equal(expectedDeps);
+    expect(result).toEqual(expectedDeps);
   });
 });
