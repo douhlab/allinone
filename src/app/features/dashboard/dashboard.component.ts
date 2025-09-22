@@ -123,16 +123,17 @@ export class DashboardComponent implements OnInit {
   }
 
   constructDetailsDataSource() {
-    Object.entries(this.latestRatesDataSource.data[0].rates).forEach(([currency, rate]) => {
+    for (const [currency, rate] of Object.entries(this.latestRatesDataSource.data[0].rates)) {
       const amount = this.appConfig.amountsForeignCy[currency] ?? 0;
       const amountInUsd = amount / rate;
+
       this.latestRatesDetailsDataSource.data.push({
         currency,
         rate,
         amount,
         amountInUsd
       });
-    });
+    }
   }
 
   computeTotalInUsd() {
