@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Language } from '../home/home.component';
-import { Department } from '../../shared/domain/welcome/department';
 import { MatTableDataSource } from '@angular/material/table';
 import { LatestRatesResponse } from '../../shared/domain/home/exchange-rate';
 import { TranslateService } from '@ngx-translate/core';
-import { WelcomeService } from '../../shared/domain/welcome/welcome.service';
 import { ExchangeratesapiClient } from '../../shared/domain/home/exchangeratesapi-client';
 import { TranslationLoaderService } from '../../shared/util/translation/app-translation-loader.service';
 import { AppConfigService } from '../../shared/util/config/app-config.service';
@@ -19,9 +17,8 @@ import { locale as french } from './i18n/fr';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   title = 'allinone';
-  deps: Department[];
   languages: Language[];
 
   latestRatesDataSource: MatTableDataSource<LatestRatesResponse>;
@@ -55,13 +52,12 @@ export class DashboardComponent {
   commoditiesTableColumns = ['name', 'price', 'unit', 'amount', 'amountInUsd'];
 
   constructor(
-    private welcomeService: WelcomeService,
-    private translationService: TranslateService,
-    private exchangeRateClient: ExchangeratesapiClient,
+    private readonly translationService: TranslateService,
+    private readonly exchangeRateClient: ExchangeratesapiClient,
     translationLoaderService: TranslationLoaderService,
-    private appConfigService: AppConfigService,
-    private apiNinjasClient: ApiNinjasClient,
-    private metalsApiClient: MetalsClient
+    private readonly appConfigService: AppConfigService,
+    private readonly apiNinjasClient: ApiNinjasClient,
+    private readonly metalsApiClient: MetalsClient
   ) {
     this.languages = [
       {
@@ -95,20 +91,18 @@ export class DashboardComponent {
   }
 
   ngOnInit(): void {
-    this.deps = this.welcomeService.getAllDeps();
     this.setDefaultLanguage();
 
     this.appConfig = this.appConfigService.getConfig();
 
-    // this.initCommoditiesTable();
-    this.initCommoditiesTableV2();
+    this.initCommoditiesTable();
 
     this.showExchangeRates();
   }
 
   setDefaultLanguage(): void {
     const languageCode: string = 'en';
-    this.setLanguage(this.languages?.filter((l: Language) => l.id === languageCode)[0] ?? 'en');
+    this.setLanguage(this.languages?.find((l: Language) => l.id === languageCode) ?? this.languages[0]);
   }
 
   private setLanguage(lang: Language): void {
@@ -129,7 +123,7 @@ export class DashboardComponent {
   }
 
   constructDetailsDataSource() {
-    Object.entries(this.latestRatesDataSource.data[0].rates).map(([currency, rate]) => {
+    Object.entries(this.latestRatesDataSource.data[0].rates).forEach(([currency, rate]) => {
       const amount = this.appConfig.amountsForeignCy[currency] ?? 0;
       const amountInUsd = amount / rate;
       this.latestRatesDetailsDataSource.data.push({
@@ -150,46 +144,6 @@ export class DashboardComponent {
   }
 
   initCommoditiesTable() {
-    (async () => {
-      const commodities = Object.keys(this.appConfig.commoditiesAmountsInOunce);
-
-      for (const commodity of commodities) {
-        try {
-          const priceData = await this.apiNinjasClient.getCommodityPrice(commodity);
-          const price = priceData.price;
-          const unit = 'ounce';
-          const amount = this.appConfig.commoditiesAmountsInOunce[commodity] ?? 0;
-          const amountInUsd = (amount * price) / (unit === 'ounce' ? 1 : 1000); // assuming price is per ounce for precious metals, per barrel for oil
-
-          this.commoditiesDataSource.data.push({
-            name: commodity,
-            price: price,
-            unit: unit,
-            amount: amount,
-            amountInUsd: amountInUsd
-          });
-        } catch (error) {
-          console.error(`Error fetching price for ${commodity}:`, error);
-          const unit = 'ounce';
-          const price = 43;
-          const amount = this.appConfig.commoditiesAmountsInOunce[commodity] ?? 0;
-          const amountInUsd = (amount * price) / (unit === 'ounce' ? 1 : 1000); // assuming price is per ounce for precious metals, per barrel for oil
-          this.commoditiesDataSource.data.push({
-            name: commodity,
-            price: price,
-            unit: unit,
-            amount: amount,
-            amountInUsd: amountInUsd
-          }); // continue to next commodity
-        } finally {
-          // After processing all commodities, you might want to refresh the table view
-          this.commoditiesDataSource._updateChangeSubscription();
-        }
-      }
-    })();
-  }
-
-  initCommoditiesTableV2() {
     (async () => {
       const commodities = Object.keys(this.appConfig.commoditiesAmountsInOunce);
 
