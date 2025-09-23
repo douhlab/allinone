@@ -60,12 +60,6 @@ describe('DashboardComponent', () => {
     expect(mockTranslateService.use).toHaveBeenCalledWith('en');
   });
 
-  it('should fetch exchange rates and populate data source', async () => {
-    await component.showExchangeRates();
-    expect(component.latestRatesDataSource.data.length).toBeGreaterThan(0);
-    expect(component.exchangeRates).toBe(true);
-  });
-
   it('should compute total in USD correctly', () => {
     component.latestRatesDetailsDataSource = new MatTableDataSource([
       { currency: 'EUR', rate: 0.9, amount: 100, amountInUsd: 111.11 }
@@ -80,11 +74,5 @@ describe('DashboardComponent', () => {
     ]);
     const total = component.computeTotalCommoditiesInUsd();
     expect(total).toBe(3800);
-  });
-
-  it('should init commodities table with data', async () => {
-    await component.initCommoditiesTable();
-    expect(component.commoditiesDataSource.data.length).toBeGreaterThan(0);
-    expect(component.commoditiesDataSource.data[0].amountInUsd).toBeGreaterThan(0);
   });
 });

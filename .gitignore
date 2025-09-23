@@ -30,7 +30,6 @@ yarn-error.log
 
 # Miscellaneous
 /.angular/cache
-/cypress/downloads
 .sass-cache/
 /connect.lock
 /coverage

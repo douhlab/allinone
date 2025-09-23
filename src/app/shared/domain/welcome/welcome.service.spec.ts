@@ -12,11 +12,11 @@ describe('WelcomeService', () => {
 
   it('should retrieve all warehouses', () => {
     const expectedDeps: Department[] = [
-      new Department(1, 'ZGA', 'Zgharta'),
-      new Department(2, 'EHD', 'Ehden'),
-      new Department(3, 'BEI', 'Beirut'),
-      new Department(4, 'HAD', 'Hadath'),
-      new Department(5, 'BAT', 'Batroune')
+      new Department(1, 'ECU', 'Ecublens'),
+      new Department(2, 'CHE', 'Cheseaux'),
+      new Department(3, 'BRE', 'Bremgarten'),
+      new Department(4, 'NEB', 'Nebikon'),
+      new Department(5, 'PRA', 'Pratteln')
     ];
 
     const result = service.getAllDeps();
