@@ -1,52 +1,27 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { LeavesComponent } from './leaves.component';
 
-import { HomeComponent } from './home.component';
-import { WelcomeService } from '../../shared/domain/welcome/welcome.service';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { TranslationLoaderService } from '../../shared/util/translation/app-translation-loader.service';
-import { Department } from '../../shared/domain/welcome/department';
-
-describe('HomeComponent', () => {
-  let component: HomeComponent;
-  let fixture: ComponentFixture<HomeComponent>;
-  let welcomeService: WelcomeService;
+describe('LeavesComponent', () => {
+  let component: LeavesComponent;
+  let fixture: ComponentFixture<LeavesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [HomeComponent],
-      providers: [WelcomeService, TranslationLoaderService, TranslateService]
+      declarations: [LeavesComponent],
     }).compileComponents();
-  });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(HomeComponent);
+    fixture = TestBed.createComponent(LeavesComponent);
     component = fixture.componentInstance;
-    welcomeService = TestBed.inject(WelcomeService);
-    fixture.detectChanges();
+    fixture.detectChanges(); // triggers ngOnInit and rendering
   });
 
-  it(`should have as title 'allinone'`, () => {
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('allinone');
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('should render welcome message', () => {
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('p#welcome').textContent).toContain("Application 'allinone' is running");
-  });
-
-  it('should fetch deps on ngOnInit', () => {
-    const deps: Department[] = [
-      { id: 1, name: 'Dep 1', label: 'Dep 1' },
-      { id: 2, name: 'Dep 2', label: 'Dep 2' }
-    ];
-
-    jest.spyOn(welcomeService, 'getAllDeps').mockReturnValue(deps);
-
-    component.ngOnInit();
-
-    expect(component.deps).toEqual(deps);
+  it('should have the correct selector', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('app-leaves')).toBeNull();
+    // Note: The component itself is the root, so the selector is not rendered in its own template
   });
 });

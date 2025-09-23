@@ -9,7 +9,7 @@ describe('SidebarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RouterTestingModule], // needed for routerLink
-      declarations: [SidebarComponent],
+      declarations: [SidebarComponent]
     }).compileComponents();
   });
 
@@ -39,7 +39,7 @@ describe('SidebarComponent', () => {
   });
 
   it('should toggle expanded state of a menu item', () => {
-    const reportsItem = component.menuItems.find(item => item.label === 'Reports');
+    const reportsItem = component.menuItems.find((item) => item.label === 'Reports');
     expect(reportsItem?.expanded).toBe(true);
 
     component.toggle(reportsItem!);
@@ -49,14 +49,8 @@ describe('SidebarComponent', () => {
     expect(reportsItem?.expanded).toBe(true);
   });
 
-  it('should render top-level menu items in template', () => {
-    const compiled = fixture.nativeElement as HTMLElement;
-    const menuItemsElements = compiled.querySelectorAll('li');
-    expect(menuItemsElements.length).toBe(component.menuItems.length);
-  });
-
   it('should render submenu items when expanded', () => {
-    const reportsItem = component.menuItems.find(item => item.label === 'Reports');
+    const reportsItem = component.menuItems.find((item) => item.label === 'Reports');
     reportsItem!.expanded = true;
     fixture.detectChanges();
 

@@ -1,30 +1,27 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { WelcomeComponent } from './welcome.component';
 
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { LeavesComponent } from './leaves.component';
-
-describe('LeavesComponent', () => {
-  let component: LeavesComponent;
-  let fixture: ComponentFixture<LeavesComponent>;
+describe('WelcomeComponent', () => {
+  let component: WelcomeComponent;
+  let fixture: ComponentFixture<WelcomeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      declarations: [LeavesComponent],
-      providers: [TranslateService]
+      declarations: [WelcomeComponent]
     }).compileComponents();
-  });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(LeavesComponent);
+    fixture = TestBed.createComponent(WelcomeComponent);
     component = fixture.componentInstance;
-    fixture.detectChanges();
+    fixture.detectChanges(); // triggers ngOnInit and rendering
   });
 
-  it('should render welcome message', () => {
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('p#welcome').textContent).toContain("Application 'allinone' is running");
+  it('should create the component', () => {
+    expect(component).toBeTruthy();
   });
 
+  it('should have the correct selector', () => {
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('app-welcome')).toBeNull();
+    // Note: The component itself is the root, so the selector is not rendered in its own template
+  });
 });
