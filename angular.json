@@ -78,17 +78,6 @@
             "buildTarget": "allinone:build"
           }
         },
-        "test": {
-          "builder": "@angular-builders/jest:run",
-          "options": {
-            "globalMocks": [
-              "getComputedStyle",
-              "doctype",
-              "styleTransform",
-              "matchMedia"
-            ]
-          }
-        },
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
@@ -97,51 +86,6 @@
               "src/**/*.html"
             ]
           }
-        },
-        "cypress-run": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "allinone:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "allinone:serve:production"
-            }
-          }
-        },
-        "cypress-open": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "watch": true,
-            "headless": false
-          }
-        },
-        "e2e": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "allinone:serve",
-            "watch": true,
-            "headless": false
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "allinone:serve:production"
-            }
-          }
-        },
-        "ct": {
-          "builder": "@cypress/schematic:cypress",
-          "options": {
-            "devServerTarget": "allinone:serve",
-            "watch": true,
-            "headless": false,
-            "testingType": "component"
-          },
-          "configurations": {
-            "development": {
-              "devServerTarget": "allinone:serve:development"
-            }
-          }
         }
       }
     }
@@ -149,7 +93,6 @@
   "cli": {
     "analytics": false,
     "schematicCollections": [
-      "@cypress/schematic",
       "@angular-eslint/schematics",
       "@schematics/angular"
     ]

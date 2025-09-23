@@ -1,8 +1,4 @@
 import 'jest-preset-angular/setup-jest';
-// Object.defineProperty(window, 'getComputedStyle', {
-//   value: () => ({
-//     getPropertyValue: () => {
-//       return '';
-//     }
-//   })
-// });
+import fetchMock from 'jest-fetch-mock';
+
+fetchMock.enableMocks();
