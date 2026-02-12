@@ -5,6 +5,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { TranslationLoaderService } from '../../shared/util/translation/app-translation-loader.service';
 import { locale as english } from './i18n/en';
 import { locale as french } from './i18n/fr';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +16,12 @@ export class HomeComponent implements OnInit {
   title = 'allinone';
   deps: Department[];
   languages: Language[];
+  users: User[] = [];
 
   constructor(
     private welcomeService: WelcomeService,
     private translationService: TranslateService,
+    private apiService: ApiService,
     translationLoaderService: TranslationLoaderService
   ) {
     this.languages = [
@@ -47,6 +50,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.deps = this.welcomeService.getAllDeps();
     this.setDefaultLanguage();
+    this.apiService
+      .getHello()
+      .then((res) => (this.users = res))
+      .catch((err) => console.error('API call failed', err));
   }
 
   setDefaultLanguage(): void {

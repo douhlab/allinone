@@ -10,3 +10,10 @@
         </a>
     </h3>
 </div>
+
+<p>BACKEND - CALL </p>
+<div *ngFor="let user of users">
+  <h3>
+    {{ user.id }} - {{ user.description }} - {{ user.createdBy }}
+  </h3>
+</div>
