@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
+import { User } from './user';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -8,8 +9,8 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  async getHello(): Promise<User[]> {
-    const url = `${this.apiUrl}/first?id=1`;
+  async getUsers(): Promise<User[]> {
+    const url = `${this.apiUrl}/v1/api/users/all`;
     const res = await fetch(url);
 
     if (!res.ok) {

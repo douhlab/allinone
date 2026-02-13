@@ -6,6 +6,7 @@ import { TranslationLoaderService } from '../../shared/util/translation/app-tran
 import { locale as english } from './i18n/en';
 import { locale as french } from './i18n/fr';
 import { ApiService } from '../../services/api.service';
+import { User } from '../../services/user';
 
 @Component({
   selector: 'app-home',
@@ -51,7 +52,7 @@ export class HomeComponent implements OnInit {
     this.deps = this.welcomeService.getAllDeps();
     this.setDefaultLanguage();
     this.apiService
-      .getHello()
+      .getUsers()
       .then((res) => (this.users = res))
       .catch((err) => console.error('API call failed', err));
   }

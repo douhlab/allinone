@@ -13,7 +13,11 @@
 
 <p>BACKEND - CALL </p>
 <div *ngFor="let user of users">
-  <h3>
-    {{ user.id }} - {{ user.description }} - {{ user.createdBy }}
-  </h3>
+  <table style="border: 1px solid black; border-collapse: collapse;">
+    <tr>
+      <td style="border: dashed">{{ user.id }}</td>
+      <td>{{ user.description }}</td>
+      <td>{{ user.createdBy }}</td>
+    </tr>
+  </table>
 </div>

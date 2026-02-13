@@ -1,6 +1,6 @@
-interface User {
+export class User {
   id: number;
-  description: string;
-  createdBy: string;
-  creationDate: string;
+  description?: string;
+  createdBy?: string;
+  creationDate?: string;
 }

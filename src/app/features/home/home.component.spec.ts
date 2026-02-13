@@ -5,17 +5,21 @@ import { WelcomeService } from '../../shared/domain/welcome/welcome.service';
 import { TranslateService, TranslateModule } from '@ngx-translate/core';
 import { TranslationLoaderService } from '../../shared/util/translation/app-translation-loader.service';
 import { Department } from '../../shared/domain/welcome/department';
+import { ApiService } from '../../services/api.service';
+import { User } from '../../services/user';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
   let welcomeService: WelcomeService;
+  let apiServiceMock: ApiService;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
+      imports: [TranslateModule.forRoot(), HttpClientTestingModule],
       declarations: [HomeComponent],
-      providers: [WelcomeService, TranslationLoaderService, TranslateService]
+      providers: [WelcomeService, TranslationLoaderService, TranslateService, ApiService]
     }).compileComponents();
   });
 
@@ -23,6 +27,7 @@ describe('HomeComponent', () => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     welcomeService = TestBed.inject(WelcomeService);
+    apiServiceMock = TestBed.inject(ApiService);
     fixture.detectChanges();
   });
 
@@ -38,6 +43,9 @@ describe('HomeComponent', () => {
   });
 
   it('should fetch deps on ngOnInit', () => {
+
+    const users: User[] = [{ id: 1 }, { id: 2 }];
+    jest.spyOn(apiServiceMock, 'getUsers').mockResolvedValue(users);
     const deps: Department[] = [
       { id: 1, name: 'Dep 1', label: 'Dep 1' },
       { id: 2, name: 'Dep 2', label: 'Dep 2' }
@@ -48,5 +56,6 @@ describe('HomeComponent', () => {
     component.ngOnInit();
 
     expect(component.deps).toEqual(deps);
+    expect(welcomeService.getAllDeps).toHaveBeenCalled();
   });
 });
