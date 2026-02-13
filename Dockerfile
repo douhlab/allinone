@@ -1,9 +1,9 @@
 FROM ghcr.io/nginx:latest
 
-COPY --chown=nginx:root deploy/nginx.conf $NGINX_CONF_PATH
-COPY --chown=nginx:root deploy/*.template /etc/nginx/templates/
-COPY --chown=nginx:root deploy/*.envsh /docker-entrypoint.d/
-COPY --chown=nginx:root deploy/*.sh /docker-entrypoint.d/
+COPY --chown=nginx:root xxdeploy/nginx.conf $NGINX_CONF_PATH
+COPY --chown=nginx:root xxdeploy/*.template /etc/nginx/templates/
+COPY --chown=nginx:root xxdeploy/*.envsh /docker-entrypoint.d/
+COPY --chown=nginx:root xxdeploy/*.sh /docker-entrypoint.d/
 COPY --chown=nginx:root dist/ $APP_PATH
 EXPOSE 8080/tcp
 
