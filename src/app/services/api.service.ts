@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { MetalPriceResponse } from '../shared/domain/home/metals-response';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
