@@ -10,7 +10,7 @@ export class ApiService {
   constructor(private http: HttpClient) {}
 
   async getUsers(): Promise<User[]> {
-    const url = `${this.apiUrl}/v1/api/users/all`;
+    const url = `${this.apiUrl}/simple-spa/v1/api/users/all`;
     const res = await fetch(url);
 
     if (!res.ok) {

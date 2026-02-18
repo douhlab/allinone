@@ -24,7 +24,7 @@ describe('ApiService', () => {
 
     const result = await service.getUsers();
 
-    expect(fetch).toHaveBeenCalledWith(`${environment.apiUrl}/v1/api/users/all`);
+    expect(fetch).toHaveBeenCalledWith(`${environment.apiUrl}/simple-spa/v1/api/users/all`);
     expect(result).toEqual(mockUsers);
   });
 
