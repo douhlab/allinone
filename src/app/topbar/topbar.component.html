@@ -8,5 +8,6 @@
         </a>
       </li>
     </ul>
+    <button *ngIf="auth.isAuthenticated()" (click)="logout()">Logout</button>
   </nav>
 </header>

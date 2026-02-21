@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { User } from './user';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {
@@ -9,14 +10,13 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  async getUsers(): Promise<User[]> {
+  login(username: string, password: string) {
+    const url = `${this.apiUrl}/simple-spa/login`;
+    return this.http.post(url, { username, password });
+  }
+
+  getUsers(): Observable<User[]> {
     const url = `${this.apiUrl}/simple-spa/v1/api/users/all`;
-    const res = await fetch(url);
-
-    if (!res.ok) {
-      throw new Error(`API error ${res.status}: ${res.statusText}`);
-    }
-
-    return (await res.json()) as User[];
+    return this.http.get<User[]>(url);
   }
 }

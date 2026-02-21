@@ -51,10 +51,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.deps = this.welcomeService.getAllDeps();
     this.setDefaultLanguage();
-    this.apiService
-      .getUsers()
-      .then((res) => (this.users = res))
-      .catch((err) => console.error('API call failed', err));
+    this.apiService.getUsers().subscribe((res) => (this.users = res));
   }
 
   setDefaultLanguage(): void {

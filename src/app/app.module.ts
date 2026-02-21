@@ -13,6 +13,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WelcomeComponent } from './features/welcome/welcome.component';
 import { EXCHANGE_RATES_API_KEY } from './shared/domain/home/exchangeratesapi-client';
 import { API_NINJA_API_KEY } from './shared/domain/home/api-ninja-client';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from 'src/app/core/authentication/jwt.interceptor';
 import {
   MatCell,
   MatCellDef,
@@ -34,6 +36,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { LeavesComponent } from './features/reports/leaves/leaves.component';
+import { LoginComponent } from './core/authentication/login/login.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -44,6 +47,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
 @NgModule({
   declarations: [
     AppComponent,
+    LoginComponent,
     HomeComponent,
     WelcomeComponent,
     SidebarComponent,
@@ -83,6 +87,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
       deps: [AppConfigService]
     },
     TranslationLoaderService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: EXCHANGE_RATES_API_KEY, useValue: 'T8v7yaSk5a8LjfJFfFMqbOymepUT25sa' },
     { provide: API_NINJA_API_KEY, useValue: 'CkfamXmH+NZqdulxuxgtMQ==IJNY8D6v4FGqCeqx' },
     { provide: METALS_API_KEY, useValue: 'CY6BGZ9Y3LKACEY4ZKLF221Y4ZKLF' }
