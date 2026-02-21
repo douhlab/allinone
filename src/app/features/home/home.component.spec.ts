@@ -8,6 +8,7 @@ import { Department } from '../../shared/domain/welcome/department';
 import { ApiService } from '../../services/api.service';
 import { User } from '../../services/user';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { of } from 'rxjs';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -43,9 +44,8 @@ describe('HomeComponent', () => {
   });
 
   it('should fetch deps on ngOnInit', () => {
-
     const users: User[] = [{ id: 1 }, { id: 2 }];
-    jest.spyOn(apiServiceMock, 'getUsers').mockResolvedValue(users);
+    jest.spyOn(apiServiceMock, 'getUsers').mockReturnValue(of(users));
     const deps: Department[] = [
       { id: 1, name: 'Dep 1', label: 'Dep 1' },
       { id: 2, name: 'Dep 2', label: 'Dep 2' }

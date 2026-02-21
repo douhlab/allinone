@@ -1,17 +1,50 @@
 import { TestBed } from '@angular/core/testing';
-import { CanActivateFn } from '@angular/router';
+import { Router } from '@angular/router';
+import { AuthGuard } from './auth.guard';
+import { AuthService } from './auth.service';
 
-import { authGuard } from './auth.guard';
+describe('AuthGuard', () => {
+  let guard: AuthGuard;
 
-describe('authGuard', () => {
-  const executeGuard: CanActivateFn = (...guardParameters) => 
-      TestBed.runInInjectionContext(() => authGuard(...guardParameters));
+  // Mock objects
+  let mockAuthService: { isAuthenticated: jest.Mock };
+  let mockRouter: { navigate: jest.Mock };
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    mockAuthService = {
+      isAuthenticated: jest.fn()
+    };
+
+    mockRouter = {
+      navigate: jest.fn()
+    };
+
+    TestBed.configureTestingModule({
+      providers: [
+        AuthGuard,
+        { provide: AuthService, useValue: mockAuthService },
+        { provide: Router, useValue: mockRouter }
+      ]
+    });
+
+    guard = TestBed.inject(AuthGuard);
   });
 
-  it('should be created', () => {
-    expect(executeGuard).toBeTruthy();
+  it('should allow activation when authenticated', () => {
+    mockAuthService.isAuthenticated.mockReturnValue(true);
+
+    const result = guard.canActivate();
+
+    expect(result).toBe(true);
+    expect(mockRouter.navigate).not.toHaveBeenCalled();
+  });
+
+  it('should block activation and redirect when NOT authenticated', () => {
+    mockAuthService.isAuthenticated.mockReturnValue(false);
+
+    const result = guard.canActivate();
+
+    expect(result).toBe(false);
+    expect(mockRouter.navigate).toHaveBeenCalledWith(['/login']);
   });
 });

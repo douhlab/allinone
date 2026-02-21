@@ -31,7 +31,16 @@ describe('SidebarComponent', () => {
       {
         label: 'Reports',
         route: '/reports',
-        children: [{ label: 'Leaves', route: '/reports/leaves' }],
+        children: [
+          {
+            label: 'Leaves',
+            route: '/reports/leaves'
+          },
+          {
+            label: 'People stats',
+            route: '/reports/people-stats'
+          }
+        ],
         expanded: true
       },
       { label: 'Settings', route: '/settings' }
@@ -56,7 +65,7 @@ describe('SidebarComponent', () => {
 
     const compiled = fixture.nativeElement as HTMLElement;
     const submenuLinks = compiled.querySelectorAll('ul.submenu li a');
-    expect(submenuLinks.length).toBe(1);
+    expect(submenuLinks.length).toBe(2);
     expect(submenuLinks[0].textContent?.trim()).toBe('Leaves');
   });
 });

@@ -26,8 +26,7 @@ describe('TopbarComponent', () => {
   it('should have topMenuItems initialized correctly', () => {
     expect(component.topMenuItems).toEqual([
       { label: 'Notifications', route: '/notifications' },
-      { label: 'Profile', route: '/profile' },
-      { label: 'Logout', route: '/logout' }
+      { label: 'Profile', route: '/profile' }
     ]);
   });
 
