@@ -35,8 +35,14 @@ import { METALS_API_KEY } from './shared/domain/home/metals-client';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { TopbarComponent } from './topbar/topbar.component';
-import { LeavesComponent } from './features/reports/leaves/leaves.component';
+import { LeavesComponent } from './features/leaves/leaves.component';
 import { LoginComponent } from './core/authentication/login/login.component';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { RouterOutlet } from '@angular/router';
+import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
+import { PeopleStatsComponent } from './features/people-stats/people-stats.component';
+import { ProfileComponent } from './features/profile/profile.component';
+import { SettingsComponent } from './features/settings/settings.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -53,11 +59,17 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     SidebarComponent,
     DashboardComponent,
     TopbarComponent,
-    LeavesComponent
+    LeavesComponent,
+    MainLayoutComponent,
+    AuthLayoutComponent,
+    PeopleStatsComponent,
+    ProfileComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterOutlet,
     HttpClientModule,
     BrowserAnimationsModule,
     FormsModule,

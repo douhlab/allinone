@@ -20,7 +20,10 @@ export class SidebarComponent {
     {
       label: 'Reports',
       route: '/reports',
-      children: [{ label: 'Leaves', route: '/reports/leaves' }],
+      children: [
+        { label: 'Leaves', route: '/reports/leaves' },
+        { label: 'People stats', route: '/reports/people-stats' }
+      ],
       expanded: true
     },
     { label: 'Settings', route: '/settings' }

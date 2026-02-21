@@ -5,14 +5,31 @@ import { HomeComponent } from './features/home/home.component';
 import { WelcomeComponent } from './features/welcome/welcome.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { AuthGuard } from 'src/app/shared/util/authentication/auth.guard';
+import { MainLayoutComponent } from './main-layout/main-layout.component';
+import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
+import { LeavesComponent } from './features/leaves/leaves.component';
+import { SettingsComponent } from './features/settings/settings.component';
+import { ProfileComponent } from './features/profile/profile.component';
+import { PeopleStatsComponent } from './features/people-stats/people-stats.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'welcome', component: WelcomeComponent, canActivate: [AuthGuard] },
-  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
-  { path: '**', redirectTo: '' } // wildcard route for 404
+  {
+    path: '',
+    component: MainLayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      { path: 'home', component: HomeComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: 'welcome', component: WelcomeComponent },
+      { path: 'dashboard', component: DashboardComponent },
+      { path: 'reports/leaves', component: LeavesComponent },
+      { path: 'reports/people-stats', component: PeopleStatsComponent },
+      { path: 'settings', component: SettingsComponent },
+      { path: 'profile', component: ProfileComponent }
+    ]
+  },
+
+  { path: '', component: AuthLayoutComponent, children: [{ path: 'login', component: LoginComponent }] }
 ];
 
 @NgModule({
