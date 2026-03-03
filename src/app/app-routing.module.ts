@@ -11,6 +11,8 @@ import { LeavesComponent } from './features/leaves/leaves.component';
 import { SettingsComponent } from './features/settings/settings.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { PeopleStatsComponent } from './features/people-stats/people-stats.component';
+import { UploadLocalComponent } from './features/upload-local/upload-local.component';
+import { UploadAzureComponent } from './features/upload-azure/upload-azure.component';
 
 const routes: Routes = [
   {
@@ -25,7 +27,9 @@ const routes: Routes = [
       { path: 'reports/leaves', component: LeavesComponent },
       { path: 'reports/people-stats', component: PeopleStatsComponent },
       { path: 'settings', component: SettingsComponent },
-      { path: 'profile', component: ProfileComponent }
+      { path: 'profile', component: ProfileComponent },
+      { path: 'uploads/azure', component: UploadAzureComponent },
+      { path: 'uploads/local', component: UploadLocalComponent }
     ]
   },
 

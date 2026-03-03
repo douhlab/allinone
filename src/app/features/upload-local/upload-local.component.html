@@ -1,0 +1,61 @@
+<div style="margin-bottom: 20px;">
+  <input type="file" #fileInput (change)="onFileSelected($event)" />
+  <button (click)="upload()" [disabled]="!selectedFile || uploading">
+    {{ uploading ? 'Uploading...' : 'Upload' }}
+  </button>
+</div>
+
+<div
+  class="drop-zone"
+  (drop)="onDrop($event)"
+  (dragover)="onDragOver($event)"
+>
+  Drag & Drop File Here
+</div>
+
+<table border="1" width="100%" *ngIf="uploadedFiles.length > 0">
+  <thead>
+  <tr>
+    <th>File Name</th>
+    <th>Preview</th>
+    <th>Uploaded At</th>
+    <th>Delete</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let file of uploadedFiles">
+    <td>
+      <a href="javascript:void(0)" (click)="download(file.name)">
+        {{ file.originalName }}
+      </a>
+    </td>
+    <td>
+      <a href="javascript:void(0)" (click)="preview(file.name)">
+        {{ file.originalName }}
+      </a>
+    </td>
+    <td>
+      {{ file.uploadedAt | date:'medium' }}
+    </td>
+    <td>
+      <button (click)="delete(file.name)">🗑 Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<div *ngIf="previewType" style="margin-top:20px; border:1px solid #ccc; padding:10px;">
+
+  <div *ngIf="previewType === 'image'">
+    <img [src]="previewContent" style="max-width: 100%;" />
+  </div>
+
+  <div *ngIf="previewType === 'text'">
+    <pre>{{ previewContent }}</pre>
+  </div>
+
+  <div *ngIf="previewType === 'unsupported'">
+    Preview not supported for this file type.
+  </div>
+
+</div>

@@ -43,6 +43,8 @@ import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
 import { PeopleStatsComponent } from './features/people-stats/people-stats.component';
 import { ProfileComponent } from './features/profile/profile.component';
 import { SettingsComponent } from './features/settings/settings.component';
+import { UploadLocalComponent } from './features/upload-local/upload-local.component';
+import { UploadAzureComponent } from './features/upload-azure/upload-azure.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -64,7 +66,9 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     AuthLayoutComponent,
     PeopleStatsComponent,
     ProfileComponent,
-    SettingsComponent
+    SettingsComponent,
+    UploadLocalComponent,
+    UploadAzureComponent
   ],
   imports: [
     BrowserModule,

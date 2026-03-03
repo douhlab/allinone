@@ -24,9 +24,18 @@ export class SidebarComponent {
         { label: 'Leaves', route: '/reports/leaves' },
         { label: 'People stats', route: '/reports/people-stats' }
       ],
-      expanded: true
+      expanded: false
     },
-    { label: 'Settings', route: '/settings' }
+    { label: 'Settings', route: '/settings' },
+    {
+      label: 'Uploads',
+      route: '/uploads',
+      children: [
+        { label: 'Upload to Azure', route: '/uploads/azure' },
+        { label: 'Upload to Local', route: '/uploads/local' }
+      ],
+      expanded: false
+    }
   ];
 
   toggle(item: MenuItem) {
