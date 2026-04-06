@@ -16,38 +16,13 @@
   <h2>Generate QR Code for the following input</h2>
   <input [(ngModel)]="qrData" placeholder="QR content" />
 </ng-container>
+
 <section>
   <div #qrContainer class="qr-wrapper">
     <qrcode [qrdata]="qrData" [width]="256"></qrcode>
   </div>
   <button (click)="downloadQR()">Download QR as PNG</button>
 </section>
-
-<hr>
-<br />
-<hr>
-<section>
-  <h1>READ QR code content</h1>
-  <h4>
-    Select a file
-    <input type="file" (change)="onFileSelected($event)" />
-  </h4>
-  <div *ngIf="selectedImage" class="image-container">
-      <img
-        [src]="selectedImage"
-        [style.transform]="'scale(' + zoom + ')'"
-        style="transform-origin: center center;"
-      />
-  </div>
-  <div *ngIf="selectedImage">
-    <input type="range" min="1" max="5" step="0.1" [(ngModel)]="zoom" />
-  </div>
-  <div class="qrcodereader-title" *ngIf="qrCodeContent">
-      QR content:
-    <span class="qrcodereader-value">{{qrCodeContent}}</span>
-  </div>
-</section>
-
 
 
 

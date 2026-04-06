@@ -15,6 +15,7 @@ import { UploadLocalComponent } from './features/upload-local/upload-local.compo
 import { UploadAzureComponent } from './features/upload-azure/upload-azure.component';
 import {BarcodeComponent} from "./features/barcode/barcode.component";
 import {CalculatorComponent} from "./shared/calculator/calculator.component";
+import {QrcodeReaderComponent} from "./features/qrcode-reader/qrcode-reader.component";
 
 const routes: Routes = [
   {
@@ -33,6 +34,7 @@ const routes: Routes = [
       { path: 'uploads/azure', component: UploadAzureComponent },
       { path: 'uploads/local', component: UploadLocalComponent },
       { path: 'barcodesqrcodes/generate', component: BarcodeComponent },
+      { path: 'qrcodereader', component: QrcodeReaderComponent },
       { path: 'calculator', component: CalculatorComponent},
     ]
   },

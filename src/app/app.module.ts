@@ -55,6 +55,7 @@ import {MatFormField, MatInput} from "@angular/material/input";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {CdkDrag, CdkDragHandle} from "@angular/cdk/drag-drop";
 import {DialogShellComponent} from "./shared/dialog-shell/dialog-shell.component";
+import {QrcodeReaderComponent} from "./features/qrcode-reader/qrcode-reader.component";
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -80,6 +81,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     UploadLocalComponent,
     UploadAzureComponent,
     BarcodeComponent,
+    QrcodeReaderComponent,
     CalculatorComponent,
     DialogShellComponent
   ],

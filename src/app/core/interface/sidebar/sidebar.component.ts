@@ -40,7 +40,7 @@ export class SidebarComponent {
       route: '',
       children: [
         { label: 'Generate', route: '/barcodesqrcodes/generate'},
-        { label: 'QR code reader', route: '/barcodesqrcodes/read'}
+        { label: 'QR code reader', route: '/qrcodereader'}
       ]
     }
   ];

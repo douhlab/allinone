@@ -1,0 +1,33 @@
+
+.qrcodereader-title {
+  font-size: 30px;
+  text-align: right;
+  margin-right: 300px
+}
+.qrcodereader-value {
+  color: red;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}
+
+.image-container-pane {
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+  cursor: grab;
+}
+
+img {
+  transition: transform 0.1s ease;
+  user-select: none;
+}
