@@ -1,0 +1,27 @@
+.barcode-wrapper {
+  display: inline-block;
+}
+
+.qr-wrapper {
+  display: inline-block;
+}
+
+.qrcodereader-title {
+  font-size: 30px;
+  text-align: right;
+  margin-right: 300px
+}
+.qrcodereader-value {
+  color: red;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 400px;
+  height: 400px;
+  overflow: hidden;
+  border: 1px solid #ccc;
+}

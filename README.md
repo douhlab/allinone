@@ -36,3 +36,9 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
+## Modals
+In order to create a modal dialog, this app has provided a simple and common modal dialog that can be used.
+all you have to do is to create your component, and when you want to trigger this component interface inside a modal dialog, 
+you just import the `DialogService` and use its service `open` to open it, providing the component name and its title as a parameter.
+
+Example: `this.dialogService.open(CalculatorComponent, componentKey)`

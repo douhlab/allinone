@@ -26,7 +26,6 @@ export class SidebarComponent {
       ],
       expanded: false
     },
-    { label: 'Settings', route: '/settings' },
     {
       label: 'Uploads',
       route: '/uploads',
@@ -35,6 +34,14 @@ export class SidebarComponent {
         { label: 'Upload to Local', route: '/uploads/local' }
       ],
       expanded: false
+    },
+    {
+      label: 'Barcodes/ QRCodes',
+      route: '',
+      children: [
+        { label: 'Generate', route: '/barcodesqrcodes/generate'},
+        { label: 'QR code reader', route: '/barcodesqrcodes/read'}
+      ]
     }
   ];
 

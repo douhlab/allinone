@@ -1,0 +1,15 @@
+<header class="topbar">
+  <div class="logo">My simple app</div>
+  <nav class="topnav">
+    <ul>
+      <li *ngFor="let item of topMenuItems">
+        <a (click)="openDialog(item.componentKey)" routerLinkActive="active">
+          {{ item.label }}
+        </a>
+      </li>
+      <li>
+        <a *ngIf="auth.isAuthenticated()" (click)="logout()" >Logout</a>
+      </li>
+    </ul>
+  </nav>
+</header>

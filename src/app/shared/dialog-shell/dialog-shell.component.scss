@@ -1,0 +1,13 @@
+.resize-container {
+  resize: both;
+  overflow: auto;
+  min-width: 300px;
+  min-height: 200px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  cursor: move;
+  font-weight: bold;
+}

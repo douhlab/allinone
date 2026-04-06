@@ -115,7 +115,6 @@ export class UploadAzureComponent implements OnInit {
     this.fileService.downloadFileFromAzure(fileName).subscribe((blob) => {
       const fileType = blob.type;
 
-      // IMAGE
       if (fileType.startsWith('image/')) {
         this.previewType = 'image';
         this.previewContent = URL.createObjectURL(blob);
@@ -134,6 +133,7 @@ export class UploadAzureComponent implements OnInit {
         this.previewType = 'unsupported';
         this.previewContent = null;
       }
+      // IMAGE
     });
   }
 

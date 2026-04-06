@@ -1,0 +1,17 @@
+<div class="resize-container"
+     cdkDrag
+     cdkDragRootElement=".cdk-overlay-pane"
+     (cdkDragEnded)="savePosition($event)"
+     #drag="cdkDrag">
+
+  <!-- HEADER -->
+  <div class="header" cdkDragHandle>
+    <span>{{ title }}</span>
+
+    <button mat-icon-button (click)="close()">✖</button>
+  </div>
+
+  <!-- CONTENT -->
+  <ng-container #container></ng-container>
+
+</div>

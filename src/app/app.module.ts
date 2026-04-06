@@ -29,22 +29,32 @@ import {
   MatHeaderRowDef,
   MatRow,
   MatRowDef,
-  MatTable
+  MatTable,
+  MatTableModule
 } from '@angular/material/table';
 import { METALS_API_KEY } from './shared/domain/home/metals-client';
-import { SidebarComponent } from './sidebar/sidebar.component';
+import { SidebarComponent } from './core/interface/sidebar/sidebar.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
-import { TopbarComponent } from './topbar/topbar.component';
+import { TopbarComponent } from './core/interface/topbar/topbar.component';
 import { LeavesComponent } from './features/leaves/leaves.component';
 import { LoginComponent } from './core/authentication/login/login.component';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { RouterOutlet } from '@angular/router';
 import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
 import { PeopleStatsComponent } from './features/people-stats/people-stats.component';
-import { ProfileComponent } from './features/profile/profile.component';
-import { SettingsComponent } from './features/settings/settings.component';
+import { ProfileComponent } from './shared/profile/profile.component';
+import { SettingsComponent } from './shared/settings/settings.component';
 import { UploadLocalComponent } from './features/upload-local/upload-local.component';
 import { UploadAzureComponent } from './features/upload-azure/upload-azure.component';
+import { BarcodeComponent } from "./features/barcode/barcode.component";
+import {QRCodeModule} from "angularx-qrcode";
+import {NgOptimizedImage} from "@angular/common";
+import {CalculatorComponent} from "./shared/calculator/calculator.component";
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import {MatFormField, MatInput} from "@angular/material/input";
+import {MatButton, MatIconButton} from "@angular/material/button";
+import {CdkDrag, CdkDragHandle} from "@angular/cdk/drag-drop";
+import {DialogShellComponent} from "./shared/dialog-shell/dialog-shell.component";
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -68,7 +78,10 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     ProfileComponent,
     SettingsComponent,
     UploadLocalComponent,
-    UploadAzureComponent
+    UploadAzureComponent,
+    BarcodeComponent,
+    CalculatorComponent,
+    DialogShellComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +93,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     ReactiveFormsModule,
     TranslateModule.forRoot(),
     MatTable,
+    MatTableModule,
     MatColumnDef,
     MatRowDef,
     MatHeaderCell,
@@ -92,7 +106,16 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     MatFooterRow,
     MatFooterRowDef,
     MatFooterCell,
-    MatFooterCellDef
+    MatFooterCellDef,
+    QRCodeModule,
+    FormsModule,
+    NgOptimizedImage,
+    MatFormField,
+    MatButton,
+    MatInput,
+    MatIconButton,
+    CdkDragHandle,
+    CdkDrag
   ],
   providers: [
     AppConfigService,
@@ -106,7 +129,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: EXCHANGE_RATES_API_KEY, useValue: 'T8v7yaSk5a8LjfJFfFMqbOymepUT25sa' },
     { provide: API_NINJA_API_KEY, useValue: 'CkfamXmH+NZqdulxuxgtMQ==IJNY8D6v4FGqCeqx' },
-    { provide: METALS_API_KEY, useValue: 'CY6BGZ9Y3LKACEY4ZKLF221Y4ZKLF' }
+    { provide: METALS_API_KEY, useValue: 'CY6BGZ9Y3LKACEY4ZKLF221Y4ZKLF' },
+    provideAnimationsAsync()
   ],
   bootstrap: [AppComponent]
 })

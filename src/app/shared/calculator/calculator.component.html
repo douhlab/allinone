@@ -1,0 +1,40 @@
+<div class="calculator-container">
+
+  <!-- History -->
+  <div class="history">
+    <div *ngFor="let item of history">
+      <span class="equation">{{ item.equation }}</span>=<span class="result">{{ item.result }}</span>
+    </div>
+  </div>
+
+  <!-- Current Equation and Result -->
+  <div class="display equation">{{ equation || '0' }}</div>
+  <div class="display result">{{ result || '0' }}</div>
+
+  <!-- Buttons -->
+  <div class="buttons">
+    <!-- Numbers -->
+    <button (click)="append('7')">7</button>
+    <button (click)="append('8')">8</button>
+    <button (click)="append('9')">9</button>
+    <button (click)="operate('/')">÷</button>
+
+    <button (click)="append('4')">4</button>
+    <button (click)="append('5')">5</button>
+    <button (click)="append('6')">6</button>
+    <button (click)="operate('*')">×</button>
+
+    <button (click)="append('1')">1</button>
+    <button (click)="append('2')">2</button>
+    <button (click)="append('3')">3</button>
+    <button (click)="operate('-')">−</button>
+
+    <button (click)="append('0')">0</button>
+    <button (click)="append('.')">.</button>
+    <button (click)="operate('=')">=</button>
+    <button (click)="operate('+')">+</button>
+
+    <button (click)="delete()">⌫</button>
+    <button (click)="clear()">C</button>
+  </div>
+</div>

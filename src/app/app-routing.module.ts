@@ -8,11 +8,13 @@ import { AuthGuard } from 'src/app/shared/util/authentication/auth.guard';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
 import { AuthLayoutComponent } from './auth-layout/auth-layout.component';
 import { LeavesComponent } from './features/leaves/leaves.component';
-import { SettingsComponent } from './features/settings/settings.component';
-import { ProfileComponent } from './features/profile/profile.component';
+import { SettingsComponent } from './shared/settings/settings.component';
+import { ProfileComponent } from './shared/profile/profile.component';
 import { PeopleStatsComponent } from './features/people-stats/people-stats.component';
 import { UploadLocalComponent } from './features/upload-local/upload-local.component';
 import { UploadAzureComponent } from './features/upload-azure/upload-azure.component';
+import {BarcodeComponent} from "./features/barcode/barcode.component";
+import {CalculatorComponent} from "./shared/calculator/calculator.component";
 
 const routes: Routes = [
   {
@@ -29,7 +31,9 @@ const routes: Routes = [
       { path: 'settings', component: SettingsComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'uploads/azure', component: UploadAzureComponent },
-      { path: 'uploads/local', component: UploadLocalComponent }
+      { path: 'uploads/local', component: UploadLocalComponent },
+      { path: 'barcodesqrcodes/generate', component: BarcodeComponent },
+      { path: 'calculator', component: CalculatorComponent},
     ]
   },
 
