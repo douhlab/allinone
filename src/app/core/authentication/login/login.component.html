@@ -1,13 +1,66 @@
-<form (ngSubmit)="login()" #loginForm="ngForm">
-  <div>
-    <label>Username:</label>
-    <input type="text" name="username" [(ngModel)]="username" required />
-  </div>
-  <div>
-    <label>Password:</label>
-    <input type="password" name="password" [(ngModel)]="password" required />
-  </div>
-  <button type="submit" [disabled]="loginForm.invalid">Login</button>
+<div class="login-layout">
 
-  <div *ngIf="errorMessage" style="color:red">{{ errorMessage }}</div>
-</form>
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="branding">
+      <img src="assets/icons/rocket.png" class="logo" alt="MyLab logo" />
+      <h1>MyLab</h1>
+      <p>Manage your tools, dashboards and analytics in one place.</p>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+
+    <form (ngSubmit)="login()" #loginForm="ngForm" class="login-card">
+
+      <h2>Welcome back</h2>
+      <p class="subtitle">Please login to continue</p>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input
+          type="text"
+          name="username"
+          [(ngModel)]="username"
+          required
+          placeholder="Enter your username"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          type="password"
+          name="password"
+          [(ngModel)]="password"
+          required
+          placeholder="Enter your password"
+        />
+      </div>
+
+      <div class="captcha-container">
+        <re-captcha #captchaRef
+                    [siteKey]="'6Leg26ssAAAAAPfRCTwtnSq6Ne9hQLPmfuNAOc5U'"
+                    (resolved)="onCaptchaResolved($event)">
+        </re-captcha>
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="loginForm.invalid || !captchaToken || isLoading">
+        {{ isLoading ? 'Logging in...' : 'Login' }}
+      </button>
+
+      <div *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+      </div>
+
+    </form>
+
+    <div class="login-footer">
+      © 2026 MyLab • <a href="#">Help</a> • <a href="#">Privacy</a>
+    </div>
+
+  </div>
+</div>

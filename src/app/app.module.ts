@@ -58,6 +58,7 @@ import {DialogShellComponent} from "./shared/dialog-shell/dialog-shell.component
 import {QrcodeReaderComponent} from "./features/qrcode-reader/qrcode-reader.component";
 import {NgxEchartsModule} from "ngx-echarts";
 import {ChartPlaygroundComponent} from "./features/chart-playground/chart-playground.component";
+import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha";
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -123,7 +124,9 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     CdkDrag,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
-    })
+    }),
+    RecaptchaModule,
+    RecaptchaFormsModule
   ],
   providers: [
     AppConfigService,

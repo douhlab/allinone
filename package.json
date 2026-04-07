@@ -34,6 +34,7 @@
     "jsbarcode": "^3.12.3",
     "jsqr": "^1.4.0",
     "mathjs": "^15.1.1",
+    "ng-recaptcha": "^13.2.1",
     "ngx-echarts": "^17.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
