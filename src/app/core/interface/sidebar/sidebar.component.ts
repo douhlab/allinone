@@ -16,6 +16,7 @@ export class SidebarComponent {
   menuItems: MenuItem[] = [
     { label: 'Welcome', route: '/welcome' },
     { label: 'Home', route: '/home' },
+    { label: 'Charts', route: '/charts' },
     { label: 'Dashboard', route: '/dashboard' },
     {
       label: 'Reports',

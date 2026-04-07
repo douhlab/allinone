@@ -29,10 +29,12 @@
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
     "angularx-qrcode": "^17.0.1",
+    "echarts": "^6.0.0",
     "html-to-image": "^1.11.13",
     "jsbarcode": "^3.12.3",
     "jsqr": "^1.4.0",
     "mathjs": "^15.1.1",
+    "ngx-echarts": "^17.2.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"

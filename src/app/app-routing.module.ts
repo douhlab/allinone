@@ -16,6 +16,7 @@ import { UploadAzureComponent } from './features/upload-azure/upload-azure.compo
 import {BarcodeComponent} from "./features/barcode/barcode.component";
 import {CalculatorComponent} from "./shared/calculator/calculator.component";
 import {QrcodeReaderComponent} from "./features/qrcode-reader/qrcode-reader.component";
+import {ChartPlaygroundComponent} from "./features/chart-playground/chart-playground.component";
 
 const routes: Routes = [
   {
@@ -27,6 +28,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'home', pathMatch: 'full' },
       { path: 'welcome', component: WelcomeComponent },
       { path: 'dashboard', component: DashboardComponent },
+      { path: 'charts', component: ChartPlaygroundComponent },
       { path: 'reports/leaves', component: LeavesComponent },
       { path: 'reports/people-stats', component: PeopleStatsComponent },
       { path: 'settings', component: SettingsComponent },

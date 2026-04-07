@@ -56,6 +56,8 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {CdkDrag, CdkDragHandle} from "@angular/cdk/drag-drop";
 import {DialogShellComponent} from "./shared/dialog-shell/dialog-shell.component";
 import {QrcodeReaderComponent} from "./features/qrcode-reader/qrcode-reader.component";
+import {NgxEchartsModule} from "ngx-echarts";
+import {ChartPlaygroundComponent} from "./features/chart-playground/chart-playground.component";
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -83,7 +85,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     BarcodeComponent,
     QrcodeReaderComponent,
     CalculatorComponent,
-    DialogShellComponent
+    DialogShellComponent,
+    ChartPlaygroundComponent
   ],
   imports: [
     BrowserModule,
@@ -117,7 +120,10 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     MatInput,
     MatIconButton,
     CdkDragHandle,
-    CdkDrag
+    CdkDrag,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    })
   ],
   providers: [
     AppConfigService,
