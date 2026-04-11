@@ -155,3 +155,24 @@ button:disabled {
   width: 60px;
   margin-bottom: 15px;
 }
+.register-link {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.register-link a {
+  color: #4f46e5;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.success {
+  margin: 10px 0;
+  padding: 10px;
+  background: #ecfdf5;
+  color: #059669;
+  border: 1px solid #34d399;
+  border-radius: 6px;
+  text-align: center;
+}

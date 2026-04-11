@@ -1,0 +1,146 @@
+/* PAGE CENTERING */
+.register-page {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+  font-family: Arial, sans-serif;
+}
+
+/* CARD */
+.register-card {
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  width: 420px;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* HEADER */
+.register-card h2 {
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #666;
+  margin-bottom: 20px;
+}
+
+/* ROWS */
+.form-row {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+/* FORM GROUP */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: #555;
+}
+
+.form-group input {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  transition: 0.2s;
+}
+
+.form-group input:focus {
+  border-color: #4f46e5;
+  outline: none;
+}
+
+/* BUTTON */
+button {
+  width: 100%;
+  padding: 12px;
+
+  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+  color: white;
+
+  border: none;
+  border-radius: 8px;
+
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+button:disabled {
+  background: #aaa;
+  cursor: not-allowed;
+}
+
+/* ERROR */
+.error {
+  margin-top: 10px;
+  color: red;
+  text-align: center;
+  font-size: 13px;
+}
+
+/* LINK */
+.register-link {
+  margin-top: 15px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.register-link a {
+  color: #4f46e5;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* INPUT STATES */
+input.ng-touched.ng-invalid {
+  border-color: #e11d48;
+  background: #fff1f2;
+}
+
+input.ng-touched.ng-valid {
+  border-color: #22c55e;
+  background: #f0fdf4;
+}
+
+.captcha-container {
+  margin: 15px 0;
+  display: flex;
+  justify-content: left;
+}
+
+/* ERROR TEXT */
+small {
+  color: #e11d48;
+  font-size: 11px;
+  margin-top: 3px;
+}
+
+@media (max-width: 600px) {
+  .register-card {
+    width: 90%;
+    padding: 20px;
+  }
+
+  .form-row {
+    flex-direction: column;
+  }
+}

@@ -54,11 +54,14 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import {MatFormField, MatInput} from "@angular/material/input";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {CdkDrag, CdkDragHandle} from "@angular/cdk/drag-drop";
-import {DialogShellComponent} from "./shared/dialog-shell/dialog-shell.component";
+import {DialogShellComponent} from "./core/interface/dialog-shell/dialog-shell.component";
 import {QrcodeReaderComponent} from "./features/qrcode-reader/qrcode-reader.component";
 import {NgxEchartsModule} from "ngx-echarts";
 import {ChartPlaygroundComponent} from "./features/chart-playground/chart-playground.component";
 import {RecaptchaFormsModule, RecaptchaModule} from "ng-recaptcha";
+import {RegistrationComponent} from "./core/authentication/registration/registration.component";
+import {ToastComponent} from "./core/interface/toast/toast.component";
+import {ForbiddenComponent} from "./core/interface/forbidden/forbidden.component";
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -87,7 +90,10 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     QrcodeReaderComponent,
     CalculatorComponent,
     DialogShellComponent,
-    ChartPlaygroundComponent
+    ChartPlaygroundComponent,
+    RegistrationComponent,
+    ToastComponent,
+    ForbiddenComponent
   ],
   imports: [
     BrowserModule,

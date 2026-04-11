@@ -1,11 +1,11 @@
-import {Component, Type} from '@angular/core';
+import {Component} from '@angular/core';
 import { AuthService } from '../../../shared/util/authentication/auth.service';
 import {CalculatorComponent} from "../../../shared/calculator/calculator.component";
 import {ProfileComponent} from "../../../shared/profile/profile.component";
 import {SettingsComponent} from "../../../shared/settings/settings.component";
 import {NotificationComponent} from "../../../shared/notification/notification.component";
 import {ComponentType} from "@angular/cdk/portal";
-import {DialogService} from "../../../shared/dialog.service";
+import {DialogService} from "../../../services/dialog/dialog.service";
 
 @Component({
   selector: 'app-topbar',

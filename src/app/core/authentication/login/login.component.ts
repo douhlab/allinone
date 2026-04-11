@@ -1,13 +1,13 @@
-import {Component, ViewChild} from '@angular/core';
-import { ApiService } from '../../../services/api.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { Router } from '@angular/router';
+import {AuthService} from "../../../shared/util/authentication/auth.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   @ViewChild('captchaRef') captcha!: any;
 
@@ -18,11 +18,29 @@ export class LoginComponent {
   captchaToken: string | null = null;
 
   isLoading = false;
+  successMessage = '';
 
   constructor(
-    private apiService: ApiService,
+    private authService: AuthService,
     private router: Router
   ) {}
+
+  ngOnInit() {
+    if (history.state?.registered) {
+      this.successMessage = 'Registration successful! Please log in.';
+    }
+    if (history.state?.sessionTimeout) {
+      this.successMessage = 'Session timeout! Please log in.';
+    }
+    if (history.state?.loggedOut) {
+      this.successMessage = 'Logged out successfully';
+    }
+    window.history.replaceState({}, document.title);
+
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/welcome']);
+    }
+  }
 
   onCaptchaResolved(token: string | null) {
     if(!token) {
@@ -44,10 +62,10 @@ export class LoginComponent {
 
     if (!this.captchaToken) return;
 
-    this.apiService.login(this.username, this.password, this.captchaToken).subscribe({
+    this.authService.login(this.username, this.password, this.captchaToken).subscribe({
       next: (response: any) => {
         // store token in localStorage
-        localStorage.setItem('jwt', response.token);
+        this.authService.setToken(response.token);
         this.router.navigate(['/welcome']); // redirect to welcome page
       },
       error: (err) => {

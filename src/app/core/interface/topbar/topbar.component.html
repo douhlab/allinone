@@ -8,7 +8,7 @@
         </a>
       </li>
       <li>
-        <a *ngIf="auth.isAuthenticated()" (click)="logout()" >Logout</a>
+        <a *ngIf="auth.isLoggedIn()" (click)="logout()" >Logout</a>
       </li>
     </ul>
   </nav>

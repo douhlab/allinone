@@ -17,6 +17,8 @@ import {BarcodeComponent} from "./features/barcode/barcode.component";
 import {CalculatorComponent} from "./shared/calculator/calculator.component";
 import {QrcodeReaderComponent} from "./features/qrcode-reader/qrcode-reader.component";
 import {ChartPlaygroundComponent} from "./features/chart-playground/chart-playground.component";
+import {RegistrationComponent} from "./core/authentication/registration/registration.component";
+import {ForbiddenComponent} from "./core/interface/forbidden/forbidden.component";
 
 const routes: Routes = [
   {
@@ -41,7 +43,12 @@ const routes: Routes = [
     ]
   },
 
-  { path: '', component: AuthLayoutComponent, children: [{ path: 'login', component: LoginComponent }] }
+  { path: '', component: AuthLayoutComponent, children: [
+      {path: 'login', component: LoginComponent },
+      {path: 'register', component: RegistrationComponent },
+      {path: 'forbidden', component: ForbiddenComponent }
+    ]
+  }
 ];
 
 @NgModule({

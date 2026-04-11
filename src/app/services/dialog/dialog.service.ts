@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { DialogShellComponent } from './dialog-shell/dialog-shell.component';
+import { DialogShellComponent } from '../../core/interface/dialog-shell/dialog-shell.component';
 
 @Injectable({ providedIn: 'root' })
 export class DialogService {

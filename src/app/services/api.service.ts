@@ -10,13 +10,14 @@ export class ApiService {
 
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string, captchaToken: string) {
-    const url = `${this.apiUrl}/simple-spa/login`;
-    return this.http.post(url, { username, password, captchaToken });
+  register(registrationRequest: RegistrationRequest) {
+    const url = `${this.apiUrl}/simple-spa/register`;
+    return this.http.post(url, registrationRequest);
   }
 
   getUsers(): Observable<User[]> {
     const url = `${this.apiUrl}/simple-spa/v1/api/users/all`;
     return this.http.get<User[]>(url);
   }
+
 }
