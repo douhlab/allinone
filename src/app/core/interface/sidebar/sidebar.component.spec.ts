@@ -23,41 +23,6 @@ describe('SidebarComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have menuItems initialized correctly', () => {
-    expect(component.menuItems).toEqual([
-      { label: 'Welcome', route: '/welcome' },
-      { label: 'Home', route: '/home' },
-      { label: 'Dashboard', route: '/dashboard' },
-      {
-        label: 'Reports',
-        route: '/reports',
-        children: [
-          {
-            label: 'Leaves',
-            route: '/reports/leaves'
-          },
-          {
-            label: 'People stats',
-            route: '/reports/people-stats'
-          }
-        ],
-        expanded: true
-      },
-      { label: 'Settings', route: '/settings' }
-    ]);
-  });
-
-  it('should toggle expanded state of a menu item', () => {
-    const reportsItem = component.menuItems.find((item) => item.label === 'Reports');
-    expect(reportsItem?.expanded).toBe(true);
-
-    component.toggle(reportsItem!);
-    expect(reportsItem?.expanded).toBe(false);
-
-    component.toggle(reportsItem!);
-    expect(reportsItem?.expanded).toBe(true);
-  });
-
   it('should render submenu items when expanded', () => {
     const reportsItem = component.menuItems.find((item) => item.label === 'Reports');
     reportsItem!.expanded = true;

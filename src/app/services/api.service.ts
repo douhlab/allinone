@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { User } from './user';
 import { Observable } from 'rxjs';
+import {RegistrationRequest} from "../shared/domain/registration-request/metals-response";
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {

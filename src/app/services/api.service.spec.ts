@@ -1,40 +1,64 @@
 import { ApiService } from './api.service';
 import { environment } from '../../environments/environment';
-import { User } from './user';
+import {TestBed} from "@angular/core/testing";
+import {HttpClientTestingModule, HttpTestingController} from "@angular/common/http/testing";
 
 describe('ApiService', () => {
   let service: ApiService;
+  let httpMock: HttpTestingController;
+
+  const baseUrl = environment.apiUrl;
 
   beforeEach(() => {
-    service = new ApiService({} as any); // HttpClient not used
-    global.fetch = jest.fn();
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+      providers: [ApiService]
+    });
+
+    service = TestBed.inject(ApiService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
-    jest.resetAllMocks();
+    httpMock.verify();
   });
 
-  it('should fetch users successfully', async () => {
-    const mockUsers: User[] = [{ id: 1, description: 'Test', creationDate: '2024-01-01', createdBy: 'admin' }] as any;
+  it('should call register API', () => {
+    const request = {
+      username: 'user1',
+      email: 'test@mail.com',
+      password: '123'
+    } as any;
 
-    (global.fetch as jest.Mock).mockResolvedValue({
-      ok: true,
-      json: async () => mockUsers
-    });
+    service.register(request).subscribe();
 
-    const result = await service.getUsers();
+    const req = httpMock.expectOne(
+      `${baseUrl}/simple-spa/register`
+    );
 
-    expect(fetch).toHaveBeenCalledWith(`${environment.apiUrl}/simple-spa/v1/api/users/all`);
-    expect(result).toEqual(mockUsers);
+    expect(req.request.method).toBe('POST');
+    expect(req.request.body).toEqual(request);
+
+    req.flush({});
   });
 
-  it('should throw error when response is not ok', async () => {
-    (global.fetch as jest.Mock).mockResolvedValue({
-      ok: false,
-      status: 500,
-      statusText: 'Internal Server Error'
+  it('should fetch users list', () => {
+    const mockUsers = [
+      { id: 1, description: 'u1' },
+      { id: 2, description: 'u2' }
+    ] as any;
+
+    service.getUsers().subscribe(users => {
+      expect(users.length).toBe(2);
+      expect(users[0].description).toBe('u1');
     });
 
-    await expect(service.getUsers()).rejects.toThrow('API error 500: Internal Server Error');
+    const req = httpMock.expectOne(
+      `${baseUrl}/simple-spa/v1/api/users/all`
+    );
+
+    expect(req.request.method).toBe('GET');
+
+    req.flush(mockUsers);
   });
 });

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FileService } from '../../services/file.service';
 import { ViewChild, ElementRef } from '@angular/core';
+import {UploadedFile} from "../../shared/domain/uploads/uploaded-file";
 
 @Component({
   selector: 'app-upload-azure',

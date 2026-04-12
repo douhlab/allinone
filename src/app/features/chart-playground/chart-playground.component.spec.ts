@@ -8,7 +8,7 @@ describe('ChartPlaygroundComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ChartPlaygroundComponent]
+      declarations: [ChartPlaygroundComponent]
     })
     .compileComponents();
 

@@ -58,9 +58,9 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.isLoading = true;
-
     if (!this.captchaToken) return;
+
+    this.isLoading = true;
 
     this.authService.login(this.username, this.password, this.captchaToken).subscribe({
       next: (response: any) => {

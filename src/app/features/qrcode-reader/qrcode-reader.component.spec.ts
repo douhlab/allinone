@@ -8,10 +8,10 @@ describe('QrcodeReaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [QrcodeReaderComponent]
+      declarations: [QrcodeReaderComponent]
     })
     .compileComponents();
-    
+
     fixture = TestBed.createComponent(QrcodeReaderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

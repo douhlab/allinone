@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { FileService } from '../../services/file.service';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {FileService} from '../../services/file.service';
+import {UploadedFile} from "../../shared/domain/uploads/uploaded-file";
 
 @Component({
   selector: 'app-upload-local',
@@ -18,7 +19,8 @@ export class UploadLocalComponent implements OnInit {
 
   maxSize = 10 * 1024 * 1024; // 10MB
 
-  constructor(private fileService: FileService) {}
+  constructor(private fileService: FileService) {
+  }
 
   ngOnInit() {
     this.loadFiles();
@@ -42,9 +44,11 @@ export class UploadLocalComponent implements OnInit {
     event.preventDefault();
     event.stopPropagation();
   }
+
   onDragEnter(event: DragEvent) {
     event.preventDefault(); // optional but safer
   }
+
   onDrop(event: DragEvent) {
     event.preventDefault();
     event.stopPropagation();

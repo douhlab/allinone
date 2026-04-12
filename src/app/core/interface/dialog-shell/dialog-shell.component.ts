@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {CdkDrag, CdkDragEnd} from '@angular/cdk/drag-drop';
-import {OverlayRef} from '@angular/cdk/overlay';
 
 @Component({
   selector: 'app-dialog-shell',
