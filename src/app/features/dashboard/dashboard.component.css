@@ -1,0 +1,68 @@
+.dashboard {
+  width: 100%;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+/* ================= HEADINGS ================= */
+h3 {
+  margin: 16px 0;
+  font-size: 18px;
+}
+
+/* ================= TABLE CONTAINER ================= */
+.table-container {
+  margin-bottom: 24px;
+}
+
+/* ================= SCROLL WRAPPER (KEY FIX) ================= */
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ================= TABLE BASE ================= */
+.mat-table,
+.inner-table {
+  width: 100%;
+  min-width: 700px; /* prevents squishing */
+}
+
+/* ================= INNER TABLE ================= */
+.inner-table {
+  min-width: 500px;
+}
+
+/* ================= FOOTER ================= */
+.footer-total {
+  font-weight: bold;
+  color: red;
+}
+
+/* ================= NESTED CELL ================= */
+.nested-cell {
+  padding: 0 !important;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+
+  .dashboard {
+    padding: 8px;
+  }
+
+  h3 {
+    font-size: 16px;
+  }
+
+  th, td {
+    padding: 6px !important;
+    font-size: 12px;
+  }
+
+  .mat-table,
+  .inner-table {
+    min-width: 600px;
+  }
+}

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 interface MenuItem {
   label: string;
@@ -13,40 +13,37 @@ interface MenuItem {
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  @Input() isOpen = false;
+  @Output() close = new EventEmitter();
+
   menuItems: MenuItem[] = [
     { label: 'Welcome', route: '/welcome' },
     { label: 'Home', route: '/home' },
-    { label: 'Charts', route: '/charts' },
     { label: 'Dashboard', route: '/dashboard' },
+    { label: 'Charts', route: '/charts' },
+
     {
       label: 'Reports',
-      route: '/reports',
       children: [
         { label: 'Leaves', route: '/reports/leaves' },
         { label: 'People stats', route: '/reports/people-stats' }
-      ],
-      expanded: false
+      ]
     },
+
     {
       label: 'Uploads',
-      route: '/uploads',
       children: [
-        { label: 'Upload to Azure', route: '/uploads/azure' },
-        { label: 'Upload to Local', route: '/uploads/local' }
-      ],
-      expanded: false
-    },
-    {
-      label: 'Barcodes/ QRCodes',
-      route: '',
-      children: [
-        { label: 'Generate', route: '/barcodesqrcodes/generate'},
-        { label: 'QR code reader', route: '/qrcodereader'}
+        { label: 'Azure', route: '/uploads/azure' },
+        { label: 'Local', route: '/uploads/local' }
       ]
     }
   ];
 
   toggle(item: MenuItem) {
     item.expanded = !item.expanded;
+  }
+
+  closeSidebar() {
+    this.close.emit();
   }
 }

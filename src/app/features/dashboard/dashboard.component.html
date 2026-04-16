@@ -1,84 +1,123 @@
-<div>
-  <h3>
-    {{ 'COMMODITIES' | translate }}
-  </h3>
-  <table mat-table [dataSource]="commoditiesDataSource" class="table table-striped">
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef> {{ 'COMMODITY_NAME' | translate }} </th>
-      <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
-      <td mat-footer-cell *matFooterCellDef style="font-weight: bolder; color: red;"> {{ 'TOTAL_IN_USD' | translate }}</td>
-    </ng-container>
-    <ng-container matColumnDef="price">
-      <th mat-header-cell *matHeaderCellDef> {{ 'PRICE' | translate }} </th>
-      <td mat-cell *matCellDef="let element"> {{ element.price }} </td>
-      <td mat-footer-cell *matFooterCellDef style="font-weight: bolder; color: red;"> {{ computeTotalCommoditiesInUsd() | number: '1.2-2' }} </td>
-    </ng-container>
-    <ng-container matColumnDef="unit">
-      <th mat-header-cell *matHeaderCellDef> {{ 'UNIT' | translate }} </th>
-      <td mat-cell *matCellDef="let element"> {{ element.unit }} </td>
-      <td mat-footer-cell *matFooterCellDef> - </td>
-    </ng-container>
-    <ng-container matColumnDef="amount">
-      <th mat-header-cell *matHeaderCellDef> {{ 'AMOUNT' | translate }} </th>
-      <td mat-cell *matCellDef="let element"> {{ element.amount }} </td>
-      <td mat-footer-cell *matFooterCellDef> - </td>
-    </ng-container>
-    <ng-container matColumnDef="amountInUsd">
-      <th mat-header-cell *matHeaderCellDef> {{ 'AMOUNT_IN_USD' | translate }} </th>
-      <td mat-cell *matCellDef="let element"> {{ element.amountInUsd }} </td>
-      <td mat-footer-cell *matFooterCellDef> - </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="commoditiesTableColumns" style="background-color: #7f7f7f"></tr>
-    <tr mat-row *matRowDef="let row; columns: commoditiesTableColumns"></tr>
-    <tr mat-footer-row *matFooterRowDef="commoditiesTableColumns" style="background-color: deepskyblue"></tr>
-  </table>
-</div>
+<div class="dashboard">
 
-<div *ngIf="exchangeRates">
-  <br /><br />
-  <h3>
-    {{ 'LATEST_EXCHANGE_RATES' | translate }}
-  </h3>
-  <table mat-table [dataSource]="latestRatesDataSource" class="table table-striped">
-    <ng-container matColumnDef="base">
-      <th mat-header-cell *matHeaderCellDef> {{ 'BASE' | translate }} </th>
-      <td mat-cell *matCellDef="let element"> {{ element.base }} </td>
-      <td mat-footer-cell *matFooterCellDef style="font-weight: bolder; color: red;"> {{ 'TOTAL_IN_USD' | translate }}</td>
-    </ng-container>
-    <ng-container matColumnDef="date">
-      <th mat-header-cell *matHeaderCellDef> {{ 'DATE' | translate }} </th>
-      <td mat-cell *matCellDef="let element"> {{ element.date }} </td>
-      <td mat-footer-cell *matFooterCellDef style="font-weight: bolder; color: red;"> {{ computeTotalInUsd() | number: '1.2-2'}} </td>
-    </ng-container>
-    <ng-container matColumnDef="details">
-      <th mat-header-cell *matHeaderCellDef> {{ 'DETAILS' | translate }}</th>
-      <td mat-cell *matCellDef="let row" class="p-0">
+  <!-- ================= COMMODITIES ================= -->
+  <div class="table-container">
+    <h3>{{ 'COMMODITIES' | translate }}</h3>
 
-        <table mat-table [dataSource]="latestRatesDetailsDataSource" class="inner-table">
-          <ng-container matColumnDef="currency">
-            <th mat-header-cell *matHeaderCellDef> {{ 'CURRENCY' | translate }} </th>
-            <td mat-cell *matCellDef="let row"> {{ row.currency }} </td>
-          </ng-container>
-          <ng-container matColumnDef="rate">
-            <th mat-header-cell *matHeaderCellDef> {{ 'RATE' | translate }} </th>
-            <td mat-cell *matCellDef="let row"> {{ row.rate }} </td>
-          </ng-container>
-          <ng-container matColumnDef="amount">
-            <th mat-header-cell *matHeaderCellDef> {{ 'AMOUNT' | translate }} </th>
-            <td mat-cell *matCellDef="let row"> {{ row.amount }} </td>
-          </ng-container>
-          <ng-container matColumnDef="amountInUsd">
-            <th mat-header-cell *matHeaderCellDef> {{ 'AMOUNT_IN_USD' | translate }} </th>
-            <td mat-cell *matCellDef="let row"> {{ row.amountInUsd }} </td>
-          </ng-container>
-          <tr mat-header-row *matHeaderRowDef="rateTableColumns"></tr>
-          <tr mat-row *matRowDef="let row; columns: rateTableColumns"></tr>
-        </table>
-      </td>
-      <td mat-footer-cell *matFooterCellDef> - </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="tableColumns" style="background-color: #7f7f7f"></tr>
-    <tr mat-row *matRowDef="let row; columns: tableColumns"></tr>
-    <tr mat-footer-row *matFooterRowDef="tableColumns" style="background-color: deepskyblue"></tr>
-  </table>
+    <div class="table-scroll">
+      <table mat-table [dataSource]="commoditiesDataSource" class="mat-table">
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>{{ 'COMMODITY_NAME' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+          <td mat-footer-cell *matFooterCellDef class="footer-total">
+            {{ 'TOTAL_IN_USD' | translate }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef>{{ 'PRICE' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+          <td mat-footer-cell *matFooterCellDef class="footer-total">
+            {{ computeTotalCommoditiesInUsd() | number:'1.2-2' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="unit">
+          <th mat-header-cell *matHeaderCellDef>{{ 'UNIT' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.unit }}</td>
+          <td mat-footer-cell *matFooterCellDef>-</td>
+        </ng-container>
+
+        <ng-container matColumnDef="amount">
+          <th mat-header-cell *matHeaderCellDef>{{ 'AMOUNT' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.amount }}</td>
+          <td mat-footer-cell *matFooterCellDef>-</td>
+        </ng-container>
+
+        <ng-container matColumnDef="amountInUsd">
+          <th mat-header-cell *matHeaderCellDef>{{ 'AMOUNT_IN_USD' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.amountInUsd }}</td>
+          <td mat-footer-cell *matFooterCellDef>-</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="commoditiesTableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: commoditiesTableColumns"></tr>
+        <tr mat-footer-row *matFooterRowDef="commoditiesTableColumns"></tr>
+
+      </table>
+    </div>
+  </div>
+
+  <!-- ================= EXCHANGE RATES ================= -->
+  <div *ngIf="exchangeRates" class="table-container">
+
+    <h3>{{ 'LATEST_EXCHANGE_RATES' | translate }}</h3>
+
+    <div class="table-scroll">
+      <table mat-table [dataSource]="latestRatesDataSource" class="mat-table">
+
+        <ng-container matColumnDef="base">
+          <th mat-header-cell *matHeaderCellDef>{{ 'BASE' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.base }}</td>
+          <td mat-footer-cell *matFooterCellDef class="footer-total">
+            {{ 'TOTAL_IN_USD' | translate }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>{{ 'DATE' | translate }}</th>
+          <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+          <td mat-footer-cell *matFooterCellDef class="footer-total">
+            {{ computeTotalInUsd() | number:'1.2-2' }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="details">
+          <th mat-header-cell *matHeaderCellDef>{{ 'DETAILS' | translate }}</th>
+
+          <td mat-cell *matCellDef="let row" class="nested-cell">
+
+            <div class="table-scroll inner">
+              <table mat-table [dataSource]="latestRatesDetailsDataSource" class="inner-table">
+
+                <ng-container matColumnDef="currency">
+                  <th mat-header-cell *matHeaderCellDef>{{ 'CURRENCY' | translate }}</th>
+                  <td mat-cell *matCellDef="let row">{{ row.currency }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="rate">
+                  <th mat-header-cell *matHeaderCellDef>{{ 'RATE' | translate }}</th>
+                  <td mat-cell *matCellDef="let row">{{ row.rate }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="amount">
+                  <th mat-header-cell *matHeaderCellDef>{{ 'AMOUNT' | translate }}</th>
+                  <td mat-cell *matCellDef="let row">{{ row.amount }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="amountInUsd">
+                  <th mat-header-cell *matHeaderCellDef>{{ 'AMOUNT_IN_USD' | translate }}</th>
+                  <td mat-cell *matCellDef="let row">{{ row.amountInUsd }}</td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="rateTableColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: rateTableColumns"></tr>
+
+              </table>
+            </div>
+
+          </td>
+
+          <td mat-footer-cell *matFooterCellDef>-</td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns"></tr>
+        <tr mat-footer-row *matFooterRowDef="tableColumns"></tr>
+
+      </table>
+    </div>
+  </div>
+
 </div>

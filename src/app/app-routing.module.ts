@@ -19,6 +19,7 @@ import {QrcodeReaderComponent} from "./features/qrcode-reader/qrcode-reader.comp
 import {ChartPlaygroundComponent} from "./features/chart-playground/chart-playground.component";
 import {RegistrationComponent} from "./core/authentication/registration/registration.component";
 import {ForbiddenComponent} from "./core/interface/forbidden/forbidden.component";
+import {NotificationComponent} from "./shared/notification/notification.component";
 
 const routes: Routes = [
   {
@@ -33,13 +34,14 @@ const routes: Routes = [
       { path: 'charts', component: ChartPlaygroundComponent },
       { path: 'reports/leaves', component: LeavesComponent },
       { path: 'reports/people-stats', component: PeopleStatsComponent },
-      { path: 'settings', component: SettingsComponent },
-      { path: 'profile', component: ProfileComponent },
       { path: 'uploads/azure', component: UploadAzureComponent },
       { path: 'uploads/local', component: UploadLocalComponent },
       { path: 'barcodesqrcodes/generate', component: BarcodeComponent },
       { path: 'qrcodereader', component: QrcodeReaderComponent },
-      { path: 'calculator', component: CalculatorComponent},
+      { path: 'tools/calculator', component: CalculatorComponent},
+      { path: 'tools/notifications', component: NotificationComponent},
+      { path: 'tools/profile', component: ProfileComponent},
+      { path: 'tools/settings', component: SettingsComponent},
     ]
   },
 

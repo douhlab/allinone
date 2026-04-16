@@ -1,6 +1,28 @@
-<app-topbar></app-topbar>
-<app-sidebar></app-sidebar>
+<div class="layout">
 
-<div style="margin-left: 220px; margin-top: 60px;">
-  <router-outlet></router-outlet>
+  <!-- TOPBAR -->
+  <app-topbar (menuClick)="toggleSidebar()"></app-topbar>
+
+  <!-- MOBILE OVERLAY -->
+  <div
+    class="overlay"
+    *ngIf="isSidebarOpen"
+    (click)="toggleSidebar()">
+  </div>
+
+  <div class="main">
+
+    <!-- SIDEBAR -->
+    <app-sidebar
+      class="sidebar"
+      [isOpen]="isSidebarOpen"
+      (close)="isSidebarOpen = false">
+    </app-sidebar>
+
+    <!-- CONTENT -->
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </div>
 </div>

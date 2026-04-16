@@ -1,15 +1,35 @@
 <header class="topbar">
-  <div class="logo">My simple lab</div>
-  <nav class="topnav">
-    <ul>
-      <li *ngFor="let item of topMenuItems">
-        <a (click)="openDialog(item.componentKey)" routerLinkActive="active">
+
+  <!-- LEFT -->
+  <div class="left">
+    <button class="menu-btn" (click)="toggleSidebar()">☰</button>
+    <div class="logo">My simple lab</div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+
+    <!-- 🔧 TOOLS DROPDOWN -->
+    <div class="tools">
+      <button class="tools-btn" (click)="toggleTools()">
+        Tools ▾
+      </button>
+
+      <div class="dropdown" *ngIf="toolsOpen">
+        <button
+          class="dropdown-item"
+          *ngFor="let item of topMenuItems"
+          (click)="openTool(item.componentKey)">
           {{ item.label }}
-        </a>
-      </li>
-      <li>
-        <a *ngIf="auth.isLoggedIn()" (click)="logout()" >Logout</a>
-      </li>
-    </ul>
-  </nav>
+        </button>
+      </div>
+    </div>
+
+    <!-- LOGOUT -->
+    <button *ngIf="auth.isLoggedIn()" (click)="logout()">
+      Logout
+    </button>
+
+  </div>
+
 </header>
