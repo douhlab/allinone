@@ -1,0 +1,56 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-top: 8px;
+}
+
+/* rows */
+.row {
+  display: flex;
+  gap: 16px;
+}
+
+/* stack vertically */
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* fields */
+mat-form-field {
+  flex: 1;
+  width: 100%;
+}
+
+/* actions */
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* mobile */
+@media (max-width: 768px) {
+  .row {
+    flex-direction: column;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions button {
+    width: 100%;
+  }
+}
+mat-row:hover {
+  background: #f9fafb;
+}
+th.mat-column-actions,
+td.mat-column-actions {
+  text-align: right;
+  width: 80px;
+}
