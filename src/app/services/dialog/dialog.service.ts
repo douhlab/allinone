@@ -13,9 +13,9 @@ export class DialogService {
       hasBackdrop: true,
       autoFocus: false,
       width: 'auto',
-      minWidth: '400px',
-      maxWidth: '1000px',
-      disableClose: true
+      maxWidth: '95vw',
+      disableClose: true,
+      panelClass: 'custom-dialog-container'
     });
   }
 }

@@ -1,23 +1,97 @@
-<p id="welcome">
-    {{
-        'APPLICATION_IS_RUNNING' | translate: { applicationName: title }
-    }}
-</p>
-<div *ngFor="let dep of deps">
-    <h3>
-        <a [title]="dep.name" class="link-primary" [routerLink]="['allinone/welcome/deps/', dep.id]">
-            {{ dep.label }}
-        </a>
-    </h3>
-</div>
+<div class="home">
 
-<p>BACKEND - CALL </p>
-<div *ngFor="let user of users">
-  <table style="border: 1px solid black; border-collapse: collapse;">
-    <tr>
-      <td style="border: dashed">{{ user.id }}</td>
-      <td>{{ user.description }}</td>
-      <td>{{ user.createdBy }}</td>
-    </tr>
-  </table>
+  <div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+      <h2>Welcome back 👋</h2>
+      <p>Your personal lab dashboard</p>
+    </div>
+
+    <!-- GRID LAYOUT -->
+    <div class="grid">
+
+      <!-- LEFT COLUMN -->
+      <div class="left">
+
+        <!-- STATS -->
+        <div class="section">
+          <h3>Overview</h3>
+
+          <div class="stats">
+            <div class="card stat" *ngFor="let stat of stats">
+              <mat-icon>{{ stat.icon }}</mat-icon>
+              <div>
+                <div class="value">{{ stat.value }}</div>
+                <div class="label">{{ stat.label }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RECENT ACTIVITY -->
+        <div class="section">
+          <h3>Recent Activity</h3>
+
+          <div class="activity">
+            <div class="activity-item" *ngFor="let a of recentActivities">
+              <div>{{ a.text }}</div>
+              <span>{{ a.time }}</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN -->
+      <div class="right">
+
+        <!-- QUICK ACTIONS -->
+        <div class="section">
+          <h3>Quick Actions</h3>
+
+          <div class="actions">
+            <button mat-raised-button (click)="openCalculator()">
+              <mat-icon>calculate</mat-icon>
+              Calculator
+            </button>
+
+            <button mat-raised-button (click)="openNotifications()">
+              <mat-icon>notifications</mat-icon>
+              Notifications
+            </button>
+
+            <button mat-raised-button (click)="openProfile()">
+              <mat-icon>person</mat-icon>
+              Profile
+            </button>
+
+            <button mat-raised-button (click)="openSettings()">
+              <mat-icon>settings</mat-icon>
+              Settings
+            </button>
+          </div>
+        </div>
+
+        <!-- FEATURES -->
+        <div class="section">
+          <h3>Navigation</h3>
+
+          <div class="features">
+            <div class="feature-card"
+                 *ngFor="let f of features"
+                 (click)="navigate(f.route)">
+              <mat-icon>{{ f.icon }}</mat-icon>
+              <span>{{ f.label }}</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
 </div>

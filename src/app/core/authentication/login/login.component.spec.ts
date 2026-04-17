@@ -42,12 +42,12 @@ describe('LoginComponent', () => {
   });
 
   // ---------------- FIX #1 ----------------
-  it('should redirect to /welcome if already logged in', () => {
+  it('should redirect to /home if already logged in', () => {
     authService.isLoggedIn.mockReturnValue(true);
 
     component.ngOnInit(); // OK now
 
-    expect(router.navigate).toHaveBeenCalledWith(['/welcome']);
+    expect(router.navigate).toHaveBeenCalledWith(['/home']);
   });
 
   it('should set captcha token', () => {
@@ -72,7 +72,7 @@ describe('LoginComponent', () => {
     );
 
     expect(authService.setToken).toHaveBeenCalledWith('jwt-token');
-    expect(router.navigate).toHaveBeenCalledWith(['/welcome']);
+    expect(router.navigate).toHaveBeenCalledWith(['/home']);
   });
 
 });

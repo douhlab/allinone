@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { User } from './user';
+import { User } from '../shared/domain/authentication/user';
 import { Observable } from 'rxjs';
-import {RegistrationRequest} from "../shared/domain/registration-request/metals-response";
+import {RegistrationRequest} from "../shared/domain/authentication/registration-request";
 
 @Injectable({ providedIn: 'root' })
 export class ApiService {

@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './core/authentication/login/login.component';
 import { HomeComponent } from './features/home/home.component';
-import { WelcomeComponent } from './features/welcome/welcome.component';
 import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { AuthGuard } from 'src/app/shared/util/authentication/auth.guard';
 import { MainLayoutComponent } from './main-layout/main-layout.component';
@@ -29,7 +28,6 @@ const routes: Routes = [
     children: [
       { path: 'home', component: HomeComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full' },
-      { path: 'welcome', component: WelcomeComponent },
       { path: 'dashboard', component: DashboardComponent },
       { path: 'charts', component: ChartPlaygroundComponent },
       { path: 'reports/leaves', component: LeavesComponent },

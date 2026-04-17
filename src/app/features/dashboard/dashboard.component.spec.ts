@@ -17,10 +17,6 @@ describe('DashboardComponent', () => {
     })
   };
 
-  const mockTranslationLoaderService = {
-    loadTranslations: jest.fn()
-  };
-
   const mockAppConfigService = {
     getConfig: jest.fn().mockReturnValue({
       amountsForeignCy: {
@@ -36,7 +32,6 @@ describe('DashboardComponent', () => {
     })
   };
 
-  const mockApiNinjasClient = {};
   const mockMetalsApiClient = {
     getPrice: jest.fn().mockResolvedValue({
       rate: { price: 1900 },
@@ -46,18 +41,10 @@ describe('DashboardComponent', () => {
 
   beforeEach(() => {
     component = new DashboardComponent(
-      mockTranslateService as any,
       mockExchangeRateClient as any,
-      mockTranslationLoaderService as any,
       mockAppConfigService as any,
-      mockApiNinjasClient as any,
       mockMetalsApiClient as any
     );
-  });
-
-  it('should set default language on init', () => {
-    component.ngOnInit();
-    expect(mockTranslateService.use).toHaveBeenCalledWith('en');
   });
 
   it('should compute total in USD correctly', () => {

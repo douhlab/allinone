@@ -50,7 +50,7 @@ describe('ApiService', () => {
 
     service.getUsers().subscribe(users => {
       expect(users.length).toBe(2);
-      expect(users[0].description).toBe('u1');
+      expect(users[0].username).toBe('u1');
     });
 
     const req = httpMock.expectOne(

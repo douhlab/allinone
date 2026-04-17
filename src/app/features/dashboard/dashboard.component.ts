@@ -1,16 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Language } from '../home/home.component';
 import { MatTableDataSource } from '@angular/material/table';
-import { LatestRatesResponse } from '../../shared/domain/home/exchange-rate';
-import { TranslateService } from '@ngx-translate/core';
-import { ExchangeratesapiClient } from '../../shared/domain/home/exchangeratesapi-client';
-import { TranslationLoaderService } from '../../shared/util/translation/app-translation-loader.service';
+import { LatestRatesResponse } from '../../shared/domain/dashboard/exchange-rate';
+import { ExchangeratesapiClient } from '../../shared/domain/dashboard/exchangeratesapi-client';
 import { AppConfigService } from '../../shared/util/config/app-config.service';
-import { ApiNinjasClient } from '../../shared/domain/home/api-ninja-client';
-import { MetalsClient } from '../../shared/domain/home/metals-client';
+import { MetalsClient } from '../../shared/domain/dashboard/metals-client';
 import { AppConfiguration } from '../../shared/util/config/app-configuration.model';
-import { locale as english } from './i18n/en';
-import { locale as french } from './i18n/fr';
 
 @Component({
   selector: 'app-dashboard',
@@ -19,7 +13,6 @@ import { locale as french } from './i18n/fr';
 })
 export class DashboardComponent implements OnInit {
   title = 'allinone';
-  languages: Language[];
 
   latestRatesDataSource: MatTableDataSource<LatestRatesResponse>;
   latestRatesDetailsDataSource: MatTableDataSource<{
@@ -52,35 +45,10 @@ export class DashboardComponent implements OnInit {
   commoditiesTableColumns = ['name', 'price', 'unit', 'amount', 'amountInUsd'];
 
   constructor(
-    private readonly translationService: TranslateService,
     private readonly exchangeRateClient: ExchangeratesapiClient,
-    translationLoaderService: TranslationLoaderService,
     private readonly appConfigService: AppConfigService,
-    private readonly apiNinjasClient: ApiNinjasClient,
     private readonly metalsApiClient: MetalsClient
   ) {
-    this.languages = [
-      {
-        id: 'en',
-        title: 'English',
-        flag: 'us',
-        locale: 'en-US'
-      },
-      {
-        id: 'fr',
-        title: 'Français',
-        flag: 'fr',
-        locale: 'fr-FR'
-      },
-      {
-        id: 'de',
-        title: 'Deutsch',
-        flag: 'de',
-        locale: 'de-DE'
-      }
-    ];
-    translationLoaderService.loadTranslations(english, french);
-
     this.latestRatesDataSource = new MatTableDataSource<LatestRatesResponse>();
     this.latestRatesDetailsDataSource = new MatTableDataSource<{
       currency: string;
@@ -91,22 +59,12 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.setDefaultLanguage();
 
     this.appConfig = this.appConfigService.getConfig();
 
     this.initCommoditiesTable();
 
     this.showExchangeRates();
-  }
-
-  setDefaultLanguage(): void {
-    const languageCode: string = 'en';
-    this.setLanguage(this.languages?.find((l: Language) => l.id === languageCode) ?? this.languages[0]);
-  }
-
-  private setLanguage(lang: Language): void {
-    this.translationService.use(lang.id);
   }
 
   showExchangeRates(): void {

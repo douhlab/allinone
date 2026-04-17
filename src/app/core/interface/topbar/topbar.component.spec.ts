@@ -35,7 +35,7 @@ describe('TopbarComponent', () => {
   // ---------------- openDialog valid ----------------
 
   it('should open calculator dialog', () => {
-    component.openDialog('calculator');
+    component.openTool('calculator');
 
     expect(dialogService.open).toHaveBeenCalledWith(
       CalculatorComponent,
@@ -44,7 +44,7 @@ describe('TopbarComponent', () => {
   });
 
   it('should open profile dialog', () => {
-    component.openDialog('profile');
+    component.openTool('profile');
 
     expect(dialogService.open).toHaveBeenCalledWith(
       ProfileComponent,
@@ -53,7 +53,7 @@ describe('TopbarComponent', () => {
   });
 
   it('should open settings dialog', () => {
-    component.openDialog('settings');
+    component.openTool('settings');
 
     expect(dialogService.open).toHaveBeenCalledWith(
       SettingsComponent,
@@ -62,7 +62,7 @@ describe('TopbarComponent', () => {
   });
 
   it('should open notification dialog', () => {
-    component.openDialog('notification');
+    component.openTool('notification');
 
     expect(dialogService.open).toHaveBeenCalledWith(
       NotificationComponent,
@@ -73,7 +73,7 @@ describe('TopbarComponent', () => {
   // ---------------- invalid key ----------------
 
   it('should throw error when component key is invalid', () => {
-    expect(() => component.openDialog('invalid'))
+    expect(() => component.openTool('invalid'))
       .toThrow('Component not found for key: invalid');
   });
 });

@@ -1,72 +1,65 @@
 import { Component, OnInit } from '@angular/core';
-import { WelcomeService } from '../../shared/domain/welcome/welcome.service';
-import { Department } from '../../shared/domain/welcome/department';
-import { TranslateService } from '@ngx-translate/core';
-import { TranslationLoaderService } from '../../shared/util/translation/app-translation-loader.service';
-import { locale as english } from './i18n/en';
-import { locale as french } from './i18n/fr';
-import { ApiService } from '../../services/api.service';
-import { User } from '../../services/user';
+import {Router} from "@angular/router";
+import {DialogService} from "../../services/dialog/dialog.service";
+import {CalculatorComponent} from "../../shared/calculator/calculator.component";
+import {NotificationComponent} from "../../shared/notification/notification.component";
+import {ProfileComponent} from "../../shared/profile/profile.component";
+import {SettingsComponent} from "../../shared/settings/settings.component";
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: []
+  styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
-  title = 'allinone';
-  deps: Department[];
-  languages: Language[];
-  users: User[] = [];
+
+  stats = [
+    { label: 'Leaves', value: 0, icon: 'event' },
+    { label: 'Files', value: 0, icon: 'folder' },
+    { label: 'Storage', value: '0 MB', icon: 'cloud' },
+    { label: 'Notifications', value: 0, icon: 'notifications' }
+  ];
+
+  features = [
+    { label: 'Dashboard', route: '/dashboard', icon: 'dashboard' },
+    { label: 'Leaves', route: '/leaves', icon: 'event_note' },
+    { label: 'Uploads', route: '/uploads', icon: 'upload' },
+    { label: 'Reports', route: '/reports', icon: 'bar_chart' }
+  ];
+
+  recentActivities = [
+    { text: 'Uploaded file "report.pdf"', time: '2 min ago' },
+    { text: 'Added leave (2 days)', time: '1 hour ago' },
+    { text: 'Generated QR code', time: 'Yesterday' }
+  ];
 
   constructor(
-    private welcomeService: WelcomeService,
-    private translationService: TranslateService,
-    private apiService: ApiService,
-    translationLoaderService: TranslationLoaderService
-  ) {
-    this.languages = [
-      {
-        id: 'en',
-        title: 'English',
-        flag: 'us',
-        locale: 'en-US'
-      },
-      {
-        id: 'fr',
-        title: 'Français',
-        flag: 'fr',
-        locale: 'fr-FR'
-      },
-      {
-        id: 'de',
-        title: 'Deutsch',
-        flag: 'de',
-        locale: 'de-DE'
-      }
-    ];
-    translationLoaderService.loadTranslations(english, french);
-  }
+    private router: Router,
+    private dialogService: DialogService
+  ) {}
 
   ngOnInit(): void {
-    this.deps = this.welcomeService.getAllDeps();
-    this.setDefaultLanguage();
-    this.apiService.getUsers().subscribe((res) => (this.users = res));
+    // TODO: plug real backend later
   }
 
-  setDefaultLanguage(): void {
-    const languageCode: string = 'en';
-    this.setLanguage(this.languages?.filter((l: Language) => l.id === languageCode)[0] ?? 'en');
+  // 🔥 QUICK ACTIONS
+  openCalculator() {
+    this.dialogService.open(CalculatorComponent, 'Calculator');
   }
 
-  private setLanguage(lang: Language): void {
-    this.translationService.use(lang.id);
+  openNotifications() {
+    this.dialogService.open(NotificationComponent, 'Notifications');
   }
-}
 
-export interface Language {
-  flag: string;
-  id: string;
-  locale: string;
-  title: string;
+  openProfile() {
+    this.dialogService.open(ProfileComponent, 'Profile');
+  }
+
+  openSettings() {
+    this.dialogService.open(SettingsComponent, 'Settings');
+  }
+
+  navigate(route: string) {
+    this.router.navigate([route]);
+  }
 }

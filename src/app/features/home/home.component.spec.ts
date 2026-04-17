@@ -1,61 +1,102 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { HomeComponent } from './home.component';
-import { WelcomeService } from '../../shared/domain/welcome/welcome.service';
-import { TranslateService, TranslateModule } from '@ngx-translate/core';
-import { TranslationLoaderService } from '../../shared/util/translation/app-translation-loader.service';
-import { Department } from '../../shared/domain/welcome/department';
-import { ApiService } from '../../services/api.service';
-import { User } from '../../services/user';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { of } from 'rxjs';
+import { Router } from '@angular/router';
+import { DialogService } from '../../services/dialog/dialog.service';
+
+import { CalculatorComponent } from '../../shared/calculator/calculator.component';
+import { NotificationComponent } from '../../shared/notification/notification.component';
+import { ProfileComponent } from '../../shared/profile/profile.component';
+import { SettingsComponent } from '../../shared/settings/settings.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  let welcomeService: WelcomeService;
-  let apiServiceMock: ApiService;
+
+  const routerMock = {
+    navigate: jest.fn()
+  };
+
+  const dialogServiceMock = {
+    open: jest.fn()
+  };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot(), HttpClientTestingModule],
       declarations: [HomeComponent],
-      providers: [WelcomeService, TranslationLoaderService, TranslateService, ApiService]
+      providers: [
+        { provide: Router, useValue: routerMock },
+        { provide: DialogService, useValue: dialogServiceMock }
+      ]
     }).compileComponents();
-  });
 
-  beforeEach(() => {
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
-    welcomeService = TestBed.inject(WelcomeService);
-    apiServiceMock = TestBed.inject(ApiService);
+
     fixture.detectChanges();
   });
 
-  it(`should have as title 'allinone'`, () => {
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('allinone');
+  afterEach(() => {
+    jest.clearAllMocks();
   });
 
-  it('should render welcome message', () => {
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement;
-    expect(compiled.querySelector('p#welcome').textContent).toContain("Application 'allinone' is running");
+  it('should create home component', () => {
+    expect(component).toBeTruthy();
   });
 
-  it('should fetch deps on ngOnInit', () => {
-    const users: User[] = [{ id: 1 }, { id: 2 }];
-    jest.spyOn(apiServiceMock, 'getUsers').mockReturnValue(of(users));
-    const deps: Department[] = [
-      { id: 1, name: 'Dep 1', label: 'Dep 1' },
-      { id: 2, name: 'Dep 2', label: 'Dep 2' }
-    ];
+  it('should have default stats defined', () => {
+    expect(component.stats.length).toBe(4);
+    expect(component.stats[0].label).toBe('Leaves');
+  });
 
-    jest.spyOn(welcomeService, 'getAllDeps').mockReturnValue(deps);
+  it('should have feature list defined', () => {
+    expect(component.features.length).toBe(4);
+    expect(component.features[1].label).toBe('Leaves');
+  });
 
+  it('should navigate to route', () => {
+    component.navigate('/leaves');
+
+    expect(routerMock.navigate).toHaveBeenCalledWith(['/leaves']);
+  });
+
+  it('should open calculator dialog', () => {
+    component.openCalculator();
+
+    expect(dialogServiceMock.open).toHaveBeenCalledWith(
+      CalculatorComponent,
+      'Calculator'
+    );
+  });
+
+  it('should open notifications dialog', () => {
+    component.openNotifications();
+
+    expect(dialogServiceMock.open).toHaveBeenCalledWith(
+      NotificationComponent,
+      'Notifications'
+    );
+  });
+
+  it('should open profile dialog', () => {
+    component.openProfile();
+
+    expect(dialogServiceMock.open).toHaveBeenCalledWith(
+      ProfileComponent,
+      'Profile'
+    );
+  });
+
+  it('should open settings dialog', () => {
+    component.openSettings();
+
+    expect(dialogServiceMock.open).toHaveBeenCalledWith(
+      SettingsComponent,
+      'Settings'
+    );
+  });
+
+  it('should not crash on init', () => {
     component.ngOnInit();
-
-    expect(component.deps).toEqual(deps);
-    expect(welcomeService.getAllDeps).toHaveBeenCalled();
+    expect(component).toBeTruthy();
   });
 });

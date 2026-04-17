@@ -1,7 +1,7 @@
 import {Component, ViewChild} from '@angular/core';
 import {ApiService} from "../../../services/api.service";
 import {Router} from "@angular/router";
-import {RegistrationRequest} from "../../../shared/domain/registration-request/metals-response";
+import {RegistrationRequest} from "../../../shared/domain/authentication/registration-request";
 
 @Component({
   selector: 'app-registration',

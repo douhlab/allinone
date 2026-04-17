@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     window.history.replaceState({}, document.title);
 
     if (this.authService.isLoggedIn()) {
-      this.router.navigate(['/welcome']);
+      this.router.navigate(['/home']);
     }
   }
 
@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
       next: (response: any) => {
         // store token in localStorage
         this.authService.setToken(response.token);
-        this.router.navigate(['/welcome']); // redirect to welcome page
+        this.router.navigate(['/home']); // redirect to home page
       },
       error: (err) => {
         this.errorMessage = 'Invalid credentials';

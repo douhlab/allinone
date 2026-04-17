@@ -1,4 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {BarcodeComponent} from "../../../features/barcode/barcode.component";
+import {QrcodeReaderComponent} from "../../../features/qrcode-reader/qrcode-reader.component";
 
 interface MenuItem {
   label: string;
@@ -17,7 +19,6 @@ export class SidebarComponent {
   @Output() close = new EventEmitter();
 
   menuItems: MenuItem[] = [
-    { label: 'Welcome', route: '/welcome' },
     { label: 'Home', route: '/home' },
     { label: 'Dashboard', route: '/dashboard' },
     { label: 'Charts', route: '/charts' },
@@ -35,6 +36,14 @@ export class SidebarComponent {
       children: [
         { label: 'Azure', route: '/uploads/azure' },
         { label: 'Local', route: '/uploads/local' }
+      ]
+    },
+
+    {
+      label: 'Barcode/QRCode',
+      children: [
+        { label: 'Barcode', route: '/barcodesqrcodes/generate' },
+        { label: 'Qrcode', route: '/qrcodereader' }
       ]
     }
   ];

@@ -25,6 +25,9 @@
       </div>
     </div>
 
+    <span class="user" *ngIf="auth.user$ | async as user">
+      {{ user.username }}
+    </span>
     <!-- LOGOUT -->
     <button *ngIf="auth.isLoggedIn()" (click)="logout()">
       Logout
