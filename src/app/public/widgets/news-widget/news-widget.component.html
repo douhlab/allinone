@@ -1,0 +1,39 @@
+<div class="news-widget">
+
+  <div *ngIf="loading">
+    Loading...
+  </div>
+
+  <div class="tabs">
+    <button
+      (click)="loadNews(c)"
+      *ngFor="let c of categories"
+      [class.active]="c === selectedCategory">
+
+      {{ c | titlecase }}
+    </button>
+  </div>
+
+  <div *ngIf="!loading" class="list">
+    <div *ngFor="let a of articles"
+         class="card">
+
+      <div class="headline">
+        {{ a.title }}
+      </div>
+
+      <div class="meta">
+        {{ a.source.name }} ·
+        {{ a.publishedAt | date:'shortTime' }}
+      </div>
+      <a
+        [href]="a.url"
+        class="read-more"
+        rel="noopener"
+        target="_blank">
+
+        Read more →
+      </a>
+    </div>
+  </div>
+</div>

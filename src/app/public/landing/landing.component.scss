@@ -1,0 +1,111 @@
+.container {
+  padding: 24px;
+  max-width: 1200px;
+  margin: auto;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+/* HEADER */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.login-btn {
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: #f3f4f6;
+  transition: 0.2s;
+}
+
+.login-btn:hover {
+  background: #e5e7eb;
+}
+
+/* HERO */
+
+.hero {
+  text-align: center;
+  margin: 60px 0;
+}
+
+.hero h2 {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.hero p {
+  color: #6b7280;
+  font-size: 16px;
+}
+
+.cta {
+  margin-top: 20px;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 10px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.cta:hover {
+  background: #1d4ed8;
+}
+
+/* GRID */
+
+.grid {
+  display: grid;
+  gap: 20px;
+}
+
+/* CARD STYLE (IMPORTANT) */
+
+.card {
+  background: white;
+  border-radius: 16px;
+  padding: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  transition: 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* RESPONSIVE */
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero h2 {
+    font-size: 24px;
+  }
+}

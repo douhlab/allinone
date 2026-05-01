@@ -1,0 +1,46 @@
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <h1>My Lab</h1>
+    <a class="login-btn" routerLink="/auth/login">Login</a>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h2>Your system. Your memory. Your lab.</h2>
+    <p>Track projects, expenses and experiments in one place.</p>
+
+    <button class="cta" routerLink="/auth/login">
+      Enter your Lab
+    </button>
+  </section>
+
+  <!-- WIDGETS -->
+  <!-- WIDGETS -->
+  <section class="grid">
+    <div class="card">
+      <app-weather-widget></app-weather-widget>
+    </div>
+
+    <div class="card">
+      <app-market-widget></app-market-widget>
+    </div>
+
+    <div class="card">
+      <app-news-widget></app-news-widget>
+    </div>
+  </section>
+
+  <!--  <div class="card">-->
+  <!--    <app-weather-widget></app-weather-widget>-->
+  <!--  </div>-->
+
+  <!--  <div class="card">-->
+  <!--    <app-weather-widget-v2></app-weather-widget-v2>-->
+  <!--  </div>-->
+
+  <div class="card">
+    <app-weather-widget-v3></app-weather-widget-v3>
+  </div>
+</div>

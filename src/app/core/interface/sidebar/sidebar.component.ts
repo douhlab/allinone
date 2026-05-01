@@ -1,6 +1,4 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {BarcodeComponent} from "../../../features/barcode/barcode.component";
-import {QrcodeReaderComponent} from "../../../features/qrcode-reader/qrcode-reader.component";
 
 interface MenuItem {
   label: string;
@@ -19,31 +17,31 @@ export class SidebarComponent {
   @Output() close = new EventEmitter();
 
   menuItems: MenuItem[] = [
-    { label: 'Home', route: '/home' },
-    { label: 'Dashboard', route: '/dashboard' },
-    { label: 'Charts', route: '/charts' },
+    { label: 'Home', route: '/app/home' },
+    { label: 'Dashboard', route: '/app/dashboard' },
+    { label: 'Charts', route: '/app/charts' },
 
     {
       label: 'Reports',
       children: [
-        { label: 'Leaves', route: '/reports/leaves' },
-        { label: 'People stats', route: '/reports/people-stats' }
+        { label: 'Leaves', route: '/app/reports/leaves' },
+        { label: 'People stats', route: '/app/reports/people-stats' }
       ]
     },
 
     {
       label: 'Uploads',
       children: [
-        { label: 'Azure', route: '/uploads/azure' },
-        { label: 'Local', route: '/uploads/local' }
+        { label: 'Azure', route: '/app/uploads/azure' },
+        { label: 'Local', route: '/app/uploads/local' }
       ]
     },
 
     {
       label: 'Barcode/QRCode',
       children: [
-        { label: 'Barcode', route: '/barcodesqrcodes/generate' },
-        { label: 'Qrcode', route: '/qrcodereader' }
+        { label: 'Barcode', route: '/app/barcodesqrcodes/generate' },
+        { label: 'Qrcode', route: '/app/qrcodereader' }
       ]
     }
   ];

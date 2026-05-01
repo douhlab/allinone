@@ -27,7 +27,7 @@ export class JwtInterceptor implements HttpInterceptor {
         if (error.status === 401) {
           this.authService.logout();
           this.toastService.show('Session expired. Please login again.', 'error');
-          this.router.navigate(['/login'], {
+          this.router.navigate(['/auth/login'], {
             state: { sessionTimeout: true }
           });
         }

@@ -1,0 +1,32 @@
+<div class="market-widget">
+
+  <div class="title">
+    📈 Market
+  </div>
+
+  <div *ngIf="loading">
+    Loading...
+  </div>
+
+  <div *ngIf="!loading" class="list">
+    <div *ngFor="let item of items" class="row">
+      <div class="symbol">
+        {{ item.symbol }}
+      </div>
+
+      <div class="price">
+        {{ item.price | number:'1.2-2' }}
+      </div>
+
+      <div class="cap">
+        {{ this.formatCap(item.marketCap) }} M
+      </div>
+
+      <div [class.down]="item.change < 0"
+           [class.up]="item.change >= 0"
+           class="change">
+        {{ item.changePercent | number:'1.2-2' }}%
+      </div>
+    </div>
+  </div>
+</div>

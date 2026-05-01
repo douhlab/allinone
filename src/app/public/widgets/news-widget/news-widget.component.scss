@@ -1,0 +1,43 @@
+.tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.tabs button {
+  border: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: #f3f4f6;
+  font-size: 12px;
+}
+
+.tabs button.active {
+  background: #111827;
+  color: white;
+}
+
+.card {
+  padding: 10px;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.headline {
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.meta {
+  font-size: 11px;
+  opacity: 0.6;
+  margin-bottom: 6px;
+}
+
+.read-more {
+  font-size: 11px;
+  color: #2563eb;
+  text-decoration: none;
+}

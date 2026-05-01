@@ -1,0 +1,55 @@
+<div *ngIf="!loading" class="widget">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div>
+      <div class="city">
+        ☀ {{ city }}
+      </div>
+
+      <div class="description">
+        {{ currentDescription }}
+      </div>
+    </div>
+    <div class="temp">
+      {{ currentTemp }}°
+    </div>
+  </div>
+
+  <!-- CHART -->
+  <div [options]="chartOptions" class="chart"
+    echarts>
+  </div>
+
+  <!-- DAY SELECTOR -->
+  <div class="days">
+    <button (click)="selectDay(i)"
+      *ngFor="let day of days; let i = index"
+      [class.active]="selectedIndex === i">
+      {{ day.label }}
+    </button>
+  </div>
+
+  <!-- DETAIL -->
+  <div class="detail">
+    <div>
+      {{ selectedDay.description }}
+    </div>
+
+    <div>
+      High:
+      {{ selectedDay.max }}°
+
+      Low:
+      {{ selectedDay.min }}°
+    </div>
+    <div>
+      🌧
+      {{ selectedDay.rain }}%
+
+      💨
+      {{ selectedDay.wind }}
+      km/h
+    </div>
+  </div>
+</div>

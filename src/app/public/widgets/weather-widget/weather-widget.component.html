@@ -1,0 +1,18 @@
+<div class="widget">
+
+  <div class="title">
+    ☀ 10-Day Forecast
+  </div>
+
+  <div *ngIf="loading">
+    Loading...
+  </div>
+
+  <div
+    *ngIf="!loading"
+    echarts
+    [options]="chartOptions"
+    class="chart">
+  </div>
+
+</div>

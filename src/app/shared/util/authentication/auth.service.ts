@@ -37,7 +37,7 @@ export class AuthService {
     this.userSubject.next(null);
 
     // 4. Redirect to login page
-    this.router.navigate(['/login'], {
+    this.router.navigate(['/auth/login'], {
       state: { loggedOut: true }
     });
   }

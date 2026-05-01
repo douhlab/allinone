@@ -1,0 +1,120 @@
+<div
+  *ngIf="!loading"
+  class="widget">
+
+  <!-- HEADER -->
+
+  <div class="header">
+
+    <div>
+
+      <div class="city">
+
+        {{ city }}
+      </div>
+
+      <div class="condition">
+
+        {{ currentDescription }}
+      </div>
+
+    </div>
+
+
+    <div class="current-temp">
+
+      {{ currentTemp }}°
+    </div>
+
+  </div>
+
+
+  <!-- CHART -->
+
+  <div
+    [options]="chartOptions"
+    class="chart"
+    echarts>
+  </div>
+
+
+  <!-- TIMELINE -->
+
+  <div class="timeline">
+
+    <div
+
+      (click)="
+        selectDay(i)
+      "
+
+      *ngFor="
+        let day of days;
+        let i = index
+      "
+
+      [class.active]="
+        i === selectedIndex
+      "
+
+      class="chip">
+
+      <div>
+        {{ day.icon }}
+      </div>
+
+      <div>
+        {{ day.label }}
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- DETAILS -->
+
+  <div class="details">
+
+    <div class="big-icon">
+
+      {{ selectedDay.icon }}
+    </div>
+
+
+    <div class="day-title">
+
+      {{ selectedDay.label }}
+    </div>
+
+
+    <div>
+
+      {{ selectedDay.description }}
+    </div>
+
+
+    <div>
+
+      {{ selectedDay.max }}°
+      /
+      {{ selectedDay.min }}°
+    </div>
+
+
+    <div>
+
+      🌧
+      {{ selectedDay.rain }}%
+
+      •
+
+      💨
+      {{ selectedDay.wind }}
+      km/h
+
+    </div>
+
+  </div>
+
+</div>

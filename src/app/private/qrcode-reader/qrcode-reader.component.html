@@ -1,0 +1,38 @@
+
+<section>
+  <h1>READ QR code content</h1>
+  <h4>
+    Select a file
+    <input type="file" (change)="onFileSelected($event)" />
+  </h4>
+  <div *ngIf="selectedImage" class="image-container">
+    <img
+      [src]="selectedImage"
+      [style.transform]="'scale(' + zoom + ')'"
+      style="transform-origin: center center;"
+     alt=""/>
+  </div>
+  <div *ngIf="selectedImage">
+    <input type="range" min="1" max="5" step="0.1" [(ngModel)]="zoom" />
+  </div>
+
+  <div
+    class="image-container-pane"
+    (wheel)="onZoom($event)"
+    (mousedown)="startDrag($event)"
+    (mousemove)="onDrag($event)"
+    (mouseup)="stopDrag()"
+    (mouseleave)="stopDrag()"
+  >
+    <img
+      [src]="selectedImage"
+      [style.transform]="'scale(' + paneZoom + ') translate(' + offsetX + 'px,' + offsetY + 'px)'"
+     alt=""/>
+  </div>
+
+
+  <div class="qrcodereader-title" *ngIf="qrCodeContent">
+    QR content:
+    <span class="qrcodereader-value">{{qrCodeContent}}</span>
+  </div>
+</section>
