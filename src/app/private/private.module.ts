@@ -2,15 +2,15 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {PrivateRoutingModule} from './private-routing.module';
-import {HomeComponent} from "./home/home.component";
-import {BarcodeComponent} from "./barcode/barcode.component";
-import {DashboardComponent} from "./dashboard/dashboard.component";
-import {ChartPlaygroundComponent} from "./chart-playground/chart-playground.component";
-import {LeavesComponent} from "./leaves/leaves.component";
-import {PeopleStatsComponent} from "./people-stats/people-stats.component";
-import {QrcodeReaderComponent} from "./qrcode-reader/qrcode-reader.component";
-import {UploadLocalComponent} from "./upload-local/upload-local.component";
-import {UploadAzureComponent} from "./upload-azure/upload-azure.component";
+import {HomeComponent} from "./components/home/home.component";
+import {BarcodeComponent} from "./components/barcode/barcode.component";
+import {DashboardComponent} from "./components/dashboard/dashboard.component";
+import {ChartPlaygroundComponent} from "./components/chart-playground/chart-playground.component";
+import {LeavesComponent} from "./components/leaves/leaves.component";
+import {PeopleStatsComponent} from "./components/people-stats/people-stats.component";
+import {QrcodeReaderComponent} from "./components/qrcode-reader/qrcode-reader.component";
+import {UploadLocalComponent} from "./components/upload-local/upload-local.component";
+import {UploadAzureComponent} from "./components/upload-azure/upload-azure.component";
 import {MatIcon} from "@angular/material/icon";
 import {
   MatCell,
@@ -24,7 +24,7 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgxEchartsDirective, NgxEchartsModule} from "ngx-echarts";
 import {TranslateModule} from "@ngx-translate/core";
-import {LeaveDialogComponent} from "./leaves/leave-dialog/leave-dialog.component";
+import {LeaveDialogComponent} from "./components/leaves/leave-dialog/leave-dialog.component";
 import {
   MatDatepicker,
   MatDatepickerInput,
@@ -38,7 +38,12 @@ import {CdkDrag, CdkDragHandle} from "@angular/cdk/drag-drop";
 import {MatNativeDateModule} from "@angular/material/core";
 import {CoreModule} from "../core/core.module";
 import {QRCodeModule} from "angularx-qrcode";
-import {MainLayoutComponent} from "./main-layout/main-layout.component";
+import {MainLayoutComponent} from "./components/main-layout/main-layout.component";
+import {TopbarComponent} from "./components/topbar/topbar.component";
+import {SidebarComponent} from "./components/sidebar/sidebar.component";
+import {ProfileComponent} from "./components/profile/profile.component";
+import {SettingsComponent} from "./components/settings/settings.component";
+import {CalculatorComponent} from "./components/calculator/calculator.component";
 
 @NgModule({
   declarations: [
@@ -52,7 +57,12 @@ import {MainLayoutComponent} from "./main-layout/main-layout.component";
     UploadAzureComponent,
     UploadLocalComponent,
     LeaveDialogComponent,
-    MainLayoutComponent
+    MainLayoutComponent,
+    TopbarComponent,
+    SidebarComponent,
+    ProfileComponent,
+    SettingsComponent,
+    CalculatorComponent
   ],
   imports: [
     CommonModule,

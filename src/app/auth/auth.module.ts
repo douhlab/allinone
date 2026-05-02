@@ -1,11 +1,11 @@
 // private.module.ts
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {LoginComponent} from "./login/login.component";
-import {RegistrationComponent} from "./registration/registration.component";
+import {LoginComponent} from "./components/login/login.component";
+import {RegistrationComponent} from "./components/registration/registration.component";
 import {RecaptchaModule} from "ng-recaptcha";
 import {FormsModule} from "@angular/forms";
-import {AuthLayoutComponent} from "./auth-layout/auth-layout.component";
+import {AuthLayoutComponent} from "./components/auth-layout/auth-layout.component";
 import {RouterModule} from "@angular/router";
 import {AuthRoutingModule} from "./auth-routing.module";
 

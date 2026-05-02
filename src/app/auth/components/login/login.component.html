@@ -1,0 +1,74 @@
+<div class="login-layout">
+
+  <!-- LEFT PANEL -->
+  <div class="left-panel">
+    <div class="branding">
+      <img alt="MyLab logo" class="logo" src="/assets/icons/rocket.png"/>
+      <h1>MyLab</h1>
+      <p>Manage your tools, dashboards and analytics in one place.</p>
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right-panel">
+
+    <form #loginForm="ngForm" (ngSubmit)="login()" class="login-card">
+      <div *ngIf="successMessage" class="success">
+        {{ successMessage }}
+      </div>
+
+      <h2>Welcome back</h2>
+      <p class="subtitle">Please login to continue</p>
+
+      <div class="form-group">
+        <label>Username</label>
+        <input
+          [(ngModel)]="username"
+          name="username"
+          placeholder="Enter your username"
+          required
+          type="text"
+        />
+      </div>
+
+      <div class="form-group">
+        <label>Password</label>
+        <input
+          [(ngModel)]="password"
+          name="password"
+          placeholder="Enter your password"
+          required
+          type="password"
+        />
+      </div>
+
+      <div class="captcha-container">
+        <re-captcha #captchaRef
+                    (resolved)="onCaptchaResolved($event)"
+                    [siteKey]="'6Leg26ssAAAAAPfRCTwtnSq6Ne9hQLPmfuNAOc5U'">
+        </re-captcha>
+      </div>
+
+      <button
+        [disabled]="loginForm.invalid || !captchaToken || isLoading"
+        type="submit">
+        {{ isLoading ? 'Logging in...' : 'Login' }}
+      </button>
+
+      <div *ngIf="errorMessage" class="error">
+        {{ errorMessage }}
+      </div>
+
+    </form>
+
+    <div class="register-link">
+      Don’t have an account?
+      <a routerLink="/auth/register">Create one</a>
+    </div>
+
+    <div class="login-footer">
+      © 2026 MyLab • <a href="#">Help</a> • <a href="#">Privacy</a>
+    </div>
+
+  </div>
+</div>
