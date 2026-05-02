@@ -1,45 +1,51 @@
-/* Layout */
 .login-layout {
-  display: flex;
-  height: 100vh;
-  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 800px;
 }
 
 /* LEFT PANEL */
 .left-panel {
-  flex: 1;
-  background: linear-gradient(135deg, #4f46e5, #3b82f6);
-  color: white;
-
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 32px;
   padding: 40px;
+  background: linear-gradient(135deg, #4f46e5, #3b82f6);
+  color: white;
+
+  //flex-direction: column;
+  //min-height: 100vh;
 }
 
 .branding {
   max-width: 400px;
-}
+  text-align: center;
 
-.branding h1 {
-  font-size: 40px;
-  margin-bottom: 10px;
-}
+  .logo {
+    width: 72px;
+    margin-bottom: 16px;
+  }
 
-.branding p {
-  font-size: 16px;
-  color: #e0e7ff;
+  h1 {
+    font-size: 40px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    font-size: 16px;
+    color: #e0e7ff;
+    max-width: 320px;
+    opacity: .8;
+  }
 }
 
 /* RIGHT PANEL */
 .right-panel {
-  flex: 1;
-  background: #f9fafb;
-
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 /* LOGIN CARD */
@@ -155,6 +161,7 @@ button:disabled {
   width: 60px;
   margin-bottom: 15px;
 }
+
 .register-link {
   margin-top: 15px;
   text-align: center;

@@ -1,4 +1,3 @@
-// private.module.ts
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LoginComponent} from "./components/login/login.component";
@@ -8,12 +7,18 @@ import {FormsModule} from "@angular/forms";
 import {AuthLayoutComponent} from "./components/auth-layout/auth-layout.component";
 import {RouterModule} from "@angular/router";
 import {AuthRoutingModule} from "./auth-routing.module";
+import {MemoryGameComponent} from "./components/mini-games/memory-game/memory-game.component";
+import {MiniGamesComponent} from "./components/mini-games/mini-games.component";
+import {HopperGameComponent} from "./components/mini-games/hopper-game/hopper-game.component";
 
 @NgModule({
   declarations: [
     LoginComponent,
     RegistrationComponent,
-    AuthLayoutComponent
+    AuthLayoutComponent,
+    MiniGamesComponent,
+    MemoryGameComponent,
+    HopperGameComponent
   ],
   imports: [
     CommonModule,

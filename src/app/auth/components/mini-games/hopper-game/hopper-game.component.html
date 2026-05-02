@@ -1,0 +1,50 @@
+<div
+  #gameZone
+  (click)="jump()"
+  class="game-zone">
+
+  <!-- SCORE -->
+  <div class="header">
+
+    Score: {{ score }}
+
+    |
+
+    Best: {{ bestScore }}
+
+  </div>
+
+  <!-- BIRD -->
+  <div
+    [style.top.px]="birdY"
+    class="bird">
+    🧪
+  </div>
+
+  <!-- GATES -->
+  <ng-container *ngFor="let gate of gates">
+
+    <div
+      [style.height.px]="gate.gapY"
+      [style.left.px]="gate.x"
+      class="gate top">
+    </div>
+
+    <div
+      [style.left.px]="gate.x"
+      [style.top.px]="gate.gapY + GAP_SIZE"
+      class="gate bottom">
+    </div>
+
+  </ng-container>
+
+  <!-- GAME OVER -->
+  <div
+    *ngIf="!running"
+    class="game-over">
+
+    Click to restart
+
+  </div>
+
+</div>

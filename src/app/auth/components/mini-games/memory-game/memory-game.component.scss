@@ -1,0 +1,81 @@
+.game {
+  width: 100%;
+  max-width: 420px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.board {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 12px;
+}
+
+.card {
+
+  aspect-ratio: 1;
+
+  border-radius: 12px;
+
+  background: #1e293b;
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+
+  font-size: 28px;
+
+  user-select: none;
+
+  transition: transform .2s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card.flipped {
+  background: #334155;
+}
+
+.winner {
+
+  margin-top: 20px;
+
+  text-align: center;
+
+  button {
+
+    margin-top: 12px;
+
+    padding: 8px 16px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .board {
+
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+
+}

@@ -1,0 +1,39 @@
+<div class="game">
+
+  <div class="header">
+
+    <h3>Lab Memory</h3>
+
+    <div class="stats">
+      Moves: {{ moves }}
+    </div>
+
+  </div>
+
+  <div class="board">
+
+    <div
+      (click)="flip(card)"
+      *ngFor="let card of cards"
+      [class.flipped]="card.flipped || card.matched"
+      class="card">
+
+      <span>
+        {{ card.flipped || card.matched ? card.icon : '?' }}
+      </span>
+
+    </div>
+
+  </div>
+
+  <div *ngIf="won" class="winner">
+
+    🎉 Well done!
+
+    <button (click)="resetGame()">
+      Play Again
+    </button>
+
+  </div>
+
+</div>

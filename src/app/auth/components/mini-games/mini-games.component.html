@@ -1,0 +1,44 @@
+<div class="games-card">
+  <!-- HEADER -->
+  <div class="games-header">
+    <h3>
+      🎮 Lab Break
+    </h3>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs">
+    <button
+      (click)="select('memory')"
+      [class.active]="selectedGame==='memory'">
+      Memory
+    </button>
+    <button
+      (click)="select('hopper')"
+      [class.active]="selectedGame==='hopper'">
+      Hopper
+    </button>
+    <button disabled>
+      Runner
+    </button>
+    <button disabled>
+      Typing
+    </button>
+    <button disabled>
+      Bug Hunt
+    </button>
+  </div>
+
+  <!-- CONTENT -->
+  <div class="game-content">
+    <app-memory-game
+      *ngIf="selectedGame==='memory'">
+    </app-memory-game>
+
+    <app-hopper-game
+      *ngIf="selectedGame==='hopper'">
+    </app-hopper-game>
+
+  </div>
+
+</div>
