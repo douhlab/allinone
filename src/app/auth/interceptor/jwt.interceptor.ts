@@ -29,25 +29,30 @@ export class JwtInterceptor implements HttpInterceptor {
     }
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
-          this.authService.logout();
-          this.toastService.show('Session expired. Please login again.', 'error');
-          this.router.navigate(['/auth/login'], {
-            state: {sessionTimeout: true}
-          });
-        } else if (error.status === 403 && this.router.url !== '/forbidden') {
-          this.toastService.show('Access denied.', 'error');
-          this.router.navigate(['/forbidden'], {
-            state: {attemptedUrl: this.router.url}
-          });
-        } else if (error.status === 0) {
-          this.toastService.show('Network error. Check your connection.', 'error');
-        } else {
-          const msg = error.error?.message || 'Something went wrong';
-          this.toastService.show(msg, 'error');
+        switch (error.status) {
+          case 401:
+            if (this.router.url !== '/401') {
+              this.authService.logout();
+              this.toastService.show('Session expired. Please login again.', 'error');
+              this.router.navigate(['/auth/login'], {
+                state: {sessionTimeout: true}
+              });
+            }
+            break;
+          case 403:
+            if (this.router.url !== '/403') {
+              this.toastService.show('Access denied.', 'error');
+              this.router.navigate(['/403']);
+            }
+            break;
+          default:
+            if (error.status >= 500 && this.router.url !== '/500') {
+              this.toastService.show('Server error. Check your providers.', 'error');
+              this.router.navigate(['/500']);
+            }
         }
         return throwError(() => error);
       })
-    );
+    )
   }
 }

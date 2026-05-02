@@ -13,6 +13,7 @@ import {METALS_API_KEY} from "./private/services/dashboard/metals-client";
 import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {NgxEchartsModule} from "ngx-echarts";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -30,6 +31,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     CoreModule,
     HttpClientModule,

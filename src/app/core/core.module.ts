@@ -1,4 +1,3 @@
-// private.module.ts
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatIcon} from "@angular/material/icon";
@@ -26,18 +25,18 @@ import {MatDialogActions, MatDialogContent, MatDialogModule, MatDialogTitle} fro
 import {CdkDrag, CdkDragHandle, DragDropModule} from "@angular/cdk/drag-drop";
 import {MatNativeDateModule} from "@angular/material/core";
 import {ToastComponent} from "./components/toast/toast.component";
-import {ForbiddenComponent} from "./components/forbidden/forbidden.component";
 import {DialogShellComponent} from "./components/dialog-shell/dialog-shell.component";
 import {ConfirmDialogComponent} from "./components/confirm-dialog/confirm-dialog.component";
 import {PrivateRoutingModule} from "../private/private-routing.module";
 import {RouterModule} from "@angular/router";
+import {ErrorPageComponent} from "./components/error-page/error-page.component";
 
 @NgModule({
   declarations: [
     ToastComponent,
-    ForbiddenComponent,
     DialogShellComponent,
     ConfirmDialogComponent,
+    ErrorPageComponent
   ],
   imports: [
     CommonModule,
