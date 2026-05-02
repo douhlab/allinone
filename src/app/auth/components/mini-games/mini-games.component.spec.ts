@@ -1,6 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MiniGamesComponent } from './mini-games.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {MiniGamesComponent} from './mini-games.component';
 
 describe('MiniGamesComponent', () => {
   let component: MiniGamesComponent;
@@ -8,16 +7,16 @@ describe('MiniGamesComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MiniGamesComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(MiniGamesComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+      declarations: [MiniGamesComponent]
+    }).compileComponents();
   });
 
-  it('should create', () => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MiniGamesComponent);
+    component = fixture.componentInstance;
+  });
+
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 });

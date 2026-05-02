@@ -1,6 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MemoryGameComponent } from './memory-game.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {MemoryGameComponent} from './memory-game.component';
 
 describe('MemoryGameComponent', () => {
   let component: MemoryGameComponent;
@@ -8,16 +7,16 @@ describe('MemoryGameComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MemoryGameComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(MemoryGameComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+      declarations: [MemoryGameComponent]
+    }).compileComponents();
   });
 
-  it('should create', () => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(MemoryGameComponent);
+    component = fixture.componentInstance;
+  });
+
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 });

@@ -1,6 +1,7 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ErrorPageComponent } from './error-page.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ErrorPageComponent} from './error-page.component';
+import {ActivatedRoute} from "@angular/router";
+import {NgModule} from "@angular/core";
 
 describe('ErrorPageComponent', () => {
   let component: ErrorPageComponent;
@@ -8,16 +9,19 @@ describe('ErrorPageComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ErrorPageComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(ErrorPageComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+      declarations: [ErrorPageComponent],
+      providers: [
+        {provide: ActivatedRoute, useValue: {}}
+      ]
+    }).compileComponents();
   });
 
-  it('should create', () => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(ErrorPageComponent);
+    component = fixture.componentInstance;
+  });
+
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 });

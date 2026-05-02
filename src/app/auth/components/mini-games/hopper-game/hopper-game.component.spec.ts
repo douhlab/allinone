@@ -1,6 +1,5 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { HopperGameComponent } from './hopper-game.component';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {HopperGameComponent} from './hopper-game.component';
 
 describe('HopperGameComponent', () => {
   let component: HopperGameComponent;
@@ -8,16 +7,16 @@ describe('HopperGameComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HopperGameComponent]
-    })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(HopperGameComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+      declarations: [HopperGameComponent]
+    }).compileComponents();
   });
 
-  it('should create', () => {
+  beforeEach(() => {
+    fixture = TestBed.createComponent(HopperGameComponent);
+    component = fixture.componentInstance;
+  });
+
+  it('should create the component', () => {
     expect(component).toBeTruthy();
   });
 });

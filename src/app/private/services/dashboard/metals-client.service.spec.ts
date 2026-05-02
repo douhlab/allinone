@@ -1,6 +1,7 @@
-import { TestBed } from '@angular/core/testing';
-import { MetalsClient, METALS_API_KEY } from './metals-client';
-import { MetalPriceResponse } from './metals-response';
+import {TestBed} from '@angular/core/testing';
+import {MetalsClient, METALS_API_KEY} from './metals-client';
+import {MetalPriceResponse} from './metals-response';
+import fetchMock from "jest-fetch-mock";
 
 describe('MetalsClient', () => {
   let service: MetalsClient;
@@ -10,7 +11,7 @@ describe('MetalsClient', () => {
     fetchMock.resetMocks();
 
     TestBed.configureTestingModule({
-      providers: [MetalsClient, { provide: METALS_API_KEY, useValue: fakeApiKey }]
+      providers: [MetalsClient, {provide: METALS_API_KEY, useValue: fakeApiKey}]
     });
 
     service = TestBed.inject(MetalsClient);
@@ -31,7 +32,7 @@ describe('MetalsClient', () => {
       currency: 'USD',
       unit: 'oz',
       metal: 'gold',
-      rate: { USD: 2000 }
+      rate: {USD: 2000}
     };
 
     fetchMock.mockResponseOnce(JSON.stringify(mockResponse));
@@ -62,7 +63,7 @@ describe('MetalsClient', () => {
         currency: 'USD',
         unit: 'oz',
         metal: 'silver',
-        rate: { USD: 25 }
+        rate: {USD: 25}
       },
       {
         status: 'success',
@@ -70,7 +71,7 @@ describe('MetalsClient', () => {
         currency: 'EUR',
         unit: 'oz',
         metal: 'silver',
-        rate: { EUR: 23 }
+        rate: {EUR: 23}
       },
       {
         status: 'success',
@@ -78,7 +79,7 @@ describe('MetalsClient', () => {
         currency: 'GBP',
         unit: 'oz',
         metal: 'silver',
-        rate: { GBP: 20 }
+        rate: {GBP: 20}
       }
     ];
 
