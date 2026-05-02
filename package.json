@@ -6,7 +6,7 @@
     "start": "ng serve",
     "prestart": "npm run setup-git-hooks",
     "build": "ng build",
-    "build:prod": "ng build --configuration cloud-debug",
+    "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "sonar": "sonar-scanner",
     "setup-git-hooks": "cp -n tools/git-hooks/* .git/hooks/ || :",

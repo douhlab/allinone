@@ -12,16 +12,20 @@
 .left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 
-.menu-btn {
-  display: none;
-  background: none;
-  border: none;
-  color: white;
-  font-size: 20px;
+.app-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  margin: 0;
+
   cursor: pointer;
+  user-select: none;
+
+  flex-shrink: 0;
 }
 
 /* RIGHT SIDE */
@@ -54,7 +58,7 @@
   color: black;
   min-width: 180px;
   border-radius: 8px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
   overflow: hidden;
   z-index: 1000;
 }

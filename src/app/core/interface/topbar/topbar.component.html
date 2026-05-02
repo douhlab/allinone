@@ -2,8 +2,11 @@
 
   <!-- LEFT -->
   <div class="left">
-    <button class="menu-btn" (click)="toggleSidebar()">☰</button>
-    <div class="logo">My simple lab</div>
+    <button (click)="toggleSidebar()" class="menu-btn">☰</button>
+    <h2 class="app-title" routerLink="/app/home">
+      <span class="logo">🧪</span>
+      <span class="title">My Lab</span>
+    </h2>
   </div>
 
   <!-- RIGHT -->
@@ -11,25 +14,25 @@
 
     <!-- 🔧 TOOLS DROPDOWN -->
     <div class="tools">
-      <button class="tools-btn" (click)="toggleTools()">
+      <button (click)="toggleTools()" class="tools-btn">
         Tools ▾
       </button>
 
-      <div class="dropdown" *ngIf="toolsOpen">
+      <div *ngIf="toolsOpen" class="dropdown">
         <button
-          class="dropdown-item"
+          (click)="openTool(item.componentKey)"
           *ngFor="let item of topMenuItems"
-          (click)="openTool(item.componentKey)">
+          class="dropdown-item">
           {{ item.label }}
         </button>
       </div>
     </div>
 
-    <span class="user" *ngIf="auth.user$ | async as user">
+    <span *ngIf="auth.user$ | async as user" class="user">
       {{ user.username }}
     </span>
     <!-- LOGOUT -->
-    <button *ngIf="auth.isLoggedIn()" (click)="logout()">
+    <button (click)="logout()" *ngIf="auth.isLoggedIn()">
       Logout
     </button>
 

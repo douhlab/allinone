@@ -36,6 +36,8 @@
           },
           "configurations": {
             "production": {
+              "optimization": true,
+              "sourceMap": true,
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -55,10 +57,6 @@
                 }
               ],
               "outputHashing": "all"
-            },
-            "cloud-debug": {
-              "optimization": true,
-              "sourceMap": true
             },
             "development": {
               "buildOptimizer": false,

@@ -1,22 +1,22 @@
 <div class="layout">
 
   <!-- TOPBAR -->
-  <app-topbar (menuClick)="toggleSidebar()"></app-topbar>
+  <app-topbar (menuClick)="onMenuToggle()"></app-topbar>
 
   <!-- MOBILE OVERLAY -->
   <div
-    class="overlay"
+    (click)="onMenuToggle()"
     *ngIf="isSidebarOpen"
-    (click)="toggleSidebar()">
+    class="overlay">
   </div>
 
   <div class="main">
 
     <!-- SIDEBAR -->
     <app-sidebar
-      class="sidebar"
+      (close)="isSidebarOpen = false"
       [isOpen]="isSidebarOpen"
-      (close)="isSidebarOpen = false">
+      class="sidebar">
     </app-sidebar>
 
     <!-- CONTENT -->

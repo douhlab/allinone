@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {DialogService} from "../../services/dialog/dialog.service";
 import {CalculatorComponent} from "../../shared/calculator/calculator.component";
@@ -14,29 +14,30 @@ import {SettingsComponent} from "../../shared/settings/settings.component";
 export class HomeComponent implements OnInit {
 
   stats = [
-    { label: 'Leaves', value: 0, icon: 'event' },
-    { label: 'Files', value: 0, icon: 'folder' },
-    { label: 'Storage', value: '0 MB', icon: 'cloud' },
-    { label: 'Notifications', value: 0, icon: 'notifications' }
+    {label: 'Leaves', value: 0, icon: 'event'},
+    {label: 'Files', value: 0, icon: 'folder'},
+    {label: 'Storage', value: '0 MB', icon: 'cloud'},
+    {label: 'Notifications', value: 0, icon: 'notifications'}
   ];
 
   features = [
-    { label: 'Dashboard', route: '/dashboard', icon: 'dashboard' },
-    { label: 'Leaves', route: '/leaves', icon: 'event_note' },
-    { label: 'Uploads', route: '/uploads', icon: 'upload' },
-    { label: 'Reports', route: '/reports', icon: 'bar_chart' }
+    {label: 'Dashboard', route: '/app/dashboard', icon: 'dashboard'},
+    {label: 'Leaves', route: '/app/reports/leaves', icon: 'event_note'},
+    {label: 'Uploads', route: '/app/uploads/azure', icon: 'upload'},
+    {label: 'QR Code', route: '/app/qrcodereader', icon: 'bar_chart'}
   ];
 
   recentActivities = [
-    { text: 'Uploaded file "report.pdf"', time: '2 min ago' },
-    { text: 'Added leave (2 days)', time: '1 hour ago' },
-    { text: 'Generated QR code', time: 'Yesterday' }
+    {text: 'Uploaded file "report.pdf"', time: '2 min ago'},
+    {text: 'Added leave (2 days)', time: '1 hour ago'},
+    {text: 'Generated QR code', time: 'Yesterday'}
   ];
 
   constructor(
     private router: Router,
     private dialogService: DialogService
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
     // TODO: plug real backend later

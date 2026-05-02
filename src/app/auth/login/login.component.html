@@ -3,7 +3,7 @@
   <!-- LEFT PANEL -->
   <div class="left-panel">
     <div class="branding">
-      <img src="assets/icons/rocket.png" class="logo" alt="MyLab logo" />
+      <img alt="MyLab logo" class="logo" src="assets/icons/rocket.png"/>
       <h1>MyLab</h1>
       <p>Manage your tools, dashboards and analytics in one place.</p>
     </div>
@@ -12,7 +12,7 @@
   <!-- RIGHT PANEL -->
   <div class="right-panel">
 
-    <form (ngSubmit)="login()" #loginForm="ngForm" class="login-card">
+    <form #loginForm="ngForm" (ngSubmit)="login()" class="login-card">
       <div *ngIf="successMessage" class="success">
         {{ successMessage }}
       </div>
@@ -23,35 +23,35 @@
       <div class="form-group">
         <label>Username</label>
         <input
-          type="text"
-          name="username"
           [(ngModel)]="username"
-          required
+          name="username"
           placeholder="Enter your username"
+          required
+          type="text"
         />
       </div>
 
       <div class="form-group">
         <label>Password</label>
         <input
-          type="password"
-          name="password"
           [(ngModel)]="password"
-          required
+          name="password"
           placeholder="Enter your password"
+          required
+          type="password"
         />
       </div>
 
       <div class="captcha-container">
         <re-captcha #captchaRef
-                    [siteKey]="'6Leg26ssAAAAAPfRCTwtnSq6Ne9hQLPmfuNAOc5U'"
-                    (resolved)="onCaptchaResolved($event)">
+                    (resolved)="onCaptchaResolved($event)"
+                    [siteKey]="'6Leg26ssAAAAAPfRCTwtnSq6Ne9hQLPmfuNAOc5U'">
         </re-captcha>
       </div>
 
       <button
-        type="submit"
-        [disabled]="loginForm.invalid || !captchaToken || isLoading">
+        [disabled]="loginForm.invalid || !captchaToken || isLoading"
+        type="submit">
         {{ isLoading ? 'Logging in...' : 'Login' }}
       </button>
 
@@ -63,7 +63,7 @@
 
     <div class="register-link">
       Don’t have an account?
-      <a routerLink="/register">Create one</a>
+      <a routerLink="/auth/register">Create one</a>
     </div>
 
     <div class="login-footer">

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-main-layout',
@@ -9,7 +9,7 @@ export class MainLayoutComponent {
 
   isSidebarOpen = false;
 
-  toggleSidebar() {
+  onMenuToggle() {
     this.isSidebarOpen = !this.isSidebarOpen;
   }
 }

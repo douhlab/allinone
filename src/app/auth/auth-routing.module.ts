@@ -1,6 +1,5 @@
-// private-routing.module.ts
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
 import {LoginComponent} from "./login/login.component";
 import {ForbiddenComponent} from "../core/interface/forbidden/forbidden.component";
@@ -12,9 +11,9 @@ const routes: Routes = [
     path: '',
     component: AuthLayoutComponent,
     children: [
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegistrationComponent },
-      { path: 'forbidden', component: ForbiddenComponent }
+      {path: 'login', component: LoginComponent},
+      {path: 'register', component: RegistrationComponent},
+      {path: 'forbidden', component: ForbiddenComponent}
     ]
   }
 ];
@@ -23,4 +22,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class AuthRoutingModule {}
+export class AuthRoutingModule {
+}
