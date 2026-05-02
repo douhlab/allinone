@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MarketService} from "../../service/market.service";
-import {forkJoin, interval} from "rxjs";
+import {forkJoin, interval, Subject, takeUntil} from "rxjs";
 
 interface MarketItem {
   symbol: string;
@@ -15,18 +15,23 @@ interface MarketItem {
   templateUrl: './market-widget.component.html',
   styleUrl: './market-widget.component.scss'
 })
-export class MarketWidgetComponent implements OnInit {
+export class MarketWidgetComponent implements OnInit, OnDestroy {
   loading: Boolean = true;
-
   items: MarketItem[] = [];
   symbols = ['GOOG', 'AAPL', 'MSFT', 'AMZN', 'TSLA', 'NVDA', 'DDOG', "NET"];
+  private destroy$ = new Subject<void>();
 
   constructor(private marketService: MarketService) {
   }
 
   ngOnInit() {
     this.load();
-    interval(60000).subscribe(() => this.load());
+    interval(60000).pipe(takeUntil(this.destroy$)).subscribe(() => this.load());
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   formatCap(value: number): string {

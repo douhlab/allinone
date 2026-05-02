@@ -56,6 +56,10 @@
               ],
               "outputHashing": "all"
             },
+            "cloud-debug": {
+              "optimization": true,
+              "sourceMap": true
+            },
             "development": {
               "buildOptimizer": false,
               "optimization": false,
