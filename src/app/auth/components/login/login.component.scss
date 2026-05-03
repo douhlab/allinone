@@ -183,3 +183,18 @@ button:disabled {
   border-radius: 6px;
   text-align: center;
 }
+
+@media (max-width: 992px) {
+
+  .login-layout {
+
+    grid-template-columns: 1fr;
+  }
+
+  .left-panel {
+
+    min-height: auto;
+    padding-top: 48px;
+  }
+
+}
