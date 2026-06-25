@@ -76,15 +76,47 @@
   background: #f1f5f9;
 }
 
-/* MOBILE */
-@media (max-width: 768px) {
+.menu-btn {
+  display: none;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+}
+
+@media (max-width: 1023px) {
   .menu-btn {
     display: block;
   }
 
-  /* optional: reduce clutter */
+  .user {
+    display: none;
+  }
+
   .tools-btn {
     font-size: 12px;
     padding: 4px 8px;
+  }
+
+  .right button:last-child {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .topbar {
+    padding: 0 10px;
+  }
+
+  .title {
+    display: none;
+  }
+
+  .tools-btn {
+    padding: 4px 6px;
   }
 }

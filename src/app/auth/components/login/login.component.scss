@@ -13,9 +13,6 @@
   padding: 40px;
   background: linear-gradient(135deg, #4f46e5, #3b82f6);
   color: white;
-
-  //flex-direction: column;
-  //min-height: 100vh;
 }
 
 .branding {
@@ -53,8 +50,8 @@
   background: white;
   padding: 30px;
   border-radius: 12px;
-  width: 320px;
-
+  width: 100%;
+  max-width: 360px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
@@ -85,7 +82,6 @@
   padding: 10px;
   border-radius: 6px;
   border: 1px solid #ccc;
-
   transition: 0.2s;
 }
 
@@ -99,30 +95,56 @@
   margin: 15px 0;
   display: flex;
   justify-content: center;
+  overflow-x: auto;
 }
 
 /* BUTTON */
-button {
+.login-card button[type="submit"] {
   width: 100%;
   padding: 10px;
-
   background: #4f46e5;
   color: white;
   border: none;
   border-radius: 6px;
-
   font-weight: bold;
   cursor: pointer;
   transition: 0.2s;
 }
 
-button:hover:not(:disabled) {
+.login-card button[type="submit"]:hover:not(:disabled) {
   background: #4338ca;
 }
 
-button:disabled {
+.login-card button[type="submit"]:disabled {
   background: #aaa;
   cursor: not-allowed;
+}
+
+.games-toggle {
+  display: none;
+  width: 100%;
+  max-width: 360px;
+  margin-top: 16px;
+  padding: 10px 16px;
+  background: transparent;
+  color: #4f46e5;
+  border: 1px dashed #4f46e5;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.games-toggle:hover {
+  background: #eef2ff;
+}
+
+.mobile-games-panel {
+  display: none;
+  width: 100%;
+  max-width: 360px;
+  margin-top: 12px;
 }
 
 /* ERROR */
@@ -144,22 +166,6 @@ button:disabled {
   margin: 0 5px;
   color: #666;
   text-decoration: none;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .left-panel {
-    display: none;
-  }
-
-  .right-panel {
-    flex: 1;
-  }
-}
-
-.logo {
-  width: 60px;
-  margin-bottom: 15px;
 }
 
 .register-link {
@@ -184,17 +190,39 @@ button:disabled {
   text-align: center;
 }
 
+/* RESPONSIVE */
 @media (max-width: 992px) {
-
   .login-layout {
-
     grid-template-columns: 1fr;
   }
 
   .left-panel {
-
+    flex-direction: column;
     min-height: auto;
-    padding-top: 48px;
+    padding: 32px 24px;
   }
 
+  .right-panel {
+    padding: 24px 16px 32px;
+  }
+}
+
+@media (max-width: 600px) {
+  .left-panel {
+    display: none;
+  }
+
+  .right-panel {
+    min-height: 100vh;
+    padding: 24px 16px;
+  }
+
+  .games-toggle,
+  .mobile-games-panel {
+    display: block;
+  }
+
+  .branding h1 {
+    font-size: 32px;
+  }
 }

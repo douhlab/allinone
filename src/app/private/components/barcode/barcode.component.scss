@@ -1,7 +1,43 @@
-.barcode-wrapper {
-  display: inline-block;
+:host {
+  display: block;
 }
 
+.page {
+  max-width: 720px;
+}
+
+h2 {
+  font-size: 1.25rem;
+}
+
+input {
+  width: 100%;
+  max-width: 400px;
+  padding: 8px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+section {
+  margin: 16px 0;
+}
+
+.barcode-wrapper,
 .qr-wrapper {
-  display: inline-block;
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.barcode-wrapper svg,
+.qr-wrapper qrcode {
+  max-width: 100%;
+  height: auto;
+}
+
+@media (max-width: 480px) {
+  button {
+    width: 100%;
+    margin-top: 8px;
+  }
 }

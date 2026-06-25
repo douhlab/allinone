@@ -1,6 +1,59 @@
+:host {
+  display: block;
+}
+
+.upload-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
 .drop-zone {
   border: 2px dashed #999;
-  padding: 30px;
+  padding: 30px 16px;
   text-align: center;
   cursor: pointer;
+  border-radius: 8px;
+}
+
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  min-width: 560px;
+}
+
+.preview-panel {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.preview-panel img {
+  max-width: 100%;
+  height: auto;
+}
+
+.preview-panel pre {
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+@media (max-width: 600px) {
+  .upload-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .upload-toolbar button {
+    width: 100%;
+  }
 }

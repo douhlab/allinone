@@ -1,33 +1,58 @@
 
 .qrcodereader-title {
-  font-size: 30px;
-  text-align: right;
-  margin-right: 300px
+  font-size: clamp(16px, 4vw, 30px);
+  text-align: center;
+  margin: 16px 0;
 }
+
 .qrcodereader-value {
   color: red;
+  word-break: break-all;
 }
 
 .image-container {
   display: flex;
   justify-content: center;
   align-items: center;
-
-  width: 400px;
-  height: 400px;
+  width: 100%;
+  max-width: 400px;
+  height: min(400px, 70vw);
   overflow: hidden;
   border: 1px solid #ccc;
 }
 
 .image-container-pane {
-  width: 400px;
-  height: 400px;
+  width: 100%;
+  max-width: 400px;
+  height: min(400px, 70vw);
   overflow: hidden;
   border: 1px solid #ccc;
   cursor: grab;
 }
 
+.image-container img,
+.image-container-pane img {
+  max-width: 100%;
+  height: auto;
+}
+
 img {
   transition: transform 0.1s ease;
   user-select: none;
+}
+
+input[type="range"] {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 8px;
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  h4 {
+    font-size: 0.95rem;
+  }
 }

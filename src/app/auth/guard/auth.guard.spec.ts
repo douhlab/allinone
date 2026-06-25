@@ -39,15 +39,14 @@ describe('AuthGuard', () => {
     expect(router.navigate).not.toHaveBeenCalled();
   });
 
-  // it('should redirect to login when user is not logged in', () => {
-  //   authService.isLoggedIn.mockReturnValue(false);
-  //
-  //   const result = guard.canActivate();
-  //
-  //   expect(result).toBe(false);
-  //
-  //   expect(router.navigate).toHaveBeenCalledWith(['/login'], {
-  //     state: { attemptedUrl: '/dashboard' }
-  //   });
-  // });
+  it('should redirect to login when user is not logged in', () => {
+    authService.isLoggedIn.mockReturnValue(false);
+
+    const result = guard.canActivate();
+
+    expect(result).toBe(false);
+    expect(router.navigate).toHaveBeenCalledWith(['/auth/login'], {
+      state: { attemptedUrl: '/dashboard' }
+    });
+  });
 });
