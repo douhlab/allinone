@@ -9,8 +9,20 @@
   border-radius: 8px;
   padding: 10px;
   background: #fff;
+  min-width: 0;
 }
 
 .chart {
   height: 300px;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chart {
+    height: 240px;
+  }
 }

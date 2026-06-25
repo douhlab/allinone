@@ -7,7 +7,7 @@
       <h1>MyLab</h1>
       <p>Manage your tools, dashboards and analytics in one place.</p>
     </div>
-    <app-mini-games></app-mini-games>
+    <app-mini-games class="games-desktop"></app-mini-games>
   </div>
 
   <!-- RIGHT PANEL -->
@@ -65,6 +65,14 @@
     <div class="register-link">
       Don’t have an account?
       <a routerLink="/auth/register">Create one</a>
+    </div>
+
+    <button type="button" class="games-toggle" (click)="toggleGames()">
+      🎮 {{ gamesOpen ? 'Hide Lab Break' : 'Take a Lab Break' }}
+    </button>
+
+    <div *ngIf="gamesOpen" class="mobile-games-panel">
+      <app-mini-games></app-mini-games>
     </div>
 
     <div class="login-footer">

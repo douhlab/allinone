@@ -3,15 +3,19 @@
   max-width: 1200px;
   margin: auto;
   font-family: system-ui, -apple-system, sans-serif;
+  box-sizing: border-box;
 }
 
 /* HEADER */
 
+header,
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 40px;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .logo {
@@ -101,11 +105,24 @@
 }
 
 @media (max-width: 600px) {
+  .container {
+    padding: 16px;
+  }
+
   .grid {
     grid-template-columns: 1fr;
   }
 
+  .hero {
+    margin: 32px 0;
+  }
+
   .hero h2 {
     font-size: 24px;
+  }
+
+  header,
+  .header {
+    margin-bottom: 24px;
   }
 }

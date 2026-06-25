@@ -6,6 +6,7 @@
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 4px 18px rgba(0, 0, 0, .08);
+  box-sizing: border-box;
 }
 
 
@@ -38,4 +39,15 @@
 .tabs button:disabled {
   opacity: .45;
   cursor: default;
+}
+
+@media (max-width: 600px) {
+  .games-card {
+    padding: 16px;
+  }
+
+  .tabs button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
 }

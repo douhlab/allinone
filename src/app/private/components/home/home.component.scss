@@ -114,3 +114,19 @@
     grid-template-columns: 1fr;
   }
 }
+
+@media (max-width: 600px) {
+  .home {
+    padding: 12px;
+  }
+
+  .header h2 {
+    font-size: 22px;
+  }
+
+  .activity-item {
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-start;
+  }
+}

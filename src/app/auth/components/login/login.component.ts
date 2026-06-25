@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   isLoading = false;
   successMessage = '';
+  gamesOpen = false;
 
   constructor(
     private authService: AuthService,
@@ -41,6 +42,10 @@ export class LoginComponent implements OnInit {
     if (this.authService.isLoggedIn()) {
       this.router.navigate(['/home']);
     }
+  }
+
+  toggleGames() {
+    this.gamesOpen = !this.gamesOpen;
   }
 
   onCaptchaResolved(token: string | null) {

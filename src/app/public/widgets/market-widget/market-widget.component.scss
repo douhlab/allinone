@@ -20,7 +20,20 @@
 .row {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  gap: 8px;
   font-size: 14px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 480px) {
+  .row {
+    font-size: 12px;
+  }
+
+  .cap {
+    display: none;
+  }
 }
 
 .symbol {

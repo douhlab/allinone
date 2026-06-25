@@ -1,8 +1,10 @@
 .resize-container {
   resize: both;
   overflow: auto;
-  min-width: 300px;
+  min-width: 280px;
   min-height: 200px;
+  max-width: calc(100vw - 32px);
+  box-sizing: border-box;
 }
 
 .header {
