@@ -7,6 +7,7 @@ import {LeaveDialogComponent} from "./leave-dialog/leave-dialog.component";
 import {LeaveRecordCreationRequest} from "../../services/leave/leave-record-creation-request";
 import {ConfirmDialogComponent} from "../../../core/components/confirm-dialog/confirm-dialog.component";
 import {AuthService} from "../../../auth/services/auth.service";
+import {CONFIRM_DIALOG_CONFIG, FORM_DIALOG_CONFIG} from "../../../core/services/dialog/dialog.service";
 
 @Component({
   selector: 'app-leaves',
@@ -41,7 +42,7 @@ export class LeavesComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(LeaveDialogComponent);
+    const dialogRef = this.dialog.open(LeaveDialogComponent, FORM_DIALOG_CONFIG);
 
     dialogRef.afterClosed().subscribe((result: LeaveRecordCreationRequest | undefined) => {
       if (result) {
@@ -61,8 +62,8 @@ export class LeavesComponent implements OnInit {
 
   openConfirmDialog(row: any) {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-      width: '350px',
-      data: {message: 'Are you sure you want to delete this record?', title: 'Confirm', confirmText: 'Delete'}
+      ...CONFIRM_DIALOG_CONFIG,
+      data: {message: 'Are you sure you want to delete this record?', title: 'Confirm Delete', confirmText: 'Delete'}
     });
 
     dialogRef.afterClosed().subscribe(result => {

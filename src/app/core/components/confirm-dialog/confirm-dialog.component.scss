@@ -1,0 +1,19 @@
+:host {
+  display: block;
+}
+
+.app-dialog__hero--compact {
+  margin-bottom: 0;
+}
+
+.app-dialog__icon--warn {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.app-dialog__message {
+  margin: 0;
+  color: #475569;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}

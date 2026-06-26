@@ -1,17 +1,28 @@
-<div class="resize-container"
-     cdkDrag
-     cdkDragRootElement=".cdk-overlay-pane"
-     (cdkDragEnded)="savePosition($event)"
-     #drag="cdkDrag">
+<div
+  class="dialog-shell resize-container"
+  cdkDrag
+  cdkDragRootElement=".cdk-overlay-pane"
+  (cdkDragEnded)="savePosition($event)"
+  #drag="cdkDrag">
 
-  <!-- HEADER -->
-  <div class="header" cdkDragHandle>
-    <span>{{ title }}</span>
+  <div class="dialog-shell__header" cdkDragHandle>
+    <div class="dialog-shell__title">
+      <span class="dialog-shell__accent"></span>
+      <span>{{ title }}</span>
+    </div>
 
-    <button mat-icon-button (click)="close()">✖</button>
+    <button
+      mat-icon-button
+      type="button"
+      class="dialog-shell__close"
+      (click)="close()"
+      aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
   </div>
 
-  <!-- CONTENT -->
-  <ng-container #container></ng-container>
+  <div class="dialog-shell__body">
+    <ng-container #container></ng-container>
+  </div>
 
 </div>

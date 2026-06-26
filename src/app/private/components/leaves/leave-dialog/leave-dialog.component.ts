@@ -3,6 +3,7 @@ import {FormBuilder, Validators} from "@angular/forms";
 import {MatDialogRef} from "@angular/material/dialog";
 import {LeaveService} from "../../../services/leave/leave.service";
 import {AuthService} from "../../../../auth/services/auth.service";
+import {APP_DIALOG_OVERLAY_CLASS} from "../../../../core/services/dialog/dialog.service";
 
 @Component({
   selector: 'app-leave-dialog',
@@ -10,6 +11,8 @@ import {AuthService} from "../../../../auth/services/auth.service";
   styleUrl: './leave-dialog.component.scss'
 })
 export class LeaveDialogComponent {
+
+  readonly overlayPanelClass = APP_DIALOG_OVERLAY_CLASS;
 
   form = this.fb.group({
     employer: [0, Validators.required],
