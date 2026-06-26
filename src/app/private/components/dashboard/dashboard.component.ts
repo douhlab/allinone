@@ -2,9 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {MatTableDataSource} from '@angular/material/table';
 import {LatestRatesResponse} from '../../services/dashboard/exchange-rate';
 import {ExchangeratesapiClient} from '../../services/dashboard/exchangeratesapi-client';
-import {AppConfigService} from '../../../shared/config/app-config.service';
 import {MetalsClient} from '../../services/dashboard/metals-client';
-import {AppConfiguration} from '../../../shared/config/app-configuration.model';
+import {UserAssetsService} from '../../services/user-assets.service';
+import {EMPTY_USER_ASSETS, UserAssets} from '../../models/user-assets';
 
 @Component({
   selector: 'app-dashboard',
@@ -35,18 +35,16 @@ export class DashboardComponent implements OnInit {
     amountInUsd: number;
   }>();
 
-  exchangeRates: boolean = false;
-
-  appConfig: AppConfiguration;
+  exchangeRates = false;
+  userAssets: UserAssets = EMPTY_USER_ASSETS;
 
   tableColumns = ['base', 'date', 'details'];
   rateTableColumns = ['currency', 'rate', 'amount', 'amountInUsd'];
-
   commoditiesTableColumns = ['name', 'price', 'unit', 'amount', 'amountInUsd'];
 
   constructor(
     private readonly exchangeRateClient: ExchangeratesapiClient,
-    private readonly appConfigService: AppConfigService,
+    private readonly userAssetsService: UserAssetsService,
     private readonly metalsApiClient: MetalsClient
   ) {
     this.latestRatesDataSource = new MatTableDataSource<LatestRatesResponse>();
@@ -59,12 +57,11 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.appConfig = this.appConfigService.getConfig();
-
-    this.initCommoditiesTable();
-
-    this.showExchangeRates();
+    this.userAssetsService.getUserAssets().subscribe(assets => {
+      this.userAssets = assets;
+      this.initCommoditiesTable();
+      this.showExchangeRates();
+    });
   }
 
   showExchangeRates(): void {
@@ -81,8 +78,10 @@ export class DashboardComponent implements OnInit {
   }
 
   constructDetailsDataSource() {
+    this.latestRatesDetailsDataSource.data = [];
+
     for (const [currency, rate] of Object.entries(this.latestRatesDataSource.data[0].rates)) {
-      const amount = this.appConfig.amountsForeignCy[currency] ?? 0;
+      const amount = this.userAssets.amountsForeignCy[currency] ?? 0;
       const amountInUsd = amount / rate;
 
       this.latestRatesDetailsDataSource.data.push({
@@ -104,7 +103,8 @@ export class DashboardComponent implements OnInit {
 
   initCommoditiesTable() {
     (async () => {
-      const commodities = Object.keys(this.appConfig.commoditiesAmountsInOunce);
+      this.commoditiesDataSource.data = [];
+      const commodities = Object.keys(this.userAssets.commoditiesAmountsInOunce);
 
       for (const commodity of commodities) {
         try {
@@ -112,8 +112,8 @@ export class DashboardComponent implements OnInit {
           const price = priceData.rate['price'];
 
           const unit = priceData.unit;
-          const amount = this.appConfig.commoditiesAmountsInOunce[commodity] ?? 0;
-          const amountInUsd = (amount * price) / (unit === 'toz' ? 1 : 1000); // assuming price is per ounce for precious metals, per barrel for oil
+          const amount = this.userAssets.commoditiesAmountsInOunce[commodity] ?? 0;
+          const amountInUsd = (amount * price) / (unit === 'toz' ? 1 : 1000);
 
           this.commoditiesDataSource.data.push({
             name: commodity,
@@ -124,17 +124,13 @@ export class DashboardComponent implements OnInit {
           });
         } catch (error) {
           console.error(`Error fetching price for ${commodity}:`, error);
-          const unit = 'NAN';
-          const price = 0;
-          const amount = 0;
-          const amountInUsd = 0;
 
           this.commoditiesDataSource.data.push({
             name: commodity,
-            price: price,
-            unit: unit,
-            amount: amount,
-            amountInUsd: amountInUsd
+            price: 0,
+            unit: 'NAN',
+            amount: 0,
+            amountInUsd: 0
           });
         } finally {
           this.commoditiesDataSource._updateChangeSubscription();

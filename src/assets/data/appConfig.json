@@ -1,17 +1,17 @@
 {
   "environment": "dev",
-  "amountsForeignCy" : {
-    "EUR": 536,
-    "CHF": 556,
-    "AUD": 1100,
-    "CAD": 2600
+  "amountsForeignCy": {
+    "EUR": 1000,
+    "CHF": 1000,
+    "AUD": 1000,
+    "CAD": 1000
   },
   "commoditiesAmountsInOunce": {
-    "gold": 20.5,
-    "silver": 645
+    "gold": 50,
+    "silver": 1000
   },
   "usdAmount": 1000,
-  "usdFnbAmount": 1100,
-  "cryptoAmountInBtc": 0.5,
-  "gunAmountInUsd": 1500
+  "usdFnbAmount": 2000,
+  "cryptoAmountInBtc": 2,
+  "gunAmountInUsd": 2000
 }
