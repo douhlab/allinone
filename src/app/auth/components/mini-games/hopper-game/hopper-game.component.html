@@ -1,49 +1,59 @@
-<div
-  #gameZone
-  (click)="jump()"
-  class="game-zone">
+<div class="hopper">
 
-  <!-- SCORE -->
-  <div class="header">
-
-    Score: {{ score }}
-
-    |
-
-    Best: {{ bestScore }}
-
+  <div class="levels">
+    <button
+      *ngFor="let level of levels; let i = index"
+      type="button"
+      (click)="selectLevel(i)"
+      [class.active]="i === currentLevelIndex"
+      [disabled]="running">
+      {{ level.label }}
+    </button>
   </div>
 
-  <!-- BIRD -->
   <div
-    [style.top.px]="birdY"
-    class="bird">
-    🧪
-  </div>
+    #gameZone
+    (click)="jump()"
+    class="game-zone">
 
-  <!-- GATES -->
-  <ng-container *ngFor="let gate of gates">
-
-    <div
-      [style.height.px]="gate.gapY"
-      [style.left.px]="gate.x"
-      class="gate top">
+    <div class="header">
+      Score: {{ score }} | Best: {{ bestScore }}
     </div>
 
     <div
-      [style.left.px]="gate.x"
-      [style.top.px]="gate.gapY + GAP_SIZE"
-      class="gate bottom">
+      [style.top.px]="birdY"
+      [style.transform]="'rotate(' + birdRotation + 'deg)'"
+      class="bird"
+      aria-hidden="true">
+
+      <svg viewBox="0 0 32 32" width="28" height="28">
+        <ellipse cx="14" cy="16" rx="10" ry="8" fill="#fbbf24"/>
+        <ellipse cx="14" cy="17" rx="8" ry="6" fill="#f59e0b"/>
+        <circle cx="19" cy="13" r="2.5" fill="#fff"/>
+        <circle cx="19.5" cy="13" r="1.2" fill="#1e293b"/>
+        <polygon points="24,15 30,16 24,17" fill="#f97316"/>
+        <ellipse cx="10" cy="18" rx="5" ry="3" fill="#fcd34d" transform="rotate(-15 10 18)"/>
+      </svg>
+
     </div>
 
-  </ng-container>
+    <ng-container *ngFor="let gate of gates">
+      <div
+        [style.height.px]="gate.gapY"
+        [style.left.px]="gate.x"
+        class="gate top">
+      </div>
 
-  <!-- GAME OVER -->
-  <div
-    *ngIf="!running"
-    class="game-over">
+      <div
+        [style.left.px]="gate.x"
+        [style.top.px]="gate.gapY + gapSize"
+        class="gate bottom">
+      </div>
+    </ng-container>
 
-    Click to restart
+    <div *ngIf="!running" class="game-over">
+      Click to restart
+    </div>
 
   </div>
 

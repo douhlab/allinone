@@ -1,39 +1,59 @@
 <div class="game">
 
   <div class="header">
-
     <h3>Lab Memory</h3>
-
     <div class="stats">
       Moves: {{ moves }}
     </div>
-
   </div>
 
-  <div class="board">
+  <div class="levels">
+    <button
+      *ngFor="let level of levels; let i = index"
+      type="button"
+      (click)="selectLevel(i)"
+      [class.active]="i === currentLevelIndex"
+      [disabled]="lockBoard">
+      {{ level.label }} ({{ level.gridSize }}×{{ level.gridSize }})
+    </button>
+  </div>
 
+  <div class="board-wrapper">
     <div
-      (click)="flip(card)"
-      *ngFor="let card of cards"
-      [class.flipped]="card.flipped || card.matched"
-      class="card">
+      [class]="'board grid-' + boardColumns"
+      [style.--board-cols]="boardColumns">
 
-      <span>
-        {{ card.flipped || card.matched ? card.icon : '?' }}
-      </span>
+      <div
+        (click)="flip(card)"
+        *ngFor="let card of cards"
+        [class.flipped]="card.flipped || card.matched"
+        class="card">
+
+        <span>
+          {{ card.flipped || card.matched ? card.icon : '?' }}
+        </span>
+
+      </div>
 
     </div>
-
   </div>
 
   <div *ngIf="won" class="winner">
+    🎉 Level complete!
 
-    🎉 Well done!
+    <div class="winner-actions">
+      <button type="button" (click)="resetGame()">
+        Play Again
+      </button>
 
-    <button (click)="resetGame()">
-      Play Again
-    </button>
-
+      <button
+        *ngIf="hasNextLevel"
+        type="button"
+        class="primary"
+        (click)="nextLevel()">
+        Next Level
+      </button>
+    </div>
   </div>
 
 </div>
