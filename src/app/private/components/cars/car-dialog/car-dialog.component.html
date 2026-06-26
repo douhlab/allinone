@@ -1,0 +1,77 @@
+<div class="app-dialog app-dialog--form">
+  <div class="app-dialog__hero">
+    <div class="app-dialog__icon" aria-hidden="true">🚗</div>
+    <div class="app-dialog__heading">
+      <h2 class="app-dialog__title">Add Car</h2>
+      <p class="app-dialog__subtitle">Record a vehicle you own and track its purchase details.</p>
+    </div>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-dialog-content class="app-dialog__content">
+      <section class="form-section">
+        <h3 class="form-section__label">Vehicle details</h3>
+
+        <div class="form-grid form-grid--2">
+          <mat-form-field appearance="outline">
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" placeholder="Daily driver">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Model</mat-label>
+            <input matInput formControlName="model" placeholder="Honda Civic">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Model Year</mat-label>
+            <input matInput type="number" min="1900" formControlName="modelYear">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Owned Date</mat-label>
+            <input matInput [matDatepicker]="ownedDatePicker" formControlName="ownedDate">
+            <mat-datepicker-toggle matIconSuffix [for]="ownedDatePicker"></mat-datepicker-toggle>
+            <mat-datepicker #ownedDatePicker [panelClass]="overlayPanelClass"></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h3 class="form-section__label">Purchase info</h3>
+
+        <div class="form-grid form-grid--2">
+          <mat-form-field appearance="outline">
+            <mat-label>Odometer When Owned</mat-label>
+            <input matInput type="number" min="0" formControlName="odometerWhenOwned">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Price in USD When Owned</mat-label>
+            <input matInput type="number" min="0" step="0.01" formControlName="priceInUsdWhenOwned">
+          </mat-form-field>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h3 class="form-section__label">Notes</h3>
+
+        <div class="form-grid form-grid--1">
+          <mat-form-field appearance="outline">
+            <mat-label>Note</mat-label>
+            <textarea matInput rows="2" formControlName="note"></textarea>
+          </mat-form-field>
+        </div>
+      </section>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="app-dialog__actions" align="end">
+      <button mat-stroked-button type="button" (click)="close()">
+        Cancel
+      </button>
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
+        Save Car
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>

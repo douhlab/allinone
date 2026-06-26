@@ -7,6 +7,7 @@ import {BarcodeComponent} from "./components/barcode/barcode.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {ChartPlaygroundComponent} from "./components/chart-playground/chart-playground.component";
 import {LeavesComponent} from "./components/leaves/leaves.component";
+import {CarsComponent} from "./components/cars/cars.component";
 import {PeopleStatsComponent} from "./components/people-stats/people-stats.component";
 import {QrcodeReaderComponent} from "./components/qrcode-reader/qrcode-reader.component";
 import {UploadLocalComponent} from "./components/upload-local/upload-local.component";
@@ -25,6 +26,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgxEchartsDirective, NgxEchartsModule} from "ngx-echarts";
 import {TranslateModule} from "@ngx-translate/core";
 import {LeaveDialogComponent} from "./components/leaves/leave-dialog/leave-dialog.component";
+import {CarDialogComponent} from "./components/cars/car-dialog/car-dialog.component";
 import {
   MatDatepicker,
   MatDatepickerInput,
@@ -52,11 +54,13 @@ import {CalculatorComponent} from "./components/calculator/calculator.component"
     DashboardComponent,
     ChartPlaygroundComponent,
     LeavesComponent,
+    CarsComponent,
     PeopleStatsComponent,
     QrcodeReaderComponent,
     UploadAzureComponent,
     UploadLocalComponent,
     LeaveDialogComponent,
+    CarDialogComponent,
     MainLayoutComponent,
     TopbarComponent,
     SidebarComponent,
