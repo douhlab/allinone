@@ -1,10 +1,21 @@
-<h2 mat-dialog-title>{{ data.title }}</h2>
+<div class="app-dialog app-dialog--confirm">
+  <div class="app-dialog__hero app-dialog__hero--compact">
+    <div class="app-dialog__icon app-dialog__icon--warn" aria-hidden="true">⚠️</div>
+    <div class="app-dialog__heading">
+      <h2 class="app-dialog__title">{{ data.title || 'Confirm' }}</h2>
+    </div>
+  </div>
 
-<mat-dialog-content>
-  <p>{{ data.message }}</p>
-</mat-dialog-content>
+  <mat-dialog-content class="app-dialog__content">
+    <p class="app-dialog__message">{{ data.message }}</p>
+  </mat-dialog-content>
 
-<mat-dialog-actions align="end">
-  <button mat-button (click)="cancel()">Cancel</button>
-  <button mat-raised-button color="warn" (click)="confirm()">{{ data.confirmText }}</button>
-</mat-dialog-actions>
+  <mat-dialog-actions class="app-dialog__actions" align="end">
+    <button mat-stroked-button type="button" (click)="cancel()">
+      Cancel
+    </button>
+    <button mat-flat-button color="warn" type="button" (click)="confirm()">
+      {{ data.confirmText || 'Confirm' }}
+    </button>
+  </mat-dialog-actions>
+</div>

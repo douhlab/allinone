@@ -1,0 +1,22 @@
+@use '@angular/material' as mat;
+
+$dialog-primary: mat.define-palette(mat.$purple-palette, 700);
+$dialog-accent: mat.define-palette(mat.$green-palette, A200);
+$dialog-warn: mat.define-palette(mat.$red-palette);
+
+$dialog-light-theme: mat.define-light-theme((
+  color: (
+    primary: $dialog-primary,
+    accent: $dialog-accent,
+    warn: $dialog-warn,
+  ),
+  typography: mat.define-typography-config(),
+  density: 0,
+));
+
+// Light purple-green theme scoped to dialogs and their overlay panels.
+.app-dialog-panel,
+.app-dialog-overlay,
+.cdk-overlay-container .mat-datepicker-content {
+  @include mat.all-component-colors($dialog-light-theme);
+}

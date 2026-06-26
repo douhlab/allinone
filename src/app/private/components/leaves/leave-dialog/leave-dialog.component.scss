@@ -1,56 +1,47 @@
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding-top: 8px;
+:host {
+  display: block;
 }
 
-/* rows */
-.row {
-  display: flex;
-  gap: 16px;
+.app-dialog__hero {
+  margin-bottom: 0;
 }
 
-/* stack vertically */
-.column {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.form-section {
+  margin-bottom: 12px;
 }
 
-/* fields */
+.form-section:last-child {
+  margin-bottom: 0;
+}
+
+.form-section__label {
+  margin: 0 0 10px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #64748b;
+}
+
+.form-grid {
+  display: grid;
+  gap: 12px 16px;
+}
+
+.form-grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.form-grid--1 {
+  grid-template-columns: 1fr;
+}
+
 mat-form-field {
-  flex: 1;
   width: 100%;
 }
 
-/* actions */
-.actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-/* mobile */
-@media (max-width: 768px) {
-  .row {
-    flex-direction: column;
+@media (max-width: 600px) {
+  .form-grid--2 {
+    grid-template-columns: 1fr;
   }
-
-  .actions {
-    flex-direction: column;
-  }
-
-  .actions button {
-    width: 100%;
-  }
-}
-mat-row:hover {
-  background: #f9fafb;
-}
-th.mat-column-actions,
-td.mat-column-actions {
-  text-align: right;
-  width: 80px;
 }
