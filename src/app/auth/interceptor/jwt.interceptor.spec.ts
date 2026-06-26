@@ -12,6 +12,7 @@ describe('JwtInterceptor', () => {
 
   const authService = {
     getToken: jest.fn(),
+    isLoggedIn: jest.fn(),
     logout: jest.fn()
   };
 
@@ -68,8 +69,47 @@ describe('JwtInterceptor', () => {
     req.flush({});
   });
 
-  it('should logout and redirect on 401', () => {
+  it('should not attach bearer token to login requests', () => {
     authService.getToken.mockReturnValue('jwt-token');
+
+    http.post('http://localhost:8080/simple-spa/login', {}).subscribe();
+
+    const req = httpMock.expectOne('http://localhost:8080/simple-spa/login');
+    expect(req.request.headers.has('Authorization')).toBe(false);
+    req.flush({});
+  });
+
+  it('should not redirect on login 401', () => {
+    authService.getToken.mockReturnValue('jwt-token');
+
+    http.post('http://localhost:8080/simple-spa/login', {}).subscribe({
+      error: () => {}
+    });
+
+    const req = httpMock.expectOne('http://localhost:8080/simple-spa/login');
+    req.flush('Unauthorized', { status: 401, statusText: 'Unauthorized' });
+
+    expect(authService.logout).not.toHaveBeenCalled();
+    expect(router.navigate).not.toHaveBeenCalled();
+  });
+
+  it('should not redirect on login 403', () => {
+    authService.getToken.mockReturnValue('jwt-token');
+
+    http.post('http://localhost:8080/simple-spa/login', {}).subscribe({
+      error: () => {}
+    });
+
+    const req = httpMock.expectOne('http://localhost:8080/simple-spa/login');
+    req.flush('Forbidden', { status: 403, statusText: 'Forbidden' });
+
+    expect(router.navigate).not.toHaveBeenCalled();
+    expect(toastService.show).not.toHaveBeenCalled();
+  });
+
+  it('should logout and redirect on 401 for authenticated api calls', () => {
+    authService.getToken.mockReturnValue('jwt-token');
+    authService.isLoggedIn.mockReturnValue(true);
 
     http.get('http://localhost:8080/simple-spa/v1/api/protected').subscribe({
       error: () => {

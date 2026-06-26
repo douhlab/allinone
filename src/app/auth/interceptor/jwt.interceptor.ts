@@ -2,15 +2,16 @@ import {Injectable} from '@angular/core';
 import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
 import {catchError, Observable, throwError} from 'rxjs';
 import {Router} from '@angular/router';
-import {AuthService} from "../services/auth.service";
-import {ToastService} from "../../core/services/toast/toast.service";
+import {AuthService} from '../services/auth.service';
+import {ToastService} from '../../core/services/toast/toast.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor(private authService: AuthService,
-              private toastService: ToastService,
-              private router: Router) {
-  }
+  constructor(
+    private authService: AuthService,
+    private toastService: ToastService,
+    private router: Router
+  ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token = this.authService.getToken();
@@ -20,18 +21,23 @@ export class JwtInterceptor implements HttpInterceptor {
       req.url.startsWith('https://simple-spa-app')
       || req.url.startsWith('http://localhost:8080');
 
-    if (token && isMyBackend) {
+    if (token && isMyBackend && !this.isAuthEndpoint(req.url)) {
       authReq = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`
         }
       });
     }
+
     return next.handle(authReq).pipe(
       catchError((error: HttpErrorResponse) => {
+        if (this.isAuthEndpoint(req.url)) {
+          return throwError(() => error);
+        }
+
         switch (error.status) {
           case 401:
-            if (this.router.url !== '/401') {
+            if (this.router.url !== '/401' && this.authService.isLoggedIn()) {
               this.authService.logout();
               this.toastService.show('Session expired. Please login again.', 'error');
               this.router.navigate(['/auth/login'], {
@@ -51,8 +57,14 @@ export class JwtInterceptor implements HttpInterceptor {
               this.router.navigate(['/500']);
             }
         }
+
         return throwError(() => error);
       })
-    )
+    );
+  }
+
+  private isAuthEndpoint(url: string): boolean {
+    return url.includes('/simple-spa/login')
+      || url.includes('/simple-spa/register');
   }
 }
