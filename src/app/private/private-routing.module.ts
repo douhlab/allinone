@@ -22,21 +22,20 @@ const routes: Routes = [
     path: '',
     component: MainLayoutComponent,
     children: [
-      {path: '', component: HomeComponent},
-      {path: 'home', component: HomeComponent},
-      // { path: '', redirectTo: 'home', pathMatch: 'full' },
-      {path: 'dashboard', component: DashboardComponent},
-      {path: 'charts', component: ChartPlaygroundComponent},
-      {path: 'reports/leaves', component: LeavesComponent},
-      {path: 'reports/people-stats', component: PeopleStatsComponent},
-      {path: 'uploads/azure', component: UploadAzureComponent},
-      {path: 'uploads/local', component: UploadLocalComponent},
-      {path: 'barcodesqrcodes/generate', component: BarcodeComponent},
-      {path: 'qrcodereader', component: QrcodeReaderComponent},
-      {path: 'tools/calculator', component: CalculatorComponent},
-      {path: 'tools/notifications', component: NotificationComponent},
-      {path: 'tools/profile', component: ProfileComponent},
-      {path: 'tools/settings', component: SettingsComponent}
+      {path: '', component: HomeComponent, data: {title: 'Home', skipLayoutTitle: true}},
+      {path: 'home', component: HomeComponent, data: {title: 'Home', skipLayoutTitle: true}},
+      {path: 'dashboard', component: DashboardComponent, data: {title: 'Dashboard'}},
+      {path: 'charts', component: ChartPlaygroundComponent, data: {title: 'Charts'}},
+      {path: 'reports/leaves', component: LeavesComponent, data: {title: 'Leaves', skipLayoutTitle: true}},
+      {path: 'reports/people-stats', component: PeopleStatsComponent, data: {title: 'People Stats'}},
+      {path: 'uploads/azure', component: UploadAzureComponent, data: {title: 'Azure Upload'}},
+      {path: 'uploads/local', component: UploadLocalComponent, data: {title: 'Local Upload'}},
+      {path: 'barcodesqrcodes/generate', component: BarcodeComponent, data: {title: 'Barcode / QR Code'}},
+      {path: 'qrcodereader', component: QrcodeReaderComponent, data: {title: 'QR Code Reader'}},
+      {path: 'tools/calculator', component: CalculatorComponent, data: {title: 'Calculator'}},
+      {path: 'tools/notifications', component: NotificationComponent, data: {title: 'Notifications'}},
+      {path: 'tools/profile', component: ProfileComponent, data: {title: 'Profile'}},
+      {path: 'tools/settings', component: SettingsComponent, data: {title: 'Settings'}}
     ]
   }
 ];
