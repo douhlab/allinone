@@ -21,6 +21,9 @@
 
     <!-- CONTENT -->
     <div class="content">
+      <header class="page-header" *ngIf="pageTitle">
+        <h1 class="page-title">{{ pageTitle }}</h1>
+      </header>
       <router-outlet></router-outlet>
     </div>
 
