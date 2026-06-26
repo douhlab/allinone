@@ -1,0 +1,40 @@
+{
+  "easy": [
+    "Spring Boot makes Java development enjoyable.",
+    "Docker containers simplify software deployment.",
+    "TypeScript helps catch errors before runtime.",
+    "REST APIs communicate using HTTP methods.",
+    "Kubernetes automates container orchestration.",
+    "Writing clean code improves maintainability.",
+    "Unit tests increase confidence in refactoring.",
+    "Continuous integration catches problems early.",
+    "Never trust user input without validation.",
+    "Dependency injection reduces coupling.",
+    "Programming is thinking before typing.",
+    "Every bug teaches something new."
+  ],
+  "medium": [
+    "Angular applications are built with standalone components and modern routing.",
+    "Azure Container Apps scale automatically based on incoming HTTP traffic.",
+    "Implement JWT authentication with refresh tokens and role-based access control.",
+    "The CI/CD pipeline runs unit tests, Docker builds, and staged deployments.",
+    "Kubernetes deployments require health probes, resource limits, and rolling updates.",
+    "Parse JSON payloads safely and handle malformed input without crashing the service.",
+    "Design event-driven workflows using message queues and retry backoff policies.",
+    "Profile Angular change detection and lazy-load feature modules for better performance.",
+    "Optimize database queries with proper indexes and connection pool configuration.",
+    "Secure your API with HTTPS, input validation, and sensible session timeouts."
+  ],
+  "hard": [
+    "Microservices communicate through REST APIs, message queues, and gRPC endpoints across regions.",
+    "Configure Azure Container Apps with autoscaling rules, health probes, secrets, and ingress TLS.",
+    "Refactor the UserRepository interface before migrating the monolith to Spring Boot 3 and Java 21.",
+    "Migrate the auth service to OAuth2, validate tokens on each request, and audit login failures.",
+    "Deploy multi-region clusters with Terraform, configure ingress controllers, and enable autoscaling.",
+    "Build a resilient checkout flow with idempotency keys, webhooks, and compensation handlers.",
+    "Implement read models fed by Kafka topics and handle out-of-order events gracefully.",
+    "Automate blue-green releases, validate health checks, and roll back on failed smoke tests.",
+    "Write contract tests between services and stub external responses for reliable CI pipelines.",
+    "Monitor application performance with metrics, structured logs, and alerts on error rate spikes."
+  ]
+}

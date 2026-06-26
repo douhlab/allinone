@@ -10,6 +10,7 @@ import {AuthRoutingModule} from "./auth-routing.module";
 import {MemoryGameComponent} from "./components/mini-games/memory-game/memory-game.component";
 import {MiniGamesComponent} from "./components/mini-games/mini-games.component";
 import {HopperGameComponent} from "./components/mini-games/hopper-game/hopper-game.component";
+import {TypingChallengeComponent} from "./components/mini-games/typing-challenge/typing-challenge.component";
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import {HopperGameComponent} from "./components/mini-games/hopper-game/hopper-ga
     AuthLayoutComponent,
     MiniGamesComponent,
     MemoryGameComponent,
-    HopperGameComponent
+    HopperGameComponent,
+    TypingChallengeComponent
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,61 @@
+<div
+  #gamePanel
+  class="typing-game"
+  tabindex="0"
+  (click)="focusPanel()"
+  (keydown)="handleKeyDown($event)">
+
+  <div class="levels">
+    <button
+      *ngFor="let level of levels; let i = index"
+      type="button"
+      (click)="selectLevel(i); $event.stopPropagation()"
+      [class.active]="i === currentLevelIndex"
+      [disabled]="isPlaying">
+      {{ level.label }}
+    </button>
+  </div>
+
+  <div class="header">
+    <div class="timer">⏱ {{ timer }}s</div>
+    <div class="best">🏆 Best: {{ bestScore }} WPM</div>
+  </div>
+
+  <div class="progress-container">
+    <div [style.width.%]="progress" class="progress-bar"></div>
+  </div>
+
+  <div *ngIf="sentence; else loading" class="sentence">
+    <span
+      *ngFor="let char of sentence.split(''); let i = index"
+      [ngClass]="getCharClass(i)">
+      {{ char === ' ' ? '\u00a0' : char }}
+    </span>
+  </div>
+
+  <ng-template #loading>
+    <div class="hint">Loading sentences...</div>
+  </ng-template>
+
+  <div *ngIf="!started && !finished && sentence" class="hint">
+    Click here and start typing...
+  </div>
+
+  <div *ngIf="finished" class="result">
+    <strong>Done!</strong>
+    {{ wpm }} WPM · {{ accuracy }}% accuracy · {{ mistakes }} mistakes
+  </div>
+
+  <div class="stats">
+    <div>⌨️ WPM: {{ wpm }}</div>
+    <div>🎯 Accuracy: {{ accuracy }}%</div>
+    <div>❌ Mistakes: {{ mistakes }}</div>
+  </div>
+
+  <div class="actions">
+    <button type="button" (click)="restart(); $event.stopPropagation()">
+      Restart
+    </button>
+  </div>
+
+</div>

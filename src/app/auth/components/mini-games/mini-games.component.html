@@ -21,7 +21,9 @@
     <button disabled>
       Runner
     </button>
-    <button disabled>
+    <button
+      (click)="select('typing')"
+      [class.active]="selectedGame==='typing'">
       Typing
     </button>
     <button disabled>
@@ -38,6 +40,10 @@
     <app-hopper-game
       *ngIf="selectedGame==='hopper'">
     </app-hopper-game>
+
+    <app-typing-challenge
+      *ngIf="selectedGame==='typing'">
+    </app-typing-challenge>
 
   </div>
 
