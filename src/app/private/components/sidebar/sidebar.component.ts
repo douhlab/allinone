@@ -22,6 +22,13 @@ export class SidebarComponent {
     { label: 'Charts', route: '/app/charts' },
 
     {
+      label: 'Cars',
+      children: [
+        { label: 'My Cars', route: '/app/cars' }
+      ]
+    },
+
+    {
       label: 'Reports',
       children: [
         { label: 'Leaves', route: '/app/reports/leaves' },

@@ -10,6 +10,7 @@ import {HomeComponent} from "./components/home/home.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {ChartPlaygroundComponent} from "./components/chart-playground/chart-playground.component";
 import {LeavesComponent} from "./components/leaves/leaves.component";
+import {CarsComponent} from "./components/cars/cars.component";
 import {PeopleStatsComponent} from "./components/people-stats/people-stats.component";
 import {UploadAzureComponent} from "./components/upload-azure/upload-azure.component";
 import {UploadLocalComponent} from "./components/upload-local/upload-local.component";
@@ -27,6 +28,7 @@ const routes: Routes = [
       {path: 'dashboard', component: DashboardComponent, data: {title: 'Dashboard'}},
       {path: 'charts', component: ChartPlaygroundComponent, data: {title: 'Charts'}},
       {path: 'reports/leaves', component: LeavesComponent, data: {title: 'Leaves', skipLayoutTitle: true}},
+      {path: 'cars', component: CarsComponent, data: {title: 'Cars', skipLayoutTitle: true}},
       {path: 'reports/people-stats', component: PeopleStatsComponent, data: {title: 'People Stats'}},
       {path: 'uploads/azure', component: UploadAzureComponent, data: {title: 'Azure Upload'}},
       {path: 'uploads/local', component: UploadLocalComponent, data: {title: 'Local Upload'}},

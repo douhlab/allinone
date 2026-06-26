@@ -1,0 +1,54 @@
+<div class="page">
+
+  <div class="header">
+    <h2>My Cars</h2>
+
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      + Add Car
+    </button>
+  </div>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="model">
+        <th mat-header-cell *matHeaderCellDef>Model</th>
+        <td mat-cell *matCellDef="let row">{{ row.model }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="modelYear">
+        <th mat-header-cell *matHeaderCellDef>Year</th>
+        <td mat-cell *matCellDef="let row">{{ row.modelYear }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="ownedDate">
+        <th mat-header-cell *matHeaderCellDef>Owned Since</th>
+        <td mat-cell *matCellDef="let row">{{ row.ownedDate }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="odometerWhenOwned">
+        <th mat-header-cell *matHeaderCellDef>Odometer (mi)</th>
+        <td mat-cell *matCellDef="let row">{{ row.odometerWhenOwned | number:'1.0-0' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="priceInUsdWhenOwned">
+        <th mat-header-cell *matHeaderCellDef>Price (USD)</th>
+        <td mat-cell *matCellDef="let row">{{ row.priceInUsdWhenOwned | currency:'USD' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="note">
+        <th mat-header-cell *matHeaderCellDef>Note</th>
+        <td mat-cell *matCellDef="let row">{{ row.note }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns"></tr>
+
+    </table>
+  </div>
+</div>
