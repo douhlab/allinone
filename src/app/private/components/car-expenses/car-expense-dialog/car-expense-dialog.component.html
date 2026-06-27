@@ -1,0 +1,124 @@
+<div class="app-dialog app-dialog--form">
+  <div class="app-dialog__hero">
+    <div class="app-dialog__icon" aria-hidden="true">💳</div>
+    <div class="app-dialog__heading">
+      <h2 class="app-dialog__title">Add Car Expense</h2>
+      <p class="app-dialog__subtitle">Track fuel, maintenance, repairs, and other vehicle costs.</p>
+    </div>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <mat-dialog-content class="app-dialog__content">
+      <section class="form-section">
+        <h3 class="form-section__label">Expense details</h3>
+
+        <div class="form-grid form-grid--2">
+          <mat-form-field appearance="outline">
+            <mat-label>Car</mat-label>
+            <mat-select formControlName="carId" [panelClass]="overlayPanelClass">
+              <mat-option *ngFor="let car of cars$ | async" [value]="car.id">
+                {{ car.name }} ({{ car.model }})
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Expense Type</mat-label>
+            <mat-select formControlName="type" [panelClass]="overlayPanelClass">
+              <mat-option *ngFor="let option of expenseTypes" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Date</mat-label>
+            <input matInput [matDatepicker]="datePicker" formControlName="dateHappened">
+            <mat-datepicker-toggle matIconSuffix [for]="datePicker"></mat-datepicker-toggle>
+            <mat-datepicker #datePicker [panelClass]="overlayPanelClass"></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Number of Days</mat-label>
+            <input matInput type="number" min="0" formControlName="numberOfDays">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Amount (USD)</mat-label>
+            <input matInput type="number" min="0" step="0.01" formControlName="amountInUsd">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Main Odometer</mat-label>
+            <input matInput type="number" min="0" formControlName="mainOdometer">
+          </mat-form-field>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h3 class="form-section__label">Service provider</h3>
+
+        <div class="form-grid form-grid--2">
+          <mat-form-field appearance="outline">
+            <mat-label>Service Station</mat-label>
+            <mat-select formControlName="serviceStationId" [panelClass]="overlayPanelClass">
+              <mat-option *ngFor="let station of serviceStations$ | async" [value]="station.id">
+                {{ station.name }}<span *ngIf="station.location"> · {{ station.location }}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description">
+          </mat-form-field>
+        </div>
+      </section>
+
+      <section class="form-section" *ngIf="showFuelFields">
+        <h3 class="form-section__label">Fuel event</h3>
+
+        <div class="form-grid form-grid--2">
+          <mat-form-field appearance="outline">
+            <mat-label>Fuel Type</mat-label>
+            <mat-select formControlName="fuelType" [panelClass]="overlayPanelClass">
+              <mat-option *ngFor="let option of fuelTypes" [value]="option.value">
+                {{ option.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Refill Amount (L)</mat-label>
+            <input matInput type="number" min="0" step="0.01" formControlName="refillAmountInLiter">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Mileage Traversed</mat-label>
+            <input matInput type="number" min="0" formControlName="mileageTraversed">
+          </mat-form-field>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <h3 class="form-section__label">Notes</h3>
+
+        <div class="form-grid form-grid--1">
+          <mat-form-field appearance="outline">
+            <mat-label>Note</mat-label>
+            <textarea matInput rows="2" formControlName="note"></textarea>
+          </mat-form-field>
+        </div>
+      </section>
+    </mat-dialog-content>
+
+    <mat-dialog-actions class="app-dialog__actions" align="end">
+      <button mat-stroked-button type="button" (click)="close()">
+        Cancel
+      </button>
+      <button mat-flat-button color="primary" type="submit" [disabled]="form.invalid">
+        Save Expense
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>

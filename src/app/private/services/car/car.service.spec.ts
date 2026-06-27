@@ -55,4 +55,16 @@ describe('CarService', () => {
     expect(req.request.body).toEqual(request);
     req.flush(response);
   });
+
+  it('should fetch all service stations', () => {
+    const stations = [{id: 1, name: 'Shell'}] as any;
+
+    service.getAllServiceStations().subscribe(result => {
+      expect(result).toEqual(stations);
+    });
+
+    const req = httpMock.expectOne(`${apiUrl}/service-stations/all`);
+    expect(req.request.method).toBe('GET');
+    req.flush(stations);
+  });
 });

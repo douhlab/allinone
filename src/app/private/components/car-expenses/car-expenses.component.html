@@ -1,0 +1,64 @@
+<div class="page">
+
+  <div class="header">
+    <h2>My Car Expenses</h2>
+
+    <button mat-raised-button color="primary" (click)="openDialog()">
+      + Add Expense
+    </button>
+  </div>
+
+  <div class="table-container">
+    <table mat-table [dataSource]="dataSource">
+
+      <ng-container matColumnDef="car">
+        <th mat-header-cell *matHeaderCellDef>Car</th>
+        <td mat-cell *matCellDef="let row">{{ row.car?.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Type</th>
+        <td mat-cell *matCellDef="let row">{{ row.type }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let row">{{ row.description }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="amountInUsd">
+        <th mat-header-cell *matHeaderCellDef>Amount (USD)</th>
+        <td mat-cell *matCellDef="let row">{{ row.amountInUsd | currency:'USD' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="serviceStation">
+        <th mat-header-cell *matHeaderCellDef>Service Station</th>
+        <td mat-cell *matCellDef="let row">{{ row.serviceStation?.name }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="mainOdometer">
+        <th mat-header-cell *matHeaderCellDef>Odometer (mi)</th>
+        <td mat-cell *matCellDef="let row">{{ row.mainOdometer | number:'1.0-0' }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="dateHappened">
+        <th mat-header-cell *matHeaderCellDef>Date</th>
+        <td mat-cell *matCellDef="let row">{{ row.dateHappened }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="fuelEvent">
+        <th mat-header-cell *matHeaderCellDef>Fuel Details</th>
+        <td mat-cell *matCellDef="let row">{{ formatFuelEvent(row) }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="note">
+        <th mat-header-cell *matHeaderCellDef>Note</th>
+        <td mat-cell *matCellDef="let row">{{ row.note }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="columns"></tr>
+      <tr mat-row *matRowDef="let row; columns: columns"></tr>
+
+    </table>
+  </div>
+</div>
