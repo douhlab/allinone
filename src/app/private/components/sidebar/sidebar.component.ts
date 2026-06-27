@@ -24,7 +24,8 @@ export class SidebarComponent {
     {
       label: 'Cars',
       children: [
-        { label: 'My Cars', route: '/app/cars' }
+        { label: 'My Cars', route: '/app/cars' },
+        { label: 'My car expenses', route: '/app/cars/expenses' }
       ]
     },
 
